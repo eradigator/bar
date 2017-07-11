@@ -1,7 +1,6 @@
 package kz.epam.javalab22.bar.runner;
 
-import kz.epam.javalab22.bar.entity.BuildMethod;
-import kz.epam.javalab22.bar.entity.Cocktail;
+import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.operation.CalcAlcohol;
 
 /**
@@ -14,10 +13,15 @@ public class Runner {
 
         Cocktail whiteRussian = new Cocktail();
         whiteRussian.setBuildMethod(BuildMethod.BUILD);
-        System.out.println(whiteRussian.getBuildMethod());
+        whiteRussian.setGlass(Glass.OLD_FASHIONED);
+        System.out.println(whiteRussian);
 
-        CalcAlcohol calc = new CalcAlcohol();
-        calc.calcAlcohol();
+        AlcoholicComponent vodka = new AlcoholicComponent();
+        vodka.setStrength(40);
+        whiteRussian.addComponent(vodka,30);
+
+        int strengthWhiteRussian = new CalcAlcohol().calcAlcohol(whiteRussian);
+        System.out.println("Крепость коктейля: " + strengthWhiteRussian + "%");
 
     }
 }
