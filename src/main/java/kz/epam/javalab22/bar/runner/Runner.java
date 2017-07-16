@@ -9,16 +9,26 @@ import kz.epam.javalab22.bar.operation.CalcAlcohol;
 
 
 public class Runner {
+
+    public static final String COCKTAIL_NAME_WHITE_RUSSIAN = "Белый Русский";
+
     public static void main(String[] args) {
 
-        Cocktail whiteRussian = new Cocktail();
+        Cocktail whiteRussian = new Cocktail(COCKTAIL_NAME_WHITE_RUSSIAN);
         whiteRussian.setBuildMethod(BuildMethod.BUILD);
         whiteRussian.setGlass(Glass.OLD_FASHIONED);
         System.out.println(whiteRussian);
 
-        AlcoholicComponent vodka = new AlcoholicComponent();
+        Component vodka = new AlcoholicComponent();
         vodka.setStrength(40);
-        whiteRussian.addComponent(vodka,30);
+        whiteRussian.addComponent(vodka,25);
+
+        Component kalua = new AlcoholicComponent();
+        kalua.setStrength(20);
+        whiteRussian.addComponent(kalua,25);
+
+        Component cream = new NonAlcoholicComponent();
+        whiteRussian.addComponent(cream,30);
 
         int strengthWhiteRussian = new CalcAlcohol().calcAlcohol(whiteRussian);
         System.out.println("Крепость коктейля: " + strengthWhiteRussian + "%");

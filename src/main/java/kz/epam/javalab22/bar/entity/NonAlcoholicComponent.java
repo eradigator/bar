@@ -1,11 +1,9 @@
 package kz.epam.javalab22.bar.entity;
 
 /**
- * Created by erad on 10.07.2017.
+ * Created by erad on 12.07.2017.
  */
-public class Liquor extends Component {
-
-    private double strength;
+public class NonAlcoholicComponent extends Component {
 
     @Override
     public double getStrength() {
@@ -14,6 +12,6 @@ public class Liquor extends Component {
 
     @Override
     public void setStrength(double strength) {
-        this.strength = strength;
+
     }
 }

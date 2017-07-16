@@ -7,10 +7,22 @@ import java.util.*;
  */
 public class Cocktail {
 
+    private String name;
     private BuildMethod buildMethod;
     private Glass glass;
-    private Map<AlcoholicComponent, Integer> components = new HashMap<AlcoholicComponent, Integer>();
+    private Map<Component, Integer> components = new HashMap<Component, Integer>();
 
+    public Cocktail(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public BuildMethod getBuildMethod() {
         return buildMethod;
@@ -20,26 +32,23 @@ public class Cocktail {
         this.buildMethod = buildMethod;
     }
 
-    public Glass getGlass() {
-        return glass;
-    }
-
     public void setGlass(Glass glass) {
         this.glass = glass;
     }
 
-    public void addComponent(AlcoholicComponent component, Integer amount) {
+    public void addComponent(Component component, Integer amount) {
         components.put(component,amount);
     }
 
-    public Map<AlcoholicComponent, Integer> getComponents() {
+    public Map<Component, Integer> getComponents() {
         return components;
     }
 
     @Override
     public String toString() {
         return "Cocktail{" +
-                "buildMethod=" + buildMethod +
+                "name='" + name + '\'' +
+                ", buildMethod=" + buildMethod +
                 ", glass=" + glass +
                 '}';
     }
