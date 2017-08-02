@@ -5,7 +5,7 @@ package kz.epam.javalab22.bar.entity;
  */
 public abstract class Component {
 
-    abstract double getStrength();
-    abstract void setStrength(double strength);
+    public abstract double getStrength();
+    public abstract void setStrength(double strength);
 
 }
