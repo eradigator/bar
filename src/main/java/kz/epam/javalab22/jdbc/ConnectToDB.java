@@ -1,4 +1,4 @@
-package kz.epam.javalab22.bar.jdbc;
+package kz.epam.javalab22.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
