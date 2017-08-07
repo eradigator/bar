@@ -12,13 +12,13 @@ public class Connect {
 
     public static void main(String[] args) {
 
-      /* try {
+       try {
             createDbUserTable();
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
 
-        //insertIntoDbuser();
+        insertIntoDbuser();
 
         //removeDbUserData();
 
@@ -35,6 +35,7 @@ public class Connect {
         Date today = new Date();
         return format.format(today);
     }
+
 
     private static Connection getDBConnection() {
 
