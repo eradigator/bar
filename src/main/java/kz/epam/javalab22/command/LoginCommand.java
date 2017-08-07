@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginCommand implements ActionCommand {
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
+
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
@@ -18,13 +19,14 @@ public class LoginCommand implements ActionCommand {
 // проверка логина и пароля
         if (LoginLogic.checkLogin(login, pass)) {
             request.setAttribute("user", login);
-// определение пути к main.jsp
+
+            // определение пути к main.jsp
             page = ConfigurationManager.getProperty("path.page.main");
         } else {
-            request.setAttribute("errorLoginPassMessage",
-                    MessageManager.getProperty("message.loginerror"));
+            request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
             page = ConfigurationManager.getProperty("path.page.login");
         }
         return page;
+        //return "/jsp/main.jsp";
     }
 }
