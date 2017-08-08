@@ -13,10 +13,11 @@ public class LoginCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
-// извлечение из запроса логина и пароля
+
+        // извлечение из запроса логина и пароля
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
-// проверка логина и пароля
+        // проверка логина и пароля
         if (LoginLogic.checkLogin(login, pass)) {
             request.setAttribute("user", login);
 
@@ -27,6 +28,5 @@ public class LoginCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.login");
         }
         return page;
-        //return "/jsp/main.jsp";
     }
 }
