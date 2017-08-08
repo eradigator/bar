@@ -1,10 +1,10 @@
 <%@ page language="java" pageEncoding="UTF-8" session="false"%>
 <h2>BODY. BAR</h2>
 
-<form>
-   <p><input name="test" type="button" value="Кнопка"></p>
+<a href="controller?command=full_catalog">Logout</a>
+${bodyContent}
 
-</form>
+
 
 <p>текст на русском языке</p>
 <p>Коктейль такой-то</p>
