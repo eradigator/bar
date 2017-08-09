@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" session="false"%>
+<%@ taglib uri="/WEB-INF/tld/mytaglib.tld" prefix="mytag"%>
+
 <!DOCTYPE html>
 
 <html>
@@ -29,7 +31,10 @@
     </tr>
     <tr>
         <td width="15%"><%@ include file = "jsp/menu.jsp" %></td>
-        <td width="75%"><%@ include file = "jsp/body.jsp" %></td>
+        <td width="75%">
+            <%@ include file = "jsp/body.jsp" %>
+            <mytag:getinfo />
+        </td>
     </tr>
     <tr>
         <td colspan="2"><%@ include file = "jsp/footer.jsp" %></td>

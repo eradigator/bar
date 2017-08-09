@@ -15,22 +15,23 @@ public class MyServlet extends HttpServlet {
 
         PrintWriter out = resp.getWriter();
 
-        final String COCKTAIL_NAME_WHITE_RUSSIAN = "White Russian";
-        Cocktail whiteRussian = new Cocktail(COCKTAIL_NAME_WHITE_RUSSIAN);
-        whiteRussian.setBuildMethod(BuildMethod.BUILD);
-        whiteRussian.setGlass(Glass.OLD_FASHIONED);
+        String title = "Simple Servlet Output";
 
-        Component vodka = new AlcoholicComponent();
-        vodka.setStrength(40);
-        whiteRussian.addComponent(vodka, 25);
+        resp.setContentType("text/html");
+        out.println("<HTML><HEAD><TITLE>");
+        out.println(title);
+        out.println("</TITLE></HEAD><BODY>");
+        out.println("<H1>" + title + "</H1>");
+        out.print("<P>This is ");
+        out.print(this.getClass().getName());
+        out.print(", using the GET method");
+        out.println("</BODY></HTML>");
+        out.close();
+    }
 
-        Component kalua = new AlcoholicComponent();
-        kalua.setStrength(20);
-        whiteRussian.addComponent(kalua, 25);
-
-        Component cream = new NonAlcoholicComponent();
-        whiteRussian.addComponent(cream, 30);
-
-        out.write(whiteRussian.toString());
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }
+
