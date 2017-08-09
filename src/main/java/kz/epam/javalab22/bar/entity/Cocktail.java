@@ -37,7 +37,7 @@ public class Cocktail {
     }
 
     public void addComponent(Component component, Integer amount) {
-        components.put(component,amount);
+        components.put(component, amount);
     }
 
     public Map<Component, Integer> getComponents() {
@@ -46,10 +46,21 @@ public class Cocktail {
 
     @Override
     public String toString() {
+
+
+        String s="";
+        for (Map.Entry entry : components.entrySet()) {
+            s += entry.getKey().toString() + ":" + entry.getValue().toString() + ";";
+        }
+
+
         return "Cocktail{" +
-                "name='" + name + '\'' +
+                "name='" + name + '\'' + "</br>" +
                 ", buildMethod=" + buildMethod +
                 ", glass=" + glass +
+                ", components=" + s +
                 '}';
     }
+
+
 }

@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" session="false"%>
+
 <h2>BODY. BAR</h2>
 
 <a href="controller?command=full_catalog">Logout</a>
