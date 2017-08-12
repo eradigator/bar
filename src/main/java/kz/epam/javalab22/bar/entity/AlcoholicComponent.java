@@ -5,7 +5,18 @@ package kz.epam.javalab22.bar.entity;
  */
 public class AlcoholicComponent extends Component {
 
+    private String name;
     private double strength;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public double getStrength() {
@@ -17,4 +28,8 @@ public class AlcoholicComponent extends Component {
         this.strength = strength;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
