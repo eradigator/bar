@@ -50,7 +50,7 @@ public class Cocktail {
 
         String s="";
         for (Map.Entry entry : components.entrySet()) {
-            s += entry.getKey().toString() + ":" + entry.getValue().toString() + ";";
+            s += entry.getKey().toString() + ":" + entry.getValue().toString() + ";" + "</br>";
         }
 
 

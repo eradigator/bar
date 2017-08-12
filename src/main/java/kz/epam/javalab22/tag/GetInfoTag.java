@@ -22,10 +22,12 @@ public class GetInfoTag extends TagSupport {
 
         Component vodka = new AlcoholicComponent();
         vodka.setStrength(40);
+        vodka.setName("Vodka");
         whiteRussian.addComponent(vodka, 25);
 
         Component kalua = new AlcoholicComponent();
         kalua.setStrength(20);
+        kalua.setName("Kalua");
         whiteRussian.addComponent(kalua, 25);
 
         Component cream = new NonAlcoholicComponent();

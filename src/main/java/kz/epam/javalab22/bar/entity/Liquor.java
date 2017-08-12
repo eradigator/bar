@@ -8,6 +8,16 @@ public class Liquor extends Component {
     private double strength;
 
     @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public void setName(String name) {
+
+    }
+
+    @Override
     public double getStrength() {
         return 0;
     }

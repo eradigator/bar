@@ -2,7 +2,7 @@
 
 <h2>BODY. BAR</h2>
 
-<a href="controller?command=full_catalog">Logout</a>
+<a href="/bar/jsp/controller?command=full_catalog">Logout</a>
 ${bodyContent}
 
 
