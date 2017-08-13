@@ -1,4 +1,4 @@
-package kz.epam.javalab22.tag;
+package kz.epam.javalab22.bar.tag;
 
 import kz.epam.javalab22.bar.entity.*;
 
@@ -11,9 +11,9 @@ import javax.servlet.jsp.tagext.TagSupport;
 public class GetInfoTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
+
         int size = new Integer(new MySet().getSize());
         String str = "Size = <b>(" + size + ")</b>";
-
 
         String COCKTAIL_NAME_WHITE_RUSSIAN = "White Russian / Белый русский";
         Cocktail whiteRussian = new Cocktail(COCKTAIL_NAME_WHITE_RUSSIAN);

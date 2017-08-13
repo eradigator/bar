@@ -2,7 +2,7 @@ package kz.epam.javalab22.bar.runner;
 
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.operation.CalcAlcohol;
-import kz.epam.javalab22.resourse.ConfigurationManager;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.ResourceBundle;
 
@@ -18,14 +18,14 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        final String FILENAME = "config";
+        /*final String FILENAME = "config";
         final ResourceBundle resourceBundle = ResourceBundle.getBundle(FILENAME);
 
         String page = resourceBundle.getString("path.page.main");
 
         System.out.println(page);
 
-        /*Cocktail whiteRussian = new Cocktail(COCKTAIL_NAME_WHITE_RUSSIAN);
+        Cocktail whiteRussian = new Cocktail(COCKTAIL_NAME_WHITE_RUSSIAN);
         whiteRussian.setBuildMethod(BuildMethod.BUILD);
         whiteRussian.setGlass(Glass.OLD_FASHIONED);
 
@@ -44,6 +44,9 @@ public class Runner {
 
         int strengthWhiteRussian = new CalcAlcohol().calcAlcohol(whiteRussian);
         System.out.println("Крепость коктейля: " + strengthWhiteRussian + "%");*/
+
+        String s = DigestUtils.md5Hex("asdabskdbaskdbaskbhdsbad");
+        System.out.println(s);
 
 
     }

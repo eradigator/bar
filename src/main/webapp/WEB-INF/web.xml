@@ -17,7 +17,7 @@
 
     <servlet>
         <servlet-name>MyServlet</servlet-name>
-        <servlet-class>kz.epam.javalab22.servlet.MyServlet</servlet-class>
+        <servlet-class>kz.epam.javalab22.bar.servlet.MyServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MyServlet</servlet-name>
@@ -26,7 +26,7 @@
 
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>kz.epam.javalab22.servlet.Controller</servlet-class>
+        <servlet-class>kz.epam.javalab22.bar.servlet.Controller</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>

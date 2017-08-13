@@ -1,6 +1,4 @@
-package kz.epam.javalab22.servlet;
-
-import kz.epam.javalab22.bar.entity.*;
+package kz.epam.javalab22.bar.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

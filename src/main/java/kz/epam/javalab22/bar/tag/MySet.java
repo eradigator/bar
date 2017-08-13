@@ -1,4 +1,4 @@
-package kz.epam.javalab22.tag;
+package kz.epam.javalab22.bar.tag;
 
 import java.util.HashSet;
 import java.util.Iterator;
