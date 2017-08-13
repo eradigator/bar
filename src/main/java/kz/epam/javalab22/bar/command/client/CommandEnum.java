@@ -1,9 +1,9 @@
-package kz.epam.javalab22.command.client;
+package kz.epam.javalab22.bar.command.client;
 
-import kz.epam.javalab22.command.ActionCommand;
-import kz.epam.javalab22.command.FullCatalogCommand;
-import kz.epam.javalab22.command.LoginCommand;
-import kz.epam.javalab22.command.LogoutCommand;
+import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.FullCatalogCommand;
+import kz.epam.javalab22.bar.command.LoginCommand;
+import kz.epam.javalab22.bar.command.LogoutCommand;
 
 public enum CommandEnum {
     LOGIN {

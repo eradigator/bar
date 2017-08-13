@@ -1,4 +1,4 @@
-package kz.epam.javalab22.logic;
+package kz.epam.javalab22.bar.logic;
 
 public class LoginLogic {
     private final static String ADMIN_LOGIN = "admin";
@@ -7,4 +7,6 @@ public class LoginLogic {
     public static boolean checkLogin(String enterLogin, String enterPass) {
         return ADMIN_LOGIN.equals(enterLogin) && ADMIN_PASS.equals(enterPass);
     }
+
+
 }

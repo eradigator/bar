@@ -1,6 +1,6 @@
-package kz.epam.javalab22.command;
+package kz.epam.javalab22.bar.command;
 
-import kz.epam.javalab22.resourse.ConfigurationManager;
+import kz.epam.javalab22.bar.manager.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
 

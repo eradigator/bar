@@ -1,4 +1,4 @@
-package kz.epam.javalab22.jdbc;
+package kz.epam.javalab22.bar.jdbc;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -12,19 +12,17 @@ public class Connect {
 
     public static void main(String[] args) {
 
-       try {
+       /*try {
             createDbUserTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        insertIntoDbuser();
+        insertIntoDbuser();*/
 
         //removeDbUserData();
 
-        getDbUserData();
-
-        updateDbUserDate();
+        //updateDbUserDate();
 
         getDbUserData();
 
@@ -42,12 +40,17 @@ public class Connect {
         Connection dbConnection;
 
         try {
+            Class.forName("org.postgresql.Driver");
+            System.out.println("Драйвер подключен");
             dbConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             System.out.println("------ Подключение установлено ------");
             return dbConnection;
         } catch (SQLException e) {
             System.out.println("------ Подключение НЕ установлено ------");
             System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Драйвер не найден");
         }
         return null;
     }

@@ -1,4 +1,4 @@
-package kz.epam.javalab22.resourse;
+package kz.epam.javalab22.bar.manager;
 
 import java.util.ResourceBundle;
 

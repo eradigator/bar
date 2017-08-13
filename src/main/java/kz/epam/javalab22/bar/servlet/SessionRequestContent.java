@@ -1,4 +1,4 @@
-package kz.epam.javalab22.servlet;
+package kz.epam.javalab22.bar.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;

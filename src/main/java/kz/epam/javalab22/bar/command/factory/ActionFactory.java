@@ -1,9 +1,9 @@
-package kz.epam.javalab22.command.factory;
+package kz.epam.javalab22.bar.command.factory;
 
-import kz.epam.javalab22.command.client.CommandEnum;
-import kz.epam.javalab22.command.ActionCommand;
-import kz.epam.javalab22.command.EmptyCommand;
-import kz.epam.javalab22.resourse.MessageManager;
+import kz.epam.javalab22.bar.command.client.CommandEnum;
+import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.EmptyCommand;
+import kz.epam.javalab22.bar.manager.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
 

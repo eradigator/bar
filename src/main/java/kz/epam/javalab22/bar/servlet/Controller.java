@@ -1,9 +1,9 @@
-package kz.epam.javalab22.servlet;
+package kz.epam.javalab22.bar.servlet;
 
-import kz.epam.javalab22.command.ActionCommand;
-import kz.epam.javalab22.command.factory.ActionFactory;
-import kz.epam.javalab22.resourse.ConfigurationManager;
-import kz.epam.javalab22.resourse.MessageManager;
+import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.factory.ActionFactory;
+import kz.epam.javalab22.bar.manager.ConfigurationManager;
+import kz.epam.javalab22.bar.manager.MessageManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package kz.epam.javalab22.command;
+package kz.epam.javalab22.bar.command;
 
 import javax.servlet.http.HttpServletRequest;
 
