@@ -1,9 +1,15 @@
 package kz.epam.javalab22.bar.runner;
 
+import kz.epam.javalab22.bar.dao.CocktailDao;
+import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.operation.CalcAlcohol;
+import kz.epam.javalab22.bar.pool.ConnectionPool;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 /**
@@ -18,7 +24,7 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        /*final String FILENAME = "config";
+        final String FILENAME = "config";
         final ResourceBundle resourceBundle = ResourceBundle.getBundle(FILENAME);
 
         String page = resourceBundle.getString("path.page.main");
@@ -31,22 +37,19 @@ public class Runner {
 
         Component vodka = new AlcoholicComponent();
         vodka.setStrength(40);
-        whiteRussian.addComponent(vodka,25);
+        whiteRussian.addComponent(vodka, 25);
 
         Component kalua = new AlcoholicComponent();
         kalua.setStrength(20);
-        whiteRussian.addComponent(kalua,25);
+        whiteRussian.addComponent(kalua, 25);
 
         Component cream = new NonAlcoholicComponent();
-        whiteRussian.addComponent(cream,30);
+        whiteRussian.addComponent(cream, 30);
 
         System.out.println(whiteRussian);
 
         int strengthWhiteRussian = new CalcAlcohol().calcAlcohol(whiteRussian);
-        System.out.println("Крепость коктейля: " + strengthWhiteRussian + "%");*/
-
-        String s = DigestUtils.md5Hex("asdabskdbaskdbaskbhdsbad");
-        System.out.println(s);
+        System.out.println("Крепость коктейля: " + strengthWhiteRussian + "%");
 
 
     }
