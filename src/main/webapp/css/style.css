@@ -6,7 +6,7 @@ html, body { height: 100%; }
 
 body {
 	font-family: 'Tinos';
-	margin: 0 auto;
+	margin: auto;
 	background-color: #fff;
 	color: #333;
 }
@@ -29,6 +29,17 @@ a img {
 ul {
 	list-style: none;
 }
+
+table {
+	width: 90%;
+}
+
+td {
+	padding: 5px; /* Поля в ячейках */
+	vertical-align: top; /* Выравнивание по верхнему краю ячеек */
+}
+
+
 
 /* 1.1 Layout add-ons */
 
@@ -141,8 +152,7 @@ input[type="text"], textarea {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	resize: none;
-}
-*/
+}*/
 
 textarea {
 	height: auto;

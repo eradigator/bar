@@ -11,10 +11,10 @@ public class ConnectionPool {
     private static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/bar";
     private static final String DB_USER = "postgres";
     private static final String DB_PASS = "pass123";
-    private static final int MAX_CONNECTIONS = 10;
 
+    private static int CONNECTIONS_COUNT = 10;
     private static ConnectionPool instance;
-    private static ArrayBlockingQueue<Connection> connections = new ArrayBlockingQueue<>(MAX_CONNECTIONS);
+    private static ArrayBlockingQueue<Connection> connections = new ArrayBlockingQueue<>(CONNECTIONS_COUNT);
 
     private ConnectionPool() {
         initialize();
@@ -27,13 +27,13 @@ public class ConnectionPool {
         return instance;
     }
 
-    public void initialize() {
-        while (connections.size() < MAX_CONNECTIONS) {
-            connections.add(createNewConnectionForPool());
+    private void initialize() {
+        while (connections.size() < CONNECTIONS_COUNT) {
+            connections.add(createNewConnection());
         }
     }
 
-    private Connection createNewConnectionForPool() {
+    private Connection createNewConnection() {
         try {
             Class.forName(DB_DRIVER_NAME);
             return DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
@@ -45,26 +45,35 @@ public class ConnectionPool {
 
     public Connection getConnection() {
         Connection connection = null;
-        try {
-            connection = connections.take();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (!connections.isEmpty()) {
+            try {
+                connection = connections.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return connection;
+        } else {
+            CONNECTIONS_COUNT++;
+            return createNewConnection();
         }
-        return connection;
+
     }
 
     public synchronized void returnConnection(Connection connection) {
-        connections.add(connection);
+        if (connection != null && connections.size() < CONNECTIONS_COUNT) {
+            connections.add(connection);
+        }
     }
 
-    public synchronized void closeConnections(){
-        for(Connection connection : connections){
+    public synchronized void closeConnections() {
+        for (Connection connection : connections) {
             try {
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        connections.clear();
     }
 
 }

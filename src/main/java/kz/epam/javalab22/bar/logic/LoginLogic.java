@@ -1,12 +1,43 @@
 package kz.epam.javalab22.bar.logic;
 
-public class LoginLogic {
-    private final static String ADMIN_LOGIN = "admin";
-    private final static String ADMIN_PASS = "Qwe123";
+import kz.epam.javalab22.bar.pool.ConnectionPool;
+import org.apache.commons.codec.digest.DigestUtils;
 
-    public static boolean checkLogin(String enterLogin, String enterPass) {
-        return ADMIN_LOGIN.equals(enterLogin) && ADMIN_PASS.equals(enterPass);
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class LoginLogic {
+
+    public boolean checkLogin(String enterLogin, String enterPass) {
+
+        String password = getPassword(enterLogin);
+        return (DigestUtils.md5Hex(enterPass).equals(password));
     }
 
+
+    private String getPassword(String enterLogin) {
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        String password = "";
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM public.\"webUsers\" WHERE NAME = '" + enterLogin + "'");
+            while (resultSet.next()) {
+                password = resultSet.getString("password");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        connectionPool.returnConnection(connection);
+
+        return password;
+    }
 
 }

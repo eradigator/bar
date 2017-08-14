@@ -8,8 +8,11 @@ public class ConfigurationManager {
 
 
     private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(FILENAME);
+
     // класс извлекает информацию из файла config.properties
-    private ConfigurationManager() { }
+    private ConfigurationManager() {
+    }
+
     public static String getProperty(String key) {
         return resourceBundle.getString(key);
     }

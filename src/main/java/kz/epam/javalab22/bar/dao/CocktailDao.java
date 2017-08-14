@@ -1,47 +1,45 @@
 package kz.epam.javalab22.bar.dao;
 
-import kz.epam.javalab22.bar.entity.User;
+import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
-import org.apache.commons.codec.digest.DigestUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
-public class UserDao extends AbstractDao<User> {
+public class CocktailDao extends AbstractDao<Cocktail> {
 
     //private Connection connection;
 
-    public UserDao(Connection connection) {
+
+    public CocktailDao() {
+    }
+
+    public CocktailDao(Connection connection) {
         //this.connection = connection;
     }
 
     @Override
-    public User update(User entity) {
+    public Cocktail update(Cocktail entity) {
         throw new UnsupportedOperationException("Так делать нельзя");
         //return null;
     }
 
     @Override
-    public boolean delete(User entity) {
+    public boolean delete(Cocktail entity) {
         throw new UnsupportedOperationException("Так пока делать нельзя");
         //return false;
     }
 
     @Override
-    public boolean create(User entity) {
+    public boolean create(Cocktail entity) {
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
 
-        String query = "INSERT INTO public.\"webUsers\"(name,password,email,isAdmin) VALUES(?,?,?,?)";
+        String query = "INSERT INTO public.\"cocktail\"(name) VALUES(?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, entity.getName());
-            ps.setString(2, DigestUtils.md5Hex(entity.getPassword()));
-            ps.setString(3, entity.getEmail());
-            ps.setBoolean(4, entity.isAdmin());
+            /*ps.setString(2, entity.getBuildMethod().toString());*/
             ps.execute();
-
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,24 +49,27 @@ public class UserDao extends AbstractDao<User> {
         return false;
     }
 
-    public boolean createAdmin() {
+    public String getNameById(int id) {
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
 
-        String query = "INSERT INTO public.\"webUsers\"(name,password,email,isadmin) VALUES(?,?,?,?)";
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setString(1, "erad");
-            ps.setString(2, DigestUtils.md5Hex("pass123"));
-            ps.setString(3, "eradigator@gmail.com");
-            ps.setBoolean(4, true);
-            ps.execute();
+        String entity = "";
 
-            return true;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM public.\"cocktail\" WHERE ID = '" + id + "'");
+            while (resultSet.next()) {
+                entity = resultSet.getString("name");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         connectionPool.returnConnection(connection);
-        return false;
+
+        return entity;
     }
+
 }
