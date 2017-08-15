@@ -20,7 +20,7 @@ public class GetInfoTag extends TagSupport {
         try {
             JspWriter out = pageContext.getOut();
             for (int i=0; i<5; i++) {
-                out.write("<img src='/bar/images/logo.png' alt='Это рюмка' style='width:128px;height:128px;'>");
+                out.write("<img src='/bar/images/logo.png' style='width:128px;height:128px;'>");
                 out.write(cocktailName);
                 out.write("<hr/>");
             }

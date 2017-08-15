@@ -1,4 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8" session="false" %>
+<%@ page language="java" pageEncoding="UTF-8" session="true" %>
 
 <h2>BODY</h2>
 <hr/>

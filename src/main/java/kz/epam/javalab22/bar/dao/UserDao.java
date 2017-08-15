@@ -4,13 +4,14 @@ import kz.epam.javalab22.bar.entity.User;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDao extends AbstractDao<User> {
 
     //private Connection connection;
+
+    public UserDao() {
+    }
 
     public UserDao(Connection connection) {
         //this.connection = connection;
@@ -19,13 +20,11 @@ public class UserDao extends AbstractDao<User> {
     @Override
     public User update(User entity) {
         throw new UnsupportedOperationException("Так делать нельзя");
-        //return null;
     }
 
     @Override
     public boolean delete(User entity) {
         throw new UnsupportedOperationException("Так пока делать нельзя");
-        //return false;
     }
 
     @Override
@@ -51,7 +50,30 @@ public class UserDao extends AbstractDao<User> {
         return false;
     }
 
-    public boolean createAdmin() {
+    public String getPasswordByLogin(String enterLogin) {
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        String password = "";
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM public.\"webUsers\" WHERE NAME = '" + enterLogin + "'");
+            while (resultSet.next()) {
+                password = resultSet.getString("password");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        connectionPool.returnConnection(connection);
+
+        return password;
+    }
+
+   /* public boolean createAdmin() {
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
@@ -70,5 +92,5 @@ public class UserDao extends AbstractDao<User> {
         }
         connectionPool.returnConnection(connection);
         return false;
-    }
+    }*/
 }
