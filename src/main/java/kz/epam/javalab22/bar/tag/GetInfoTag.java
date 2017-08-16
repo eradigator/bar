@@ -1,10 +1,8 @@
 package kz.epam.javalab22.bar.tag;
 
 import kz.epam.javalab22.bar.dao.CocktailDao;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import java.io.IOException;
-import java.sql.Connection;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
