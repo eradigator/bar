@@ -23,6 +23,15 @@
         <url-pattern>/jsp/controller</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Language</servlet-name>
+        <servlet-class>kz.epam.javalab22.bar.servlet.Language</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Language</servlet-name>
+        <url-pattern>/jsp/lang</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>kz.epam.javalab22.bar.filter.EncodingFilter</filter-class>

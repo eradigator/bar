@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
     <title>BAR - Login</title>
@@ -7,7 +9,7 @@
 
 <body>
 <div id="login">
-    <form name="loginForm" method="POST" action="controller">
+    <form name="loginForm" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
         <input type="hidden" name="command" value="login"/>
         Login:<br/>
         <input type="text" name="login" value=""/>
