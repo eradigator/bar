@@ -30,7 +30,7 @@ public class LoginCommand implements ActionCommand {
 
             request.getSession().setAttribute("username",login);
             request.getSession().setAttribute("isadmin",true);
-            request.getSession().setAttribute("locale","en_US");
+            /*request.getSession().setAttribute("locale","en_US");*/
             
             log.info(login + " залогинился");
             // определение пути к админке main.jsp
