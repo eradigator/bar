@@ -1,15 +1,8 @@
 package kz.epam.javalab22.bar.runner;
 
-import kz.epam.javalab22.bar.dao.CocktailDao;
-import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.operation.CalcAlcohol;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
-import org.apache.commons.codec.digest.DigestUtils;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 /**
