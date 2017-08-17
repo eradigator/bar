@@ -14,7 +14,7 @@ public class ConnectionPool {
     private static final String DB_USER = "postgres";
     private static final String DB_PASS = "pass123";
 
-    private static int CONNECTIONS_COUNT = 10;
+    private static int CONNECTIONS_COUNT = 2;
     private static ConnectionPool instance;
     private static ArrayBlockingQueue<Connection> connections = new ArrayBlockingQueue<>(CONNECTIONS_COUNT);
 

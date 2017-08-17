@@ -1,13 +1,11 @@
 package kz.epam.javalab22.bar.command;
 
-import com.sun.javaws.Globals;
 import kz.epam.javalab22.bar.logic.LoginLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 
 public class LoginCommand implements ActionCommand {
 
@@ -26,12 +24,11 @@ public class LoginCommand implements ActionCommand {
 
         // проверка логина и пароля
         if (new LoginLogic().checkLogin(login, pass)) {
-            request.setAttribute("user", login);
 
+            request.setAttribute("user", login);
             request.getSession().setAttribute("username",login);
             request.getSession().setAttribute("isadmin",true);
-            /*request.getSession().setAttribute("locale","en_US");*/
-            
+
             log.info(login + " залогинился");
             // определение пути к админке main.jsp
             page = ConfigurationManager.getProperty("path.page.main");

@@ -37,7 +37,6 @@ public class Controller extends HttpServlet {
         page = command.execute(request);
 
         // метод возвращает страницу ответа
-        // page = null; // поэксперементировать!
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             // вызов страницы ответа на запрос
