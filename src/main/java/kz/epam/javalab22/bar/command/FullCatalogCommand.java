@@ -10,6 +10,7 @@ public class FullCatalogCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
+        request.setAttribute("content","getinfo");
         String page = ConfigurationManager.getProperty("path.page.index");
         return page;
 

@@ -1,9 +1,6 @@
 package kz.epam.javalab22.bar.command.client;
 
-import kz.epam.javalab22.bar.command.ActionCommand;
-import kz.epam.javalab22.bar.command.FullCatalogCommand;
-import kz.epam.javalab22.bar.command.LoginCommand;
-import kz.epam.javalab22.bar.command.LogoutCommand;
+import kz.epam.javalab22.bar.command.*;
 
 public enum CommandEnum {
     LOGIN {
@@ -16,11 +13,22 @@ public enum CommandEnum {
             this.command = new LogoutCommand();
         }
     },
+    PAGE {
+        {
+            this.command = new PageCommand();
+        }
+    },
     FULL_CATALOG {
         {
             this.command = new FullCatalogCommand();
         }
+    },
+    LANG {
+        {
+            this.command = new LangCommand();
+        }
     }
+
     ;
 
     ActionCommand command;

@@ -13,34 +13,32 @@
     <title>BAR</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
-<body background="${pageContext.request.contextPath}/images/bg.png">
+<body>
 
 
-<table width="90%" align="center" bgcolor="white" border="1" cellpadding="4" cellspacing="0">
+<table width="90%" align="center">
     <tr>
         <td colspan="2">
-            <%@ include file="jsp/top.jsp" %>
+            <%@ include file="WEB-INF/jsp/top.jsp" %>
         </td>
     </tr>
     <tr>
         <td colspan="2">
-            <%@ include file="jsp/header.jsp" %>
+            <%@ include file="WEB-INF/jsp/header.jsp" %>
         </td>
 
     </tr>
     <tr>
-        <td width="15%" valign="top">
-            <%@ include file="jsp/menu.jsp" %>
+        <td width="15%" valign="top" bgcolor="white">
+            <%@ include file="WEB-INF/jsp/menu.jsp" %>
         </td>
-        <td width="75%">
-            <%@ include file="jsp/body.jsp" %>
-            <mytag:getinfo/>
-            <my:person Age="28" EmployeeId="74852" Name="Bruce Wayne"  />
+        <td width="75%" bgcolor="white">
+            <%@ include file="WEB-INF/jsp/body.jsp" %>
         </td>
     </tr>
     <tr>
         <td colspan="2">
-            <%@ include file="jsp/footer.jsp" %>
+            <%@ include file="WEB-INF/jsp/footer.jsp" %>
         </td>
     </tr>
 </table>
