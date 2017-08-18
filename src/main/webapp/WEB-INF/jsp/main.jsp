@@ -11,36 +11,39 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-<table width="90%" align="center">
-    <tr>
-        <td colspan="2">
-            <%@ include file="/WEB-INF/jsp/top.jsp" %>
+<div id="container">
+    <div id="top">
+        <%@ include file="/WEB-INF/jsp/top.jsp" %>
+    </div>
+    <div id="header">
+        <%@ include file="/WEB-INF/jsp/header.jsp" %>
+    </div>
+    <div id="space">
 
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <%@ include file="/WEB-INF/jsp/header.jsp" %>
-        </td>
+    </div>
 
-    </tr>
-    <tr>
-        <td width="15%">
-            <%@ include file="/WEB-INF/jsp/menu.jsp" %>
-        </td>
-        <td width="75%">
-            <h2>Welcome</h2>
-            <hr/>
-            ${user}, hello!
-            <a href="${pageContext.request.contextPath}/jsp/controller?command=logout">Logout</a><br/>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <%@ include file="/WEB-INF/jsp/footer.jsp" %>
-        </td>
-    </tr>
-</table>
+    <div id="menu">
+        <%@ include file="/WEB-INF/jsp/menu.jsp" %>
+    </div>
 
+    <div id="navigation">
+        <h2>Welcome</h2>
+        <hr/>
+    </div>
+
+    <div id="content">
+        ${user}, hello!
+        <a href="${pageContext.request.contextPath}/jsp/controller?command=logout">Logout</a><br/>
+    </div>
+
+    <div id="clear">
+    </div>
+
+    <div id="footer">
+        <%@ include file="/WEB-INF/jsp/footer.jsp" %>
+    </div>
+</div>
 
 </body></html>
+
+

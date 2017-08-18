@@ -30,7 +30,7 @@ public class LoginCommand implements ActionCommand {
             request.getSession().setAttribute("isadmin",true);
 
             log.info(login + " залогинился");
-            // определение пути к админке main.jsp
+            // определение пути к админке index.jsp
             page = ConfigurationManager.getProperty("path.page.main");
         } else {
             log.info(login + ": неудачная попытка входа");

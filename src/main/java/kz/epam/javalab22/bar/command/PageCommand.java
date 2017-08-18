@@ -13,17 +13,20 @@ public class PageCommand implements ActionCommand {
         String chosen = request.getParameter("chosen");
         if (chosen != null) {
             switch (chosen) {
-                case "alcoholic":
-                    request.setAttribute("content","alcoholic");
+                case "catalog":
+                    request.setAttribute("content", "catalog");
                     break;
-                case "non_alcoholic":
-                    request.setAttribute("content","non_alcoholic");
+                case "alcoholic":
+                    request.setAttribute("content", "alcoholic");
+                    break;
+                case "nonalcoholic":
+                    request.setAttribute("content", "nonalcoholic");
                     break;
                 case "calculator":
-                    request.setAttribute("content","calculator");
+                    request.setAttribute("content", "calculator");
                     break;
-                case "contact":
-                    request.setAttribute("content","contact");
+                case "contacts":
+                    request.setAttribute("content", "contacts");
                     break;
             }
         }

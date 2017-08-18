@@ -22,7 +22,11 @@ public class LangCommand implements ActionCommand {
             }
         }
 
+        //System.out.println(request.getParameter("content"));
+
         String page = ConfigurationManager.getProperty("path.page.index");
+        //String page = request.getHeader("referer");             //откуда пришли
+        request.setAttribute("content", "catalog");          //костылек
         return page;
     }
 }
