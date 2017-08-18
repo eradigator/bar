@@ -16,6 +16,9 @@ public class LogoutCommand implements ActionCommand {
             String username = request.getSession().getAttribute("username").toString();
             log.info(username + " вышел");
             request.getSession().invalidate();
+
+            //костыль
+            request.setAttribute("content", "catalog");
         }
         return page;
     }

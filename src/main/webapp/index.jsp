@@ -13,35 +13,39 @@
     <title>BAR</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
+
 <body>
 
+<div id="container">
+    <div id="top">
+        <%@ include file="/WEB-INF/jsp/top.jsp" %>
+    </div>
+    <div id="header">
+        <%@ include file="/WEB-INF/jsp/header.jsp" %>
+    </div>
+    <div id="space"></div>
 
-<table width="90%" align="center">
-    <tr>
-        <td colspan="2">
-            <%@ include file="WEB-INF/jsp/top.jsp" %>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <%@ include file="WEB-INF/jsp/header.jsp" %>
-        </td>
+    <div id="menu">
+        <%@ include file="/WEB-INF/jsp/menu.jsp" %>
+    </div>
 
-    </tr>
-    <tr>
-        <td width="15%" valign="top" bgcolor="white">
-            <%@ include file="WEB-INF/jsp/menu.jsp" %>
-        </td>
-        <td width="75%" bgcolor="white">
-            <%@ include file="WEB-INF/jsp/body.jsp" %>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <%@ include file="WEB-INF/jsp/footer.jsp" %>
-        </td>
-    </tr>
-</table>
+    <div id="navigation">
+        <h2><fmt:message key="${content}" bundle="${rb}"/></h2>
+        <hr/>
+    </div>
+
+    <div id="content">
+        <%@ include file="/WEB-INF/jsp/body.jsp" %>
+    </div>
+
+    <div id="clear">
+    </div>
+
+    <div id="footer">
+        <%@ include file="/WEB-INF/jsp/footer.jsp" %>
+    </div>
+</div>
+
 
 </body>
 </html>
