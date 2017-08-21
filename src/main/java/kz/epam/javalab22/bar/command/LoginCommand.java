@@ -27,7 +27,7 @@ public class LoginCommand implements ActionCommand {
 
             request.setAttribute("user", login);
             request.getSession().setAttribute("username",login);
-            request.getSession().setAttribute("isadmin",true);
+            request.getSession().setAttribute("role","admin");
 
             log.info(login + " залогинился");
             // определение пути к админке index.jsp

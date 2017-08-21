@@ -17,12 +17,30 @@
     <fmt:message key="contacts" bundle="${ rb }"/><br>
 </a>
 
-<c:if test="${not empty pageContext.request.session.getAttribute('isadmin')}">
-    <c:if test="${pageContext.request.session.getAttribute('isadmin') eq 'true'}">
+<c:if test="${not empty pageContext.request.session.getAttribute('role')}">
+    <c:if test="${pageContext.request.session.getAttribute('role') eq 'admin'}">
         <br/>
-        <a href="<%--путь к админке--%>">
-            Админка
+        <form name="userManagement" method="post" action="${pageContext.request.contextPath}/jsp/controller">
+            <input type="hidden" name="command" value="page">
+            <input type="hidden" name="chosen" value="admin">
+        <a href="#" onclick="document.userManagement.submit();return(false)">
+            <fmt:message key="users" bundle="${ rb }"/>
         </a>
+        </form>
     </c:if>
 </c:if>
 
+
+<%--<c:if test="${not empty pageContext.request.session.getAttribute('isadmin')}">
+    <c:if test="${pageContext.request.session.getAttribute('isadmin') eq 'true'}">
+        <my:admMenu/>
+    </c:if>
+</c:if>--%>
+
+<%--<form name="admin" method="post" action="${pageContext.request.contextPath}/jsp/controller">
+    <div style="float: left">
+        <input type="hidden" name="command" value="page">
+        <input type="hidden" name="chosen" value="admin">
+        <a href="#" onclick="document.admin.submit();return(false)">Админка</a>
+    </div>
+</form>--%>

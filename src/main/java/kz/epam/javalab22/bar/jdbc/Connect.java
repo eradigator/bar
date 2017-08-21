@@ -173,7 +173,7 @@ public class Connect {
     }
 
     private static void updateDbUserDate() {
-        String updateTableSQL = "UPDATE DBUSER SET USERNAME = 'erad_new' WHERE USER_ID = 2";
+        String updateTableSQL = "UPDATE DBUSER SET role = 'admin' WHERE USER_ID = 2";
 
         Connection dbConnection;
         Statement statement;

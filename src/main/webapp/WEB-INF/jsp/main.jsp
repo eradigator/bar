@@ -1,7 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>--%>
+<%@ taglib uri="/WEB-INF/tld/mytaglib.tld" prefix="mytag" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
+
 
 <html>
 <head>
@@ -11,6 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+
 <div id="container">
     <div id="top">
         <%@ include file="/WEB-INF/jsp/top.jsp" %>
@@ -19,7 +24,6 @@
         <%@ include file="/WEB-INF/jsp/header.jsp" %>
     </div>
     <div id="space">
-
     </div>
 
     <div id="menu">
@@ -32,9 +36,10 @@
     </div>
 
     <div id="content">
-        ${user}, hello!
-        <a href="${pageContext.request.contextPath}/jsp/controller?command=logout">Logout</a><br/>
+        <mytag:userManagement/>
+        <%--<my:userManagement/>--%>
     </div>
+
 
     <div id="clear">
     </div>
@@ -44,6 +49,7 @@
     </div>
 </div>
 
-</body></html>
+</body>
+</html>
 
 

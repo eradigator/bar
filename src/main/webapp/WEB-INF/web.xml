@@ -5,7 +5,7 @@
 
 
     <welcome-file-list>
-        <welcome-file>first.jsp</welcome-file>
+        <welcome-file>jsp/controller</welcome-file>
     </welcome-file-list>
 
     <error-page>

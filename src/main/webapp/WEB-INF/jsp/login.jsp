@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
+<fmt:setBundle basename="pagecontent" var="rb"/>
 
 <html>
 <head>
@@ -11,9 +13,11 @@
 <div id="login">
     <form name="loginForm" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
         <input type="hidden" name="command" value="login"/>
-        Login:<br/>
-        <input type="text" name="login" value=""/>
-        <br/>Password:<br/>
+
+        <fmt:message key="enterLogin" bundle="${ rb }"/><br/>
+        <input type="text" name="login" value=""/><br/>
+
+        <fmt:message key="password" bundle="${ rb }"/><br/>
         <input type="password" name="password" value=""/>
         <br/>
         ${errorLoginPassMessage}
@@ -25,7 +29,6 @@
         <input type="submit" value="Log in"/>
         <p>Нет аккаунта? &nbsp;&nbsp;<a href="#">Регистрация</a></p>
     </form>
-    <hr/>
 </div>
 </body>
 </html>
