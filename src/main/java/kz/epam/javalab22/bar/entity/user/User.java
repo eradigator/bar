@@ -1,9 +1,10 @@
-package kz.epam.javalab22.bar.entity;
+package kz.epam.javalab22.bar.entity.user;
 
 public class User {
     private String name;
     private String email;
     private String password;
+    private Role role;
     private boolean isAdmin;
 
     public User(String name, String email, String password) {
@@ -11,6 +12,13 @@ public class User {
         this.email = email;
         this.password = password;
         isAdmin = false;
+        role = Role.USER;
+    }
+
+    public User(String name, String email, Role role) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
     }
 
     public User(String name, String email, String password, boolean isAdmin) {
@@ -50,5 +58,13 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

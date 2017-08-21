@@ -27,11 +27,16 @@ public enum CommandEnum {
         {
             this.command = new LangCommand();
         }
-    }
-
+    },
+    DELETE_USER{
+        {
+            this.command = new DeleteUserCommand();
+        }
+    },
     ;
 
     ActionCommand command;
+
     public ActionCommand getCurrentCommand() {
         return command;
     }

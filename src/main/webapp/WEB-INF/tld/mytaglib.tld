@@ -13,5 +13,11 @@
         <body-content>empty</body-content>
     </tag>
 
+    <tag>
+        <name>userManagement</name>
+        <tag-class>kz.epam.javalab22.bar.tag.UserManagement</tag-class>
+        <body-content>empty</body-content>
+    </tag>
+
 </taglib>
 

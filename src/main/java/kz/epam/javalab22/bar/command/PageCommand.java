@@ -13,6 +13,11 @@ public class PageCommand implements ActionCommand {
         String chosen = request.getParameter("chosen");
         if (chosen != null) {
             switch (chosen) {
+                case "login":
+                    return ConfigurationManager.getProperty("path.page.login"); //тест временно
+                case "admin":
+                    return ConfigurationManager.getProperty("path.page.main"); //тест временно
+
                 case "catalog":
                     request.setAttribute("content", "catalog");
                     break;
@@ -28,6 +33,7 @@ public class PageCommand implements ActionCommand {
                 case "contacts":
                     request.setAttribute("content", "contacts");
                     break;
+
             }
         }
 
