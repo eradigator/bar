@@ -7,8 +7,7 @@ import java.sql.*;
 
 public class CocktailDao extends AbstractDao<Cocktail> {
 
-    //private Connection connection;
-
+    private Connection connection;
 
     public CocktailDao() {
     }
@@ -68,7 +67,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         }
 
         connectionPool.returnConnection(connection);
-
         return entity;
     }
 

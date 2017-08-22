@@ -45,7 +45,6 @@ public class Runner {
         int strengthWhiteRussian = new CalcAlcohol().calcAlcohol(whiteRussian);
         System.out.println("Крепость коктейля: " + strengthWhiteRussian + "%");*/
 
-        new UserDao().createAdmin();
 
     }
 }

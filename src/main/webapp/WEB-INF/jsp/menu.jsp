@@ -16,17 +16,11 @@
 <a href="${pageContext.request.contextPath}/jsp/controller?command=page&chosen=contacts">
     <fmt:message key="contacts" bundle="${ rb }"/><br>
 </a>
+<br/>
 
 <c:if test="${not empty pageContext.request.session.getAttribute('role')}">
     <c:if test="${pageContext.request.session.getAttribute('role') eq 'admin'}">
-        <br/>
-        <form name="userManagement" method="post" action="${pageContext.request.contextPath}/jsp/controller">
-            <input type="hidden" name="command" value="page">
-            <input type="hidden" name="chosen" value="admin">
-        <a href="#" onclick="document.userManagement.submit();return(false)">
-            <fmt:message key="users" bundle="${ rb }"/>
-        </a>
-        </form>
+        <my:adminMenu/>
     </c:if>
 </c:if>
 

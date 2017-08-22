@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 public class DeleteUserCommand implements ActionCommand {
 
     private static final Logger log = Logger.getLogger(DeleteUserCommand.class);
-    private static final String PARAM_NAME_LOGIN = "login";
-    private static final String PARAM_NAME_PASSWORD = "password";
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -20,22 +18,17 @@ public class DeleteUserCommand implements ActionCommand {
 
         String checkedUserName = request.getParameter("checkedName");
         System.out.println(checkedUserName);
-        if (new DeleteUserLogic().deleteUser(checkedUserName)) {
-            System.out.println(true);
+        if (checkedUserName != null) {
+            if (new DeleteUserLogic().deleteUser(checkedUserName)) {
+                System.out.println(true);
+                request.setAttribute("deleteUserResult", "Пользователь удален");
+                log.info("Пользователь: " + checkedUserName + " удален");
+            }
+        } else {
+            request.setAttribute("deleteUserResult", MessageManager.getProperty("message.loginerror"));
         }
 
-        request.setAttribute("deleteMessage", "ok");
-        log.info("Пользователь: " + checkedUserName + " удален");
-
         page = ConfigurationManager.getProperty("path.page.main");
-
-        /*} else {
-            log.info(login + ": неудачная попытка входа");
-
-            request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
-            page = ConfigurationManager.getProperty("path.page.login");
-        }*/
-
         return page;
     }
 }

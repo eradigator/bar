@@ -23,7 +23,8 @@
     <div id="header">
         <%@ include file="/WEB-INF/jsp/header.jsp" %>
     </div>
-    <div id="space"></div>
+    <div id="space">
+    </div>
 
     <div id="menu">
         <%@ include file="/WEB-INF/jsp/menu.jsp" %>

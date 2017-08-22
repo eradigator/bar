@@ -36,6 +36,7 @@ public class UserDao extends AbstractDao<User> {
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
+        Boolean success = false;
 
         String query = "INSERT INTO public.\"webUsers\"(name,password,email,role) VALUES(?,?,?,?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -44,14 +45,13 @@ public class UserDao extends AbstractDao<User> {
             ps.setString(3, entity.getEmail());
             ps.setString(4, entity.getRole().toString());
             ps.execute();
-
-            return true;
+            success = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         connectionPool.returnConnection(connection);
-        return false;
+        return success;
     }
 
     public String getPasswordByLogin(String enterLogin) {
@@ -73,7 +73,6 @@ public class UserDao extends AbstractDao<User> {
         }
 
         connectionPool.returnConnection(connection);
-
         return password;
     }
 
@@ -87,6 +86,7 @@ public class UserDao extends AbstractDao<User> {
             statement.executeQuery("DELETE FROM public.\"webUsers\" WHERE NAME = '" + login + "'");
         } catch (SQLException e) {
             e.printStackTrace();
+            connectionPool.returnConnection(connection);
             return false;
         }
 
@@ -131,6 +131,7 @@ public class UserDao extends AbstractDao<User> {
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
+        Boolean isOK = false;
 
         String query = "INSERT INTO public.\"webUsers\"(name,password,email,role) VALUES(?,?,?,?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -139,12 +140,12 @@ public class UserDao extends AbstractDao<User> {
             ps.setString(3, "eradigator@mail.ru");
             ps.setString(4, "ADMIN");
             ps.execute();
-
-            return true;
+            isOK = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         connectionPool.returnConnection(connection);
-        return false;
+        return isOK;
     }
 }
