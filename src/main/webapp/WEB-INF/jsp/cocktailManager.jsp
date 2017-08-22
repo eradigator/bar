@@ -13,7 +13,6 @@
     <title>BAR</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
-
 <body>
 
 <div id="container">
@@ -31,14 +30,13 @@
     </div>
 
     <div id="navigation">
-        <h2>Welcome</h2>
+        <h2>Cocktail Manager</h2>
         <hr/>
     </div>
 
     <div id="content">
-        <mytag:userManagement/>
-        ${deleteUserResult}
-        <my:addUser/>
+        <my:cocktailManager/>
+        <mytag:cocktailManager/>
     </div>
 
     <div id="clear">

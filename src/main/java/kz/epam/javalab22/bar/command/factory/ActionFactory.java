@@ -8,14 +8,16 @@ import kz.epam.javalab22.bar.manager.MessageManager;
 import javax.servlet.http.HttpServletRequest;
 
 public class ActionFactory {
+
+    private final static String STR_COMMAND = "command";
+
     public ActionCommand defineCommand(HttpServletRequest request) {
 
         ActionCommand current = new EmptyCommand();
 
         // извлечение имени команды из запроса
-        String action = request.getParameter("command");
+        String action = request.getParameter(STR_COMMAND);
         if (action == null || action.isEmpty()) {
-            // если команда не задана в текущем запросе
             return current;
         }
 

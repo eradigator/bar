@@ -17,6 +17,8 @@ public class PageCommand implements ActionCommand {
                     return ConfigurationManager.getProperty("path.page.login"); //тест временно
                 case "admin":
                     return ConfigurationManager.getProperty("path.page.main"); //тест временно
+                case "cocktailManager":
+                    return ConfigurationManager.getProperty("path.page.cocktailManager"); //тест временно
 
                 case "catalog":
                     request.setAttribute("content", "catalog");

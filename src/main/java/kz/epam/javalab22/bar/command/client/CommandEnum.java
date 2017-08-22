@@ -18,19 +18,24 @@ public enum CommandEnum {
             this.command = new PageCommand();
         }
     },
-    FULL_CATALOG {
-        {
-            this.command = new FullCatalogCommand();
-        }
-    },
     LANG {
         {
             this.command = new LangCommand();
         }
     },
+    ADD_USER {
+        {
+            this.command = new AddUserCommand();
+        }
+    },
     DELETE_USER{
         {
             this.command = new DeleteUserCommand();
+        }
+    },
+    ADD_COCKTAIL {
+        {
+            this.command = new AddCocktailCommand();
         }
     },
     ;

@@ -5,15 +5,6 @@ public class User {
     private String email;
     private String password;
     private Role role;
-    private boolean isAdmin;
-
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        isAdmin = false;
-        role = Role.USER;
-    }
 
     public User(String name, String email, Role role) {
         this.name = name;
@@ -21,12 +12,13 @@ public class User {
         this.role = role;
     }
 
-    public User(String name, String email, String password, boolean isAdmin) {
+    public User(String name, String password, String email, Role role) {
         this.name = name;
-        this.email = email;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.email = email;
+        this.role = role;
     }
+
 
     public String getName() {
         return name;
@@ -50,14 +42,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
     }
 
     public Role getRole() {

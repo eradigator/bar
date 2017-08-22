@@ -19,5 +19,11 @@
         <body-content>empty</body-content>
     </tag>
 
+    <tag>
+        <name>cocktailManager</name>
+        <tag-class>kz.epam.javalab22.bar.tag.CocktailManager</tag-class>
+        <body-content>empty</body-content>
+    </tag>
+
 </taglib>
 
