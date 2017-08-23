@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.command;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.DeleteUserLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
@@ -28,7 +29,7 @@ public class DeleteUserCommand implements ActionCommand {
             request.setAttribute("deleteUserResult", MessageManager.getProperty("message.loginerror"));
         }
 
-        page = ConfigurationManager.getProperty("path.page.main");
+        page = ConfigurationManager.getProperty(Const.PAGE_MAIN);
         return page;
     }
 }

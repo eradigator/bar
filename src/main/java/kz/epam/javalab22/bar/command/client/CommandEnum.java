@@ -38,6 +38,17 @@ public enum CommandEnum {
             this.command = new AddCocktailCommand();
         }
     },
+    REMOVE_COCKTAIL {
+        {
+            this.command = new RemoveCocktailCommand();
+        }
+    },
+    CALC_STRENGTH {
+        {
+            this.command = new CalcStrengthCommand();
+        }
+    },
+
     ;
 
     ActionCommand command;

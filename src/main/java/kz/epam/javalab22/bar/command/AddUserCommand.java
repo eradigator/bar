@@ -1,6 +1,6 @@
 package kz.epam.javalab22.bar.command;
 
-import kz.epam.javalab22.bar.dao.UserDao;
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.logic.AddUserLogic;
@@ -23,21 +23,9 @@ public class AddUserCommand implements ActionCommand {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
-        Role role = null;
-
-        switch (request.getParameter("role")) {
-            case "admin":
-                role = Role.ADMIN;
-                break;
-            case "user":
-                role = Role.USER;
-                break;
-        }
+        Role role = Role.valueOf(request.getParameter("role").toUpperCase());
 
         user = new User(login,password,email,role);
-
-        System.out.println(login + " " + password + " " + email + " " + role);
-
 
         if (!login.isEmpty()) {
             if (new AddUserLogic().addUser(user)) {
@@ -48,7 +36,7 @@ public class AddUserCommand implements ActionCommand {
             request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
         }
 
-        page = ConfigurationManager.getProperty("path.page.main");
+        page = ConfigurationManager.getProperty(Const.PAGE_MAIN);
         return page;
     }
 }

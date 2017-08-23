@@ -3,7 +3,7 @@
 
 html, body {
     height: 100%;
-    margin-top: 5px;
+    /*margin-top: 5px;*/
 }
 
 body {
@@ -50,16 +50,18 @@ td, th {
 /* Layout */
 
 #container {
-    /*background: #FFFFFF;*/
-    margin: 10px auto;
+    background: #fff;
+    margin: 7px auto;
     width: 90%;
-    height: 600px;
+    height: auto;
+    /*box-shadow: 0px 0px 2px #888888;*/
 }
 
 #top {
     /*background: #02834b;*/
     height: 30px;
     /*width: 90%;*/
+    padding-top: 10px;
 }
 
 #logo {
@@ -96,7 +98,7 @@ td, th {
     height: 400px;
     padding-top: 25px;
     padding-bottom: 20px;
-    margin-left: 5px;
+    padding-left: 10px;
 }
 
 #navigation {
@@ -119,7 +121,7 @@ td, th {
 }
 
 #clear {
-    clear:both;
+    clear: both;
 }
 
 #footer {
@@ -142,38 +144,29 @@ td, th {
     text-align: center;
 }
 
-/*!* Header *!
-#styleTop {
+
+/* Cocktail Images */
+
+.cocktail {
+    border: 1px solid #ddd;
+    border-radius: 4px;
     padding: 5px;
+    height: 160px;
 }
 
-!* Header *!
-#styleHeader {
-    background-color: #6BA085;
-    padding: 18px;
-    text-align: center;
-    color: #fff;
+.cocktail:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 
-!* Menu *!
-#styleMenu {
-    padding-top: 10px;
-}
-
-!* Body *!
-#styleBody {
-    padding-right: 15px;
-}*/
-
-/* Footer */
-
-/*footer {
-    background-color: #17311F;
+.cocktail_image {
+    /*border: 1px solid #ddd;*/
+    border-radius: 4px;
     padding: 5px;
-    text-align: center;
-    color: #fff;
+    width: 150px;
+    float: left;
 }
 
-footer a {
-    color: gold;
+/*
+.cocktail_image:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }*/

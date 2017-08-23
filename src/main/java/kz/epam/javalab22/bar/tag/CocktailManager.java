@@ -1,7 +1,9 @@
 package kz.epam.javalab22.bar.tag;
 
 import kz.epam.javalab22.bar.constant.Const;
+import kz.epam.javalab22.bar.dao.CocktailDao;
 import kz.epam.javalab22.bar.entity.BuildMethod;
+import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.entity.Glass;
 
 import javax.servlet.jsp.JspException;
@@ -29,10 +31,10 @@ public class CocktailManager extends TagSupport {
             out.write("<input type='text' name='name' value='' required>" + Const.BR);
             out.write(Const.P_CLS);
 
-            out.write(Const.P_OPN);
+            /*out.write(Const.P_OPN);
             out.write("Компоненты" + Const.BR);
             out.write("<input type='text' name='component' value='' required>" + Const.BR);
-            out.write(Const.P_CLS);
+            out.write(Const.P_CLS);*/
 
             out.write(Const.P_OPN);
             out.write("Метод" + Const.BR);
@@ -53,6 +55,28 @@ public class CocktailManager extends TagSupport {
             out.write(Const.P_CLS);
 
             out.write("<input type='submit' value='Добавить'/>");
+
+            out.write("</form>");
+
+
+            out.write(Const.H5_OPN + "Удаление коктейля:" + Const.H5_CLS);
+
+            out.write("<form name='removeCocktail' method='post' action='/bar/jsp/controller'>");
+            out.write("<input type='hidden' name='command' value='remove_cocktail'>");
+
+            out.write(Const.P_OPN);
+            out.write("Название коктейля" + Const.BR);
+            out.write("<select name='cocktailToDelete' title='cocktailToDelete'>");
+
+            List<Cocktail> cocktailList = new CocktailDao().getCocktailsList();
+            for (Cocktail cocktail : cocktailList) {
+                out.write("<option value='" + cocktail.getName() + "'>" + cocktail.getName() + "</option>");
+            }
+
+            out.write("</select>");
+            out.write(Const.P_CLS);
+
+            out.write("<input type='submit' value='Удалить'/>");
 
             out.write("</form>");
 

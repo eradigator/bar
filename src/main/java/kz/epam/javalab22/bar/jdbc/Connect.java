@@ -4,6 +4,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/*Класс не используется*/
 public class Connect {
 
     private final static String DB_URL = "jdbc:postgresql://127.0.0.1:5432/bar";

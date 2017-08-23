@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.command;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +15,11 @@ public class PageCommand implements ActionCommand {
         if (chosen != null) {
             switch (chosen) {
                 case "login":
-                    return ConfigurationManager.getProperty("path.page.login"); //тест временно
+                    return ConfigurationManager.getProperty(Const.PAGE_LOGIN); //тест временно
                 case "admin":
-                    return ConfigurationManager.getProperty("path.page.main"); //тест временно
+                    return ConfigurationManager.getProperty(Const.PAGE_MAIN); //тест временно
                 case "cocktailManager":
-                    return ConfigurationManager.getProperty("path.page.cocktailManager"); //тест временно
+                    return ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER); //тест временно
 
                 case "catalog":
                     request.setAttribute("content", "catalog");
@@ -39,6 +40,6 @@ public class PageCommand implements ActionCommand {
             }
         }
 
-        return ConfigurationManager.getProperty("path.page.index");
+        return ConfigurationManager.getProperty(Const.PAGE_INDEX);
     }
 }
