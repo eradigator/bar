@@ -95,12 +95,13 @@ public class UserDao extends AbstractDao<User> {
     }
 
     public List<User> getUserList() {
+
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
 
         String name;
         String email;
-        Role role = null;
+        Role role;
 
         try {
             Statement statement = connection.createStatement();
@@ -108,15 +109,7 @@ public class UserDao extends AbstractDao<User> {
             while (resultSet.next()) {
                 name = resultSet.getString("name");
                 email = resultSet.getString("email");
-                switch (resultSet.getString("role")) {
-                    case "ADMIN":
-                        role = Role.ADMIN;
-                        break;
-                    case "USER":
-                        role = Role.USER;
-                        break;
-                }
-
+                role = Role.valueOf(resultSet.getString("role"));
                 userList.add(new User(name, email, role));
             }
         } catch (SQLException e) {
@@ -127,25 +120,4 @@ public class UserDao extends AbstractDao<User> {
         return userList;
     }
 
-    public boolean createAdmin() {
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-        Boolean isOK = false;
-
-        String query = "INSERT INTO public.\"webUsers\"(name,password,email,role) VALUES(?,?,?,?)";
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setString(1, "erad");
-            ps.setString(2, DigestUtils.md5Hex("pass123"));
-            ps.setString(3, "eradigator@mail.ru");
-            ps.setString(4, "ADMIN");
-            ps.execute();
-            isOK = true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        connectionPool.returnConnection(connection);
-        return isOK;
-    }
 }

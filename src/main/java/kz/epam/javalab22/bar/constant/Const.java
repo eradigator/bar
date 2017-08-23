@@ -5,15 +5,25 @@ package kz.epam.javalab22.bar.constant;
  */
 public final class Const {
 
-    public final static String BR = "<br/>";
-    public final static String P_OPN = "<p>";
-    public final static String P_CLS = "</p>";
-    public final static String H5_OPN = "<h5>";
-    public final static String H5_CLS = "</h5>";
-    public final static String TR_OPN = "<tr>";
-    public final static String TR_CLS = "</tr>";
-    public final static String TD_OPN = "<td>";
-    public final static String TD_CLS = "</td>";
-    public final static String TABLE_OPN = "<table width='100%'>";
-    public final static String TABLE_CLS = "</table>";
+    /*Pages*/
+    public static final String PAGE_INDEX = "path.page.index";
+    public static final String PAGE_MAIN = "path.page.main";
+    public static final String PAGE_LOGIN = "path.page.login";
+    public static final String PAGE_COCKTAIL_MANAGER = "path.page.cocktailManager";
+
+    /*Parameters*/
+    public static final String PARAM_COMMAND = "command";
+
+    /*HTML Tags*/
+    public static final String BR = "<br/>";
+    public static final String P_OPN = "<p>";
+    public static final String P_CLS = "</p>";
+    public static final String H5_OPN = "<h5>";
+    public static final String H5_CLS = "</h5>";
+    public static final String TR_OPN = "<tr>";
+    public static final String TR_CLS = "</tr>";
+    public static final String TD_OPN = "<td>";
+    public static final String TD_CLS = "</td>";
+    public static final String TABLE_OPN = "<table width='100%'>";
+    public static final String TABLE_CLS = "</table>";
 }

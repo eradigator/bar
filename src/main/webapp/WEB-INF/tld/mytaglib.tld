@@ -9,7 +9,7 @@
 
     <tag>
         <name>getinfo</name>
-        <tag-class>kz.epam.javalab22.bar.tag.GetInfoTag</tag-class>
+        <tag-class>kz.epam.javalab22.bar.tag.Alcoholic</tag-class>
         <body-content>empty</body-content>
     </tag>
 

@@ -10,7 +10,7 @@
         <my:person Age="28" EmployeeId="74852" Name="Bruce Wayne" />
     </c:when>
     <c:when test="${content == 'calculator'}">
-        Калькулятор
+        <my:calculator />
     </c:when>
     <c:when test="${content == 'contact'}">
         Контакты

@@ -1,19 +1,21 @@
 package kz.epam.javalab22.bar.tag;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.CocktailDao;
+import kz.epam.javalab22.bar.entity.Cocktail;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
 
-public class GetInfoTag extends TagSupport {
+public class Alcoholic extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
 
-        String cocktailName;
-        cocktailName = new CocktailDao().getNameById(1);
+        List<Cocktail> cocktailList = new CocktailDao().getCocktailsList();
 
         try {
             JspWriter out = pageContext.getOut();
@@ -34,10 +36,21 @@ public class GetInfoTag extends TagSupport {
                     "            Lorem\n" +
                     "            Ipsum.\n" +
                     "        </p>");
-            for (int i=0; i<5; i++) {
-                out.write("<img src='/bar/images/logo.png' style='width:128px;height:128px;'>");
-                out.write(cocktailName);
-                out.write("<hr/>");
+
+
+            for (Cocktail cocktail : cocktailList) {
+
+                out.write("<div class='cocktail' >");
+                /*out.write("<a href='/bar/images/cocktails/white_russian.jpg' target='_blank'>");*/
+                out.write("<a href='" + cocktail.getImgPath() + "' target='_blank'>");
+                out.write("<img class='cocktail_image' src='" + cocktail.getImgPath() + "'>");
+                out.write("</a>");
+                out.write("Name: " + cocktail.getName() + Const.BR);
+                out.write("Build Method: " + cocktail.getBuildMethod().toString() + Const.BR);
+                out.write("Glass: " + cocktail.getGlass().toString() + Const.BR);
+                out.write("</div>");
+
+                out.write(Const.BR);
             }
 
         } catch (IOException e) {

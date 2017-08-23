@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.runner;
 
+import kz.epam.javalab22.bar.dao.CocktailDao;
 import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.operation.CalcAlcohol;
@@ -18,14 +19,8 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        /*final String FILENAME = "config";
-        final ResourceBundle resourceBundle = ResourceBundle.getBundle(FILENAME);
 
-        String page = resourceBundle.getString("path.page.main");
-
-        System.out.println(page);
-
-        Cocktail whiteRussian = new Cocktail(COCKTAIL_NAME_WHITE_RUSSIAN);
+        /*Cocktail whiteRussian = new Cocktail(COCKTAIL_NAME_WHITE_RUSSIAN);
         whiteRussian.setBuildMethod(BuildMethod.BUILD);
         whiteRussian.setGlass(Glass.OLD_FASHIONED);
 
@@ -45,6 +40,7 @@ public class Runner {
         int strengthWhiteRussian = new CalcAlcohol().calcAlcohol(whiteRussian);
         System.out.println("Крепость коктейля: " + strengthWhiteRussian + "%");*/
 
+        //System.out.println(new CocktailDao().update("Черный русский"));
 
     }
 }

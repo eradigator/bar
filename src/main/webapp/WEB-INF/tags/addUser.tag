@@ -7,7 +7,10 @@
 <br/>
 <br/>
 <h5>Регистрация пользователя:</h5>
-<form name="addUser" method="post" action="${pageContext.request.contextPath}/jsp/controller">
+
+
+<form onsubmit="return confirm('Уверены?');"
+      name="addUser" method="post" action="${pageContext.request.contextPath}/jsp/controller" >
     <input type="hidden" name="command" value="add_user"/>
 
     <p>

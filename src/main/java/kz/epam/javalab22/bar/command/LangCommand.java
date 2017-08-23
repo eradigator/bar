@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.command;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public class LangCommand implements ActionCommand {
 
         //System.out.println(request.getParameter("content"));
 
-        String page = ConfigurationManager.getProperty("path.page.index");
+        String page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
         //String page = request.getHeader("referer");             //откуда пришли
         request.setAttribute("content", "catalog");          //костылек
         return page;

@@ -8,12 +8,26 @@ import java.util.*;
 public class Cocktail {
 
     private String name;
+    private String imgPath;
     private BuildMethod buildMethod;
     private Glass glass;
     private Map<Component, Integer> components = new HashMap<Component, Integer>();
 
     public Cocktail(String name) {
         this.name = name;
+    }
+
+    public Cocktail(String name, BuildMethod buildMethod, Glass glass) {
+        this.name = name;
+        this.buildMethod = buildMethod;
+        this.glass = glass;
+    }
+
+    public Cocktail(String name, BuildMethod buildMethod, Glass glass, String imgPath) {
+        this.name = name;
+        this.buildMethod = buildMethod;
+        this.glass = glass;
+        this.imgPath = imgPath;
     }
 
     public String getName() {
@@ -24,12 +38,24 @@ public class Cocktail {
         this.name = name;
     }
 
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
     public BuildMethod getBuildMethod() {
         return buildMethod;
     }
 
     public void setBuildMethod(BuildMethod buildMethod) {
         this.buildMethod = buildMethod;
+    }
+
+    public Glass getGlass() {
+        return glass;
     }
 
     public void setGlass(Glass glass) {

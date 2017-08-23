@@ -1,11 +1,14 @@
 package kz.epam.javalab22.bar.command;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.LoginLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
+import kz.epam.javalab22.bar.servlet.SessionRequestContent;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 public class LoginCommand implements ActionCommand {
 
@@ -16,27 +19,30 @@ public class LoginCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
+        SessionRequestContent sessionRequestContent = new SessionRequestContent();
+        HashMap<String, Object> sessionAttributes = new HashMap<>();
         String page;
 
-        // извлечение из запроса логина и пароля
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
-        // проверка логина и пароля
         if (new LoginLogic().checkLogin(login, pass)) {
 
-            request.setAttribute("user", login);
-            request.getSession().setAttribute("username",login);
-            request.getSession().setAttribute("role","admin");
+            sessionAttributes.put("username", login);
+            sessionAttributes.put("role", "admin");
+
+            sessionRequestContent.setSessionAttributes(sessionAttributes);
+            sessionRequestContent.insertAttributes(request);
+
+            page = ConfigurationManager.getProperty(Const.PAGE_MAIN);
 
             log.info(login + " залогинился");
-            // определение пути к админке index.jsp
-            page = ConfigurationManager.getProperty("path.page.main");
+
         } else {
             log.info(login + ": неудачная попытка входа");
-
-            request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
-            page = ConfigurationManager.getProperty("path.page.login");
+            String message = MessageManager.getProperty("message.loginerror");
+            request.setAttribute("errorLoginPassMessage", message);
+            page = ConfigurationManager.getProperty(Const.PAGE_LOGIN);
         }
         return page;
     }
