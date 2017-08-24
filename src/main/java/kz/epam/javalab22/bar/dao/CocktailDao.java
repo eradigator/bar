@@ -9,7 +9,9 @@ import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CocktailDao extends AbstractDao<Cocktail> {
 
@@ -38,12 +40,13 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         Boolean success = false;
+        int buildMethodId = new BuildMethodDao().getId(entity.getBuildMethod());
 
-        String query = "INSERT INTO public.\"cocktail\"(name/*,component*/,buildmethod,glass) VALUES(?/*,?*/,?,?)";
+        String query = "INSERT INTO public.cocktail(name/*,component*/,method,glass) VALUES(?/*,?*/,?,?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, entity.getName());
             /*ps.setString(2, "123");*/
-            ps.setString(2, entity.getBuildMethod().toString());
+            ps.setInt(2, buildMethodId);
             ps.setString(3, entity.getGlass().toString());
             ps.execute();
             success = true;
@@ -79,6 +82,10 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
     public List<Cocktail> getCocktailsList() {
 
+        final String QUERY = "SELECT c.id,c.name,c.glass,c.img,b.method_name AS method " +
+                "FROM public.cocktail c " +
+                "INNER JOIN public.build_method b ON c.method = b.id";
+
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         List<Cocktail> cocktailList = new ArrayList<>();
@@ -87,16 +94,20 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         String imgPath;
         BuildMethod buildMethod;
         Glass glass;
+        int id;
+        Map<String,Integer> map;
 
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM public.\"cocktail\"");
+            ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
+                id = resultSet.getInt("id");
                 name = resultSet.getString("name");
-                buildMethod = BuildMethod.valueOf(resultSet.getString("buildmethod"));
+                buildMethod = BuildMethod.valueOf(resultSet.getString("method"));
                 glass = Glass.valueOf(resultSet.getString("glass"));
                 imgPath = resultSet.getString("img");
-                cocktailList.add(new Cocktail(name, buildMethod, glass, imgPath));
+                map = new MixDao().getMix(id);
+                cocktailList.add(new Cocktail(name, map, buildMethod, glass, imgPath));
             }
         } catch (SQLException e) {
             e.printStackTrace();

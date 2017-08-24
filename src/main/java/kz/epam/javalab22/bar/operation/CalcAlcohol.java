@@ -18,10 +18,10 @@ public class CalcAlcohol {
         int totalAmount = INITIAL_VALUE;
         int strength;
 
-        for (Map.Entry<Component, Integer> map : cocktail.getComponents().entrySet()) {
+        /*for (Map.Entry<Component, Integer> map : cocktail.getComponents().entrySet()) {
             strength100Ml += (map.getKey().getStrength() * map.getValue()) / VALUE_100_ML;
             totalAmount += map.getValue();
-        }
+        }*/
         strength = (strength100Ml * VALUE_100_ML) / totalAmount;
 
         return strength;

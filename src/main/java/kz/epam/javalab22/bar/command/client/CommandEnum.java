@@ -48,7 +48,6 @@ public enum CommandEnum {
             this.command = new CalcStrengthCommand();
         }
     },
-
     ;
 
     ActionCommand command;
