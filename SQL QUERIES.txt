@@ -1,0 +1,22 @@
+	Получение списка коктейлей:
+
+SELECT c.id,c.name,c.glass,c.img,b.method_name AS method
+FROM public.cocktail c 
+INNER JOIN public.build_method b on c.bm_test = b.id
+
+
+------------------------------------------------------------
+	Соответствие Id компонента его названию:
+
+SELECT c.id,c.name_id,cn.ru AS ru
+FROM public.component c 
+INNER JOIN public.component_name cn on c.name_id = cn.id
+
+------------------------------------------------------------
+
+	Выборка компонентов коктейля
+SELECT m.amount,cn.ru AS name_ru
+FROM public.mix m 
+INNER JOIN public.component c on m.component_id = c.id
+INNER JOIN public.component_name cn on c.name_id = cn.id
+WHERE cocktail_id = 8
