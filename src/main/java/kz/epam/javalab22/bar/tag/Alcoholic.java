@@ -6,6 +6,7 @@ import kz.epam.javalab22.bar.entity.Cocktail;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -45,9 +46,15 @@ public class Alcoholic extends TagSupport {
                 out.write("<a href='" + cocktail.getImgPath() + "' target='_blank'>");
                 out.write("<img class='cocktail_image' src='" + cocktail.getImgPath() + "'>");
                 out.write("</a>");
-                out.write("Name: " + cocktail.getName() + Const.BR);
-                out.write("Build Method: " + cocktail.getBuildMethod().toString() + Const.BR);
-                out.write("Glass: " + cocktail.getGlass().toString() + Const.BR);
+                out.write("<b>"+"Название: " + cocktail.getName() + "</b>" +Const.BR);
+                out.write("Метод приготовления: " + cocktail.getBuildMethod().toString() + Const.BR);
+                out.write("Стакан: " + cocktail.getGlass().toString() + Const.BR);
+                out.write("Компоненты:" + Const.BR);
+
+                for (Map.Entry<String, Integer> pair : cocktail.getComponents().entrySet()) {
+                    out.write(pair.getKey() + ": " + pair.getValue() + " ml" + Const.BR);
+                }
+
                 out.write("</div>");
 
                 out.write(Const.BR);

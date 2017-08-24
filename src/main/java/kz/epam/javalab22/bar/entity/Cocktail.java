@@ -11,11 +11,13 @@ public class Cocktail {
     private String imgPath;
     private BuildMethod buildMethod;
     private Glass glass;
-    private Map<Component, Integer> components = new HashMap<Component, Integer>();
+    //private Map<Component, Integer> components = new HashMap<Component, Integer>();
+    private Map<String, Integer> components = new HashMap<>();
 
     public Cocktail(String name) {
         this.name = name;
     }
+
 
     public Cocktail(String name, BuildMethod buildMethod, Glass glass) {
         this.name = name;
@@ -28,6 +30,14 @@ public class Cocktail {
         this.buildMethod = buildMethod;
         this.glass = glass;
         this.imgPath = imgPath;
+    }
+
+    public Cocktail(String name, Map<String,Integer> components, BuildMethod buildMethod, Glass glass, String imgPath) {
+        this.name = name;
+        this.buildMethod = buildMethod;
+        this.glass = glass;
+        this.imgPath = imgPath;
+        this.components = components;
     }
 
     public String getName() {
@@ -62,11 +72,11 @@ public class Cocktail {
         this.glass = glass;
     }
 
-    public void addComponent(Component component, Integer amount) {
-        components.put(component, amount);
+    public void addComponent(String string, Integer amount) {
+        components.put(string, amount);
     }
 
-    public Map<Component, Integer> getComponents() {
+    public Map<String, Integer> getComponents() {
         return components;
     }
 
@@ -74,7 +84,7 @@ public class Cocktail {
     public String toString() {
 
 
-        String s="";
+        String s = "";
         for (Map.Entry entry : components.entrySet()) {
             s += entry.getKey().toString() + ":" + entry.getValue().toString() + ";" + "</br>";
         }

@@ -25,10 +25,8 @@ public class AddCocktailCommand implements ActionCommand {
         BuildMethod buildMethod = BuildMethod.valueOf(request.getParameter("buildMethod"));
         Glass glass = Glass.valueOf(request.getParameter("glass"));
 
-        cocktail = new Cocktail(name,buildMethod,glass);
+        cocktail = new Cocktail(name, buildMethod, glass);
         new CocktailDao().create(cocktail);
-
-        //System.out.println(name + " " + component + " " + buildMethod + " " + glass);
 
         request.setAttribute("addCocktailResult", "Коктейль добавлен");
         log.info("Коктейль: " + name + " добавлен");
