@@ -10,8 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by admin on 24.08.2017.
+ * Created by vten on 24.08.2017.
  */
+
 public class MixDao extends AbstractDao {
 
     @Override

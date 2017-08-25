@@ -1,11 +1,10 @@
 package kz.epam.javalab22.bar.runner;
 
-import kz.epam.javalab22.bar.dao.CocktailDao;
-import kz.epam.javalab22.bar.dao.MixDao;
-import kz.epam.javalab22.bar.dao.UserDao;
+import kz.epam.javalab22.bar.dao.*;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.operation.CalcAlcohol;
 
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -44,10 +43,19 @@ public class Runner {
 
         //System.out.println(new CocktailDao().update("Черный русский"));
 
-        Map<String,Integer> map = new MixDao().getMix(8);
+        /*Map<String,Integer> map = new MixDao().getMix(8);
 
         for (Map.Entry<String,Integer> pair: map.entrySet()) {
             System.out.println(pair.getKey() + ": "+ pair.getValue());
+        }*/
+
+        /*List<String> list = new ComponentTypeDao().getComponentTypeList();
+        for (String s : list) {
+            System.out.println(s);
+        }*/
+
+        for (String s : new ComponentNameDao().getComponentNameList()) {
+            System.out.println(s);
         }
 
     }

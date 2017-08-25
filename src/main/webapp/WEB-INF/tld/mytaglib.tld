@@ -25,5 +25,11 @@
         <body-content>empty</body-content>
     </tag>
 
+    <tag>
+        <name>componentManager</name>
+        <tag-class>kz.epam.javalab22.bar.tag.ComponentManager</tag-class>
+        <body-content>empty</body-content>
+    </tag>
+
 </taglib>
 

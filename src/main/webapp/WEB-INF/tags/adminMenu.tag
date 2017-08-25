@@ -19,3 +19,10 @@
         <fmt:message key="cocktailManager" bundle="${ rb }"/>
     </a>
 </form>
+<form name="componentManager" method="post" action="${pageContext.request.contextPath}/jsp/controller">
+    <input type="hidden" name="command" value="page">
+    <input type="hidden" name="chosen" value="componentManager">
+    <a href="#" onclick="document.componentManager.submit();return(false)">
+        <fmt:message key="componentManager" bundle="${ rb }"/>
+    </a>
+</form>
