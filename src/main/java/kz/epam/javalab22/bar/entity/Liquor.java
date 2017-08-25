@@ -5,25 +5,7 @@ package kz.epam.javalab22.bar.entity;
  */
 public class Liquor extends Component {
 
-    private double strength;
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public void setName(String name) {
-
-    }
-
-    @Override
-    public double getStrength() {
-        return 0;
-    }
-
-    @Override
-    public void setStrength(double strength) {
-        this.strength = strength;
+    public Liquor(int nameId, int type, double strength, double price) {
+        super(nameId, type, strength, price);
     }
 }

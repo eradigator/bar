@@ -43,6 +43,11 @@ public enum CommandEnum {
             this.command = new RemoveCocktailCommand();
         }
     },
+    ADD_COMPONENT {
+        {
+            this.command = new AddComponentCommand();
+        }
+    },
     CALC_STRENGTH {
         {
             this.command = new CalcStrengthCommand();

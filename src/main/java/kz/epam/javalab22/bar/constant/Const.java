@@ -10,9 +10,18 @@ public final class Const {
     public static final String PAGE_MAIN = "path.page.main";
     public static final String PAGE_LOGIN = "path.page.login";
     public static final String PAGE_COCKTAIL_MANAGER = "path.page.cocktailManager";
+    public static final String PAGE_COMPONENT_MANAGER = "path.page.componentManager";
 
     /*Parameters*/
     public static final String PARAM_COMMAND = "command";
+    public static final String PARAM_LOGIN = "login";
+    public static final String PARAM_PASSWORD = "password";
+    public static final String PARAM_EMAIL = "email";
+    public static final String PARAM_ROLE = "role";
+
+    /*Strings*/
+    public static final String STR_EN = "EN";
+    public static final String STR_RU = "RU";
 
     /*HTML Tags*/
     public static final String BR = "<br/>";

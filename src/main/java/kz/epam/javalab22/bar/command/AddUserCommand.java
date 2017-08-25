@@ -20,10 +20,10 @@ public class AddUserCommand implements ActionCommand {
         String page;
         User user;
 
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        Role role = Role.valueOf(request.getParameter("role").toUpperCase());
+        String login = request.getParameter(Const.PARAM_LOGIN);
+        String password = request.getParameter(Const.PARAM_PASSWORD);
+        String email = request.getParameter(Const.PARAM_EMAIL);
+        Role role = Role.valueOf(request.getParameter(Const.PARAM_ROLE).toUpperCase());
 
         user = new User(login,password,email,role);
 

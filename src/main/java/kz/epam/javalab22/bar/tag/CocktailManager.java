@@ -2,6 +2,8 @@ package kz.epam.javalab22.bar.tag;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.CocktailDao;
+import kz.epam.javalab22.bar.dao.ComponentDao;
+import kz.epam.javalab22.bar.dao.ComponentNameDao;
 import kz.epam.javalab22.bar.entity.BuildMethod;
 import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.entity.Glass;
@@ -31,10 +33,19 @@ public class CocktailManager extends TagSupport {
             out.write("<input type='text' name='name' value='' required>" + Const.BR);
             out.write(Const.P_CLS);
 
-            /*out.write(Const.P_OPN);
-            out.write("Компоненты" + Const.BR);
-            out.write("<input type='text' name='component' value='' required>" + Const.BR);
-            out.write(Const.P_CLS);*/
+            out.write(Const.P_OPN);
+            out.write("Компонент" + Const.BR);
+            out.write("<select name='component' title='component'>");
+
+            for (String componentName : new ComponentDao().getList()) {
+                out.write("<option value='" + componentName + "'>" + componentName + "</option>");
+            }
+            out.write("</select>");
+            out.write("Количество");
+            out.write("<input type='text' name='amount' value='' />");
+            out.write("<input type='button' value='Добавить компонент'/>");
+            out.write(Const.P_CLS);
+
 
             out.write(Const.P_OPN);
             out.write("Метод" + Const.BR);
@@ -52,6 +63,11 @@ public class CocktailManager extends TagSupport {
                 out.write("<option value='" + glass + "'>" + glass + "</option>");
             }
             out.write("</select>");
+            out.write(Const.P_CLS);
+
+            out.write(Const.P_OPN);
+            out.write("Изображение" + Const.BR);
+            out.write("<input type='file' />" + Const.BR);
             out.write(Const.P_CLS);
 
             out.write("<input type='submit' value='Добавить'/>");

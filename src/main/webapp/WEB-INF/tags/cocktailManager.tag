@@ -9,8 +9,5 @@
     </div>
     <div style="color: crimson">
         ${removeCocktailResult}
-        ${errorLoginPassMessage}
-        ${wrongAction}
-        ${nullPage}
     </div>
 

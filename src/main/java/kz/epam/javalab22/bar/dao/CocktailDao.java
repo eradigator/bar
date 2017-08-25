@@ -26,24 +26,26 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
     @Override
     public Cocktail update(Cocktail entity) {
-        throw new UnsupportedOperationException("Так делать нельзя");
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean delete(Cocktail entity) {
-        throw new UnsupportedOperationException("Так делать нельзя");
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean create(Cocktail entity) {
+
+        final String QUERY = "INSERT INTO public.cocktail(name/*,component*/,method,glass) " +
+                "VALUES(?/*,?*/,?,?)";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         Boolean success = false;
         int buildMethodId = new BuildMethodDao().getId(entity.getBuildMethod());
 
-        String query = "INSERT INTO public.cocktail(name/*,component*/,method,glass) VALUES(?/*,?*/,?,?)";
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
             ps.setString(1, entity.getName());
             /*ps.setString(2, "123");*/
             ps.setInt(2, buildMethodId);
@@ -92,10 +94,10 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
         String name;
         String imgPath;
+        int id;
+        Map<String, Integer> map;
         BuildMethod buildMethod;
         Glass glass;
-        int id;
-        Map<String,Integer> map;
 
         try {
             Statement statement = connection.createStatement();

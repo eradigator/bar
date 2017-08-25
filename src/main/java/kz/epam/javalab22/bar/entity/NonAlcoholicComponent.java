@@ -5,23 +5,7 @@ package kz.epam.javalab22.bar.entity;
  */
 public class NonAlcoholicComponent extends Component {
 
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public void setName(String name) {
-
-    }
-
-    @Override
-    public double getStrength() {
-        return 0;
-    }
-
-    @Override
-    public void setStrength(double strength) {
-
+    public NonAlcoholicComponent(int nameId, int type, double strength, double price) {
+        super(nameId, type, strength, price);
     }
 }

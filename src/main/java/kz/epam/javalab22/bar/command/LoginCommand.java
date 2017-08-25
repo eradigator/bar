@@ -13,8 +13,6 @@ import java.util.HashMap;
 public class LoginCommand implements ActionCommand {
 
     private static final Logger log = Logger.getLogger(LoginCommand.class);
-    private static final String PARAM_NAME_LOGIN = "login";
-    private static final String PARAM_NAME_PASSWORD = "password";
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -23,8 +21,8 @@ public class LoginCommand implements ActionCommand {
         HashMap<String, Object> sessionAttributes = new HashMap<>();
         String page;
 
-        String login = request.getParameter(PARAM_NAME_LOGIN);
-        String pass = request.getParameter(PARAM_NAME_PASSWORD);
+        String login = request.getParameter(Const.PARAM_LOGIN);
+        String pass = request.getParameter(Const.PARAM_PASSWORD);
 
         if (new LoginLogic().checkLogin(login, pass)) {
 

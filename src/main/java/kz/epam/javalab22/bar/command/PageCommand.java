@@ -20,6 +20,8 @@ public class PageCommand implements ActionCommand {
                     return ConfigurationManager.getProperty(Const.PAGE_MAIN); //тест временно
                 case "cocktailManager":
                     return ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER); //тест временно
+                case "componentManager":
+                    return ConfigurationManager.getProperty(Const.PAGE_COMPONENT_MANAGER); //тест временно
 
                 case "catalog":
                     request.setAttribute("content", "catalog");

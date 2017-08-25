@@ -14,16 +14,14 @@ public class LangCommand implements ActionCommand {
         String lang = request.getParameter("chosen");
         if (lang != null) {
             switch (lang) {
-                case "EN":
+                case Const.STR_EN:
                     request.getSession().setAttribute("locale", "en_US");
                     break;
-                case "RU":
+                case Const.STR_RU:
                     request.getSession().setAttribute("locale", "ru_RU");
                     break;
             }
         }
-
-        //System.out.println(request.getParameter("content"));
 
         String page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
         //String page = request.getHeader("referer");             //откуда пришли
