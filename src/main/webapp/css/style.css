@@ -1,5 +1,5 @@
 /* 1. General */
-@import url(https://fonts.googleapis.com/css?family=Tinos&subset=latin,cyrillic);
+/*@import url(https://fonts.googleapis.com/css?family=Tinos&subset=latin,cyrillic);*/
 
 html, body {
     height: 100%;
@@ -7,7 +7,7 @@ html, body {
 }
 
 body {
-    font-family: 'Tinos';
+    font-family: 'Tinos', serif;
     margin: auto;
     background-color: #fff;
     color: #333;
