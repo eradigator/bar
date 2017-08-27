@@ -36,6 +36,7 @@
 
     <div id="content">
         <my:cocktailManager/>
+        <my:addComponent/>
         <mytag:cocktailManager/>
     </div>
 

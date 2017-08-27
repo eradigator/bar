@@ -4,10 +4,9 @@
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
-    <div style="color:#02834b">
-        ${addCocktailResult}
-    </div>
-    <div style="color: crimson">
-        ${removeCocktailResult}
-    </div>
-
+<div style="color:#02834b">
+    <c:out value="${addCocktailResult}"/>
+</div>
+<div style="color: crimson">
+    ${removeCocktailResult}
+</div>
