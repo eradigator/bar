@@ -1,4 +1,4 @@
-package kz.epam.javalab22.bar.operation;
+package kz.epam.javalab22.bar.util;
 
 import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.entity.Component;

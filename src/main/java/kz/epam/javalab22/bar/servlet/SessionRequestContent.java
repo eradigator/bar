@@ -37,7 +37,6 @@ public class SessionRequestContent {
     public void extractValues(HttpServletRequest request) {
         // реализация
         request.getParameterNames();
-
     }
 
     // метод добавления в запрос данных для передачи в jsp
