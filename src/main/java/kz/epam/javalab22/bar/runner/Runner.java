@@ -1,12 +1,6 @@
 package kz.epam.javalab22.bar.runner;
 
 import kz.epam.javalab22.bar.dao.*;
-import kz.epam.javalab22.bar.entity.*;
-import kz.epam.javalab22.bar.operation.CalcAlcohol;
-
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 /**
  * Created by erad on 10.07.2017.
