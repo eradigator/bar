@@ -92,17 +92,19 @@
             }
         }
 
-        output.value += selectedComponent + ":" + amount.value;
-        output.setAttribute("component", selectedComponent);
-        output.setAttribute("component", "12412r1");
-        output.setAttribute("component", "asdasdas");
+        var selectedComponentAmount = amount.value;
+        output.value += selectedComponent + ":" + selectedComponentAmount;
+        /*output.setAttribute("component", selectedComponent);*/
 
-        /*var input = document.createElement("input");
-         input.setAttribute("type","hidden");
-         input.setAttribute("name","component");
+        var input = document.createElement("input");
+         input.setAttribute("name","ingredient");
          input.setAttribute("value",selectedComponent);
+         form.appendChild(input);
 
-         form.appendChild(input);*/
+        var input1 = document.createElement("input");
+        input1.setAttribute("name","amountOfIngredient");
+        input1.setAttribute("value",selectedComponentAmount);
+        form.appendChild(input1);
     }
 </script>
 

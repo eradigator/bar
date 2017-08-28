@@ -10,6 +10,9 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class AddCocktailCommand implements ActionCommand {
 
@@ -22,13 +25,20 @@ public class AddCocktailCommand implements ActionCommand {
         Cocktail cocktail;
 
         String name = request.getParameter("name");
-        String component = request.getParameter("component");
         BuildMethod buildMethod = BuildMethod.valueOf(request.getParameter("buildMethod"));
         Glass glass = Glass.valueOf(request.getParameter("glass"));
 
-        String[] components = request.getParameterValues("component");
-        System.out.println(Arrays.toString(components));
+        String[] components = request.getParameterValues("ingredient");
+        String[] amounts = request.getParameterValues("amountOfIngredient");
 
+        Map<String,Integer> mix = new LinkedHashMap<>();
+        for (int i=0; i<components.length; i++) {
+            mix.put(components[i],Integer.parseInt(amounts[i]));
+        }
+
+        for (Map.Entry<String,Integer> pair : mix.entrySet()) {
+            System.out.println(pair.getKey() +": "+ pair.getValue());
+        }
 
         cocktail = new Cocktail(name, buildMethod, glass);
         new CocktailDao().create(cocktail);
