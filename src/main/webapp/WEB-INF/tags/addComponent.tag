@@ -1,60 +1,108 @@
 <%@ tag import="kz.epam.javalab22.bar.dao.ComponentDao" %>
+<%@ tag import="kz.epam.javalab22.bar.entity.BuildMethod" %>
+<%@ tag import="kz.epam.javalab22.bar.entity.Glass" %>
 <%@ tag body-content="empty" dynamic-attributes="dynattrs" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
-<div style="color:#02834b">
-    <c:out value="${addCocktailResult}"/>
-</div>
-<div style="color: crimson">
-    ${removeCocktailResult}
-</div>
+<h5>Добавление коктейля:</h5>
 
-<form>
-    <select id="mySelect" size="8">
-        <option>Apple</option>
-        <option>Pear</option>
-        <option>Banana</option>
-        <option>Orange</option>
-    </select>
-    <output id="outputTag">
-    </output>
+<form name='addCocktail' method='post' action='${pageContext.request.contextPath}/jsp/controller'>
+    <input type='hidden' name='command' value='add_cocktail'>
+
+    <p>
+        Название<br/>
+        <input type='text' name='name' value='' required title="">
+        <br/>
+    </p>
+
+    <p>
+        Компонент:
+        <br/>
+        <select id="component" name="component" title="">
+            <% for (String componentName : new ComponentDao().getList()) { %>
+            <option value='<%=componentName%>'>
+                <%=componentName%>
+            </option>
+            <%} %>
+        </select>
+        Количество
+        <input id="amount" name="amount" title=""/>
+        <button type="button" onclick="addComponent()">Insert option</button>
+    </p>
+
+    <p>
+        <output id="outputTag" name="output">
+        </output>
+    </p>
+
+    <p>
+        Метод:<br/>
+        <select name='buildMethod' title='buildMethod'>
+            <% for (BuildMethod buildMethod : BuildMethod.values()) { %>
+            <option value=<%=buildMethod%>>
+                <%=buildMethod%>
+            </option>
+            <%} %>
+        </select>
+    </p>
+
+    <p>
+        Стакан:<br/>
+        <select name='glass' title='glass'>
+            <%for (Glass glass : Glass.values()) {%>
+            <option value=<%=glass%>>
+                <%=glass%>
+            </option>
+            <%} %>
+        </select>
+    </p>
+
+    <%--<c:forEach var="s" items="${result}" varStatus="status">
+        <option value="${s}">${s}</option>
+    </c:forEach>--%>
+
+    <p>
+        Изображение:<br/>
+        <input type='file'/>
+    </p>
+
+    <p>
+        <input type='submit' value='Добавить'/>
+    </p>
+
 </form>
-<br>
 
-<hr/>
-<h5>ДОБАВЛЕНИЕ КОМПОНЕНТА</h5>
-<p>
-    Компонент:
-    <br/>
-    <select name='component' title='component'>
-        <% for (String componentName : new ComponentDao().getList()) { %>
-        <option value=<%=componentName%>>
-            <%=componentName%>
-        </option>
-        <%} %>
-    </select>
-    Количество
-    <input name='amount' value='' title=""/>
-    <input type='button' value='Добавить компонент'/>
-</p>
-
-<hr/>
-
-
-<p>Click the button to add a "Kiwi" option at the end of the dropdown list.</p>
-
-<button type="button" onclick="myFunction()">Insert option</button>
 
 <script>
-    function myFunction() {
-        var x = document.getElementById("mySelect");
-        var y = document.getElementById("outputTag");
-        var option = document.createElement("option");
-        option.text = "Kiwi";
-        x.add(option);
-        y.value += ("Vodka");
+    function addComponent() {
+
+        var form = document.forms.addCocktail;
+        var select = form.elements.component;
+        var br = document.createElement('br');
+        var amount = document.getElementById("amount");
+        var output = document.getElementById("outputTag");
+
+        for (var i = 0; i < select.options.length; i++) {
+            var option = select.options[i];
+            if (option.selected) {
+                var selectedComponent = option.value;
+            }
+        }
+
+        output.value += selectedComponent + ":" + amount.value;
+        output.setAttribute("component", selectedComponent);
+        output.setAttribute("component", "12412r1");
+        output.setAttribute("component", "asdasdas");
+
+        /*var input = document.createElement("input");
+         input.setAttribute("type","hidden");
+         input.setAttribute("name","component");
+         input.setAttribute("value",selectedComponent);
+
+         form.appendChild(input);*/
     }
 </script>
+
