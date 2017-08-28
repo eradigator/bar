@@ -9,6 +9,7 @@ import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 public class AddCocktailCommand implements ActionCommand {
 
@@ -21,9 +22,13 @@ public class AddCocktailCommand implements ActionCommand {
         Cocktail cocktail;
 
         String name = request.getParameter("name");
-        //String component = request.getParameter("component");
+        String component = request.getParameter("component");
         BuildMethod buildMethod = BuildMethod.valueOf(request.getParameter("buildMethod"));
         Glass glass = Glass.valueOf(request.getParameter("glass"));
+
+        String[] components = request.getParameterValues("component");
+        System.out.println(Arrays.toString(components));
+
 
         cocktail = new Cocktail(name, buildMethod, glass);
         new CocktailDao().create(cocktail);
