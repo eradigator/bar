@@ -5,12 +5,24 @@ import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by vten on 25.08.2017.
  */
 public class ComponentDao extends AbstractDao {
+
+    private Connection connection;
+
+    public ComponentDao() {
+    }
+
+    public ComponentDao(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public Object update(Object entity) {
         return null;
@@ -71,6 +83,49 @@ public class ComponentDao extends AbstractDao {
         }
 
         connectionPool.returnConnection(connection);
+        return components;
+    }
+
+    public Map<Integer, String> getComponents() {
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        //autocommit - false
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Map<Integer,String> components = new LinkedHashMap<>();
+        String name;
+        int id;
+
+        try {
+            final String QUERY = "SELECT c.id,cn.ru AS ru, cn.en AS en\n" +
+                    "FROM public.component c \n" +
+                    "INNER JOIN public.component_name cn ON c.name_id = cn.id";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(QUERY);
+            while (resultSet.next()) {
+                name = resultSet.getString("ru");
+                id = resultSet.getInt("id");
+                components.put(id,name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //commit
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //connectionPool.returnConnection(connection);
         return components;
     }
 }

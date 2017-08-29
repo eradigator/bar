@@ -1,6 +1,14 @@
 package kz.epam.javalab22.bar.runner;
 
-import kz.epam.javalab22.bar.dao.*;
+import kz.epam.javalab22.bar.pool.ConnectionPool;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by erad on 10.07.2017.
@@ -9,47 +17,63 @@ import kz.epam.javalab22.bar.dao.*;
 
 public class Runner {
 
-    private static final String COCKTAIL_NAME_WHITE_RUSSIAN = "Белый Русский";
+    public static void main(String[] args) throws IOException {
 
+        Connection conn = ConnectionPool.getInstance().getConnection();
+        PreparedStatement ps = null;
 
-    public static void main(String[] args) {
+        /*File file = new File("src/main/webapp/images/cocktails/noimage.jpg");
+        FileInputStream fis = new FileInputStream(file);
 
-
-        /*Cocktail whiteRussian = new Cocktail(COCKTAIL_NAME_WHITE_RUSSIAN);
-        whiteRussian.setBuildMethod(BuildMethod.BUILD);
-        whiteRussian.setGlass(Glass.OLD_FASHIONED);
-
-        Component vodka = new AlcoholicComponent();
-        vodka.setStrength(40);
-        whiteRussian.addComponent(vodka, 25);
-
-        Component kalua = new AlcoholicComponent();
-        kalua.setStrength(20);
-        whiteRussian.addComponent(kalua, 25);
-
-        Component cream = new NonAlcoholicComponent();
-        whiteRussian.addComponent(cream, 30);
-
-        System.out.println(whiteRussian);
-
-        int strengthWhiteRussian = new CalcAlcohol().calcAlcohol(whiteRussian);
-        System.out.println("Крепость коктейля: " + strengthWhiteRussian + "%");*/
-
-        //System.out.println(new CocktailDao().update("Черный русский"));
-
-        /*Map<String,Integer> map = new MixDao().getMix(8);
-
-        for (Map.Entry<String,Integer> pair: map.entrySet()) {
-            System.out.println(pair.getKey() + ": "+ pair.getValue());
+        try {
+            ps = conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
+            ps.setString(1, file.getName());
+            ps.setBinaryStream(2, fis, (int)file.length());
+            ps.executeUpdate();
+            ps.close();
+            fis.close();
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
         }*/
 
-        /*List<String> list = new ComponentTypeDao().getComponentTypeList();
-        for (String s : list) {
-            System.out.println(s);
-        }*/
+        byte[] imgBytes=null;
 
-        for (String s : new ComponentNameDao().getComponentNameList()) {
-            System.out.println(s);
+        try {
+            ps = conn.prepareStatement("SELECT img FROM images WHERE imgname = ?");
+            ps.setString(1, "noimage.jpg");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                imgBytes = rs.getBytes(1);
+                // use the data in some way here
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        ConnectionPool.getInstance().returnConnection(conn);
+
+        getImg(imgBytes);
+    }
+
+    public static void getImg(byte[] bytes) {
+        OutputStream out = null;
+
+        try {
+            try {
+                out = new BufferedOutputStream(new FileOutputStream("src/main/webapp/images/cocktails/test.jpg"));
+                out.write(bytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } finally {
+            if (out != null) try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }

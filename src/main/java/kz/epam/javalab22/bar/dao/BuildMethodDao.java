@@ -29,10 +29,11 @@ public class BuildMethodDao extends AbstractDao<BuildMethod> {
     public int getId(BuildMethod buildMethod) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-        int id=0;
+        int id = 0;
 
-        final String QUERY = "SELECT id FROM public.build_method WHERE method_name = '" +
-                buildMethod.toString() + "'";
+        final String QUERY = "SELECT id " +
+                "FROM build_method " +
+                "WHERE method_name = '" + buildMethod.toString() + "'";
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
