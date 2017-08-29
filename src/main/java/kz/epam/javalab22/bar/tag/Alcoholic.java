@@ -44,7 +44,10 @@ public class Alcoholic extends TagSupport {
                 out.write("<div class='cocktail' >");
                 /*out.write("<a href='/bar/images/cocktails/white_russian.jpg' target='_blank'>");*/
                 out.write("<a href='" + cocktail.getImgPath() + "' target='_blank'>");
-                out.write("<img class='cocktail_image' src='" + cocktail.getImgPath() + "'>");
+                if (cocktail.getImgPath() != null) {
+                    out.write("<img class='cocktail_image' src='" + cocktail.getImgPath() + "'>");
+                } else
+                    out.write("<img class='cocktail_image' src='/bar/images/cocktails/noimage.jpg'>");
                 out.write("</a>");
                 out.write("<b>"+"Название: " + cocktail.getName() + "</b>" +Const.BR);
                 out.write("Метод приготовления: " + cocktail.getBuildMethod().toString() + Const.BR);

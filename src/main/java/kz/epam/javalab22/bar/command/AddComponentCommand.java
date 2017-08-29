@@ -8,10 +8,12 @@ import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.logic.LoginLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
+import kz.epam.javalab22.bar.pool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.SessionRequestContent;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Connection;
 import java.util.HashMap;
 
 public class AddComponentCommand implements ActionCommand {
@@ -31,35 +33,17 @@ public class AddComponentCommand implements ActionCommand {
         double strength = Double.parseDouble(request.getParameter("strength"));
         double price = Double.parseDouble(request.getParameter("price"));
 
-        page = ConfigurationManager.getProperty(Const.PAGE_COMPONENT_MANAGER);
-
-        /*System.out.println(name_RU);
-        System.out.println(name_EN);
-        System.out.println(componentType);
-        System.out.println(strength);
-        System.out.println(price);*/
 
         ComponentName componentName = new ComponentName(name_EN, name_RU);
         Boolean result = new ComponentNameDao().create(componentName);
-        System.out.println(result);
 
         int nameId = new ComponentNameDao().getId(componentName);
-        Component component = new Component(nameId,componentType,strength,price);
+        Component component = new Component(nameId, componentType, strength, price);
+        Connection connection = ConnectionPool.getInstance().getConnection();
         new ComponentDao().insert(component);
 
-        /*if (new LoginLogic().checkLogin(login, pass)) {
-
-            sessionAttributes.put("username", login);
-            sessionAttributes.put("role", "admin");
-
-            sessionRequestContent.setSessionAttributes(sessionAttributes);
-            sessionRequestContent.insertAttributes(request);
-
-
-
-            log.info(login + " залогинился");
-
-        } else {
+        page = ConfigurationManager.getProperty(Const.PAGE_COMPONENT_MANAGER);
+        /*else {
             log.info(login + ": неудачная попытка входа");
             String message = MessageManager.getProperty("message.loginerror");
             request.setAttribute("errorLoginPassMessage", message);

@@ -15,6 +15,16 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
 
+    @Override
+    public void init() throws ServletException {
+        ConnectionPool.getInstance();
+    }
+
+    @Override
+    public void destroy() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connectionPool.closeConnections();
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
