@@ -11,7 +11,7 @@
 <h5>Добавление коктейля:</h5>
 
 <form name='addCocktail' method='post' action='${pageContext.request.contextPath}/jsp/controller'
-      <%--enctype="multipart/form-data"--%>>
+      enctype="multipart/form-data">
     <input type='hidden' name='command' value='add_cocktail'>
 
     <p>
@@ -74,7 +74,7 @@
 
     <p>
         Изображение:<br/>
-        <input type="file" name="image" multiple accept="image/*" size="5"/>
+        <input type="file" name="image" accept="image/*" size="5"/>
     </p>
 
     <p>

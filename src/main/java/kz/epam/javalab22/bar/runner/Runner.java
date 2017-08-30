@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by erad on 10.07.2017.
@@ -22,25 +24,11 @@ public class Runner {
         Connection conn = ConnectionPool.getInstance().getConnection();
         PreparedStatement ps = null;
 
-        /*File file = new File("src/main/webapp/images/cocktails/noimage.jpg");
-        FileInputStream fis = new FileInputStream(file);
-
-        try {
-            ps = conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
-            ps.setString(1, file.getName());
-            ps.setBinaryStream(2, fis, (int)file.length());
-            ps.executeUpdate();
-            ps.close();
-            fis.close();
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }*/
-
         byte[] imgBytes=null;
 
         try {
             ps = conn.prepareStatement("SELECT img FROM images WHERE imgname = ?");
-            ps.setString(1, "noimage.jpg");
+            ps.setString(1, "test");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 imgBytes = rs.getBytes(1);
@@ -55,6 +43,7 @@ public class Runner {
         ConnectionPool.getInstance().returnConnection(conn);
 
         getImg(imgBytes);
+
     }
 
     public static void getImg(byte[] bytes) {
@@ -75,6 +64,26 @@ public class Runner {
                 e.printStackTrace();
             }
         }
+    }
 
+    public static void addImg(InputStream inputStream, int length) {
+        Connection conn = ConnectionPool.getInstance().getConnection();
+        PreparedStatement ps = null;
+
+        /*File file = new File("src/main/webapp/images/cocktails/noimage.jpg");
+        FileInputStream fis = new FileInputStream(file);*/
+
+        try {
+            ps = conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
+            ps.setString(1, "test");
+            //ps.setBinaryStream(2, fis, (int)file.length())
+            ps.setBinaryStream(2, inputStream, length);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        ConnectionPool.getInstance().returnConnection(conn);
     }
 }
