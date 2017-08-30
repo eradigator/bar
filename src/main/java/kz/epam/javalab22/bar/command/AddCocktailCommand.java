@@ -11,13 +11,13 @@ import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.runner.Runner;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
+import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -38,32 +38,38 @@ public class AddCocktailCommand implements ActionCommand {
         String[] components = request.getParameterValues("ingredient");
         String[] amounts = request.getParameterValues("amountOfIngredient");
 
-       /* DataInputStream in = null;
+
+        /*-----------------------------------------------------------------------*/
+
+        InputStream inputStream = null;
+        int length=0;
+
         try {
-            in = new DataInputStream(request.getInputStream());
+            Part filePart = request.getPart("image");
+
+            if (filePart != null) {
+                System.out.println(filePart.getName());
+                System.out.println(filePart.getSize());
+                length = (int) filePart.getSize();
+                System.out.println(filePart.getContentType());
+
+                inputStream = filePart.getInputStream();
+            }
+
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
+        }
+
+        Runner.addImg(inputStream,length);
+
+        try {
+            assert inputStream != null;
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        //we are taking the length of Content type data
-        int formDataLength = request.getContentLength();
-        byte dataBytes[] = new byte[formDataLength];
-        int byteRead = 0;
-        int totalBytesRead = 0;
-
-        //this loop converting the uploaded file into byte code
-        while (totalBytesRead < formDataLength) {
-            try {
-                byteRead = in.read(dataBytes, totalBytesRead, formDataLength);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            totalBytesRead += byteRead;
-        }
-
-        String file = new String(dataBytes);
-        //for saving the file name
-        Runner.getImg(dataBytes);*/
+        /*--------------------------------------------------------------------------*/
 
 
         Map<Integer, Double> mix = new LinkedHashMap<>();
