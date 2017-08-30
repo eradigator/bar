@@ -8,11 +8,13 @@ import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@MultipartConfig(maxFileSize = 16177215)
 public class Controller extends HttpServlet {
 
     @Override

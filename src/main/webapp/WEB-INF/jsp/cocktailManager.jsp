@@ -35,6 +35,8 @@
     </div>
 
     <div id="content">
+        <%--<my:addImage/>--%>
+
         <my:cocktailManager/>
         <my:addCocktail/>
         <mytag:cocktailManager/>
