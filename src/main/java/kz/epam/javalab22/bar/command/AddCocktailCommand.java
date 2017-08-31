@@ -2,12 +2,11 @@ package kz.epam.javalab22.bar.command;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.CocktailDao;
+import kz.epam.javalab22.bar.dao.ImageDao;
 import kz.epam.javalab22.bar.dao.MixDao;
-import kz.epam.javalab22.bar.entity.BuildMethod;
-import kz.epam.javalab22.bar.entity.Cocktail;
-import kz.epam.javalab22.bar.entity.Glass;
-import kz.epam.javalab22.bar.entity.Mix;
+import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
+import kz.epam.javalab22.bar.pool.ConnectionPool;
 import kz.epam.javalab22.bar.runner.Runner;
 import org.apache.log4j.Logger;
 
@@ -17,6 +16,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,20 +38,22 @@ public class AddCocktailCommand implements ActionCommand {
         String[] components = request.getParameterValues("ingredient");
         String[] amounts = request.getParameterValues("amountOfIngredient");
 
+        Connection connection = ConnectionPool.getInstance().getConnection();
 
         /*-----------------------------------------------------------------------*/
+        //Картинка
 
         InputStream inputStream = null;
-        int length=0;
+        long length=0;
 
         try {
             Part filePart = request.getPart("image");
 
             if (filePart != null) {
-                System.out.println(filePart.getName());
-                System.out.println(filePart.getSize());
-                length = (int) filePart.getSize();
-                System.out.println(filePart.getContentType());
+                //System.out.println(filePart.getName());
+                //System.out.println(filePart.getSize());
+                length = filePart.getSize();
+                //System.out.println(filePart.getContentType());
 
                 inputStream = filePart.getInputStream();
             }
@@ -60,7 +62,8 @@ public class AddCocktailCommand implements ActionCommand {
             e.printStackTrace();
         }
 
-        Runner.addImg(inputStream,length);
+        Image image = new Image(inputStream,length);
+        new ImageDao(connection).add(image);
 
         try {
             assert inputStream != null;
@@ -68,6 +71,8 @@ public class AddCocktailCommand implements ActionCommand {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        ConnectionPool.getInstance().returnConnection(connection);
 
         /*--------------------------------------------------------------------------*/
 
@@ -77,7 +82,7 @@ public class AddCocktailCommand implements ActionCommand {
             mix.put(Integer.parseInt(components[i]), Double.parseDouble(amounts[i]));
         }
 
-        cocktail = new Cocktail(name, buildMethod, glass);
+        cocktail = new Cocktail(name, buildMethod, glass, image);
         new CocktailDao().create(cocktail);
 
         int cocktailId = new CocktailDao().getId(name);

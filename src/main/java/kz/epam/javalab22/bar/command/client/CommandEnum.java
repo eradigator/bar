@@ -1,6 +1,7 @@
 package kz.epam.javalab22.bar.command.client;
 
 import kz.epam.javalab22.bar.command.*;
+import kz.epam.javalab22.bar.command.ImageCommand;
 
 public enum CommandEnum {
     LOGIN {
@@ -53,6 +54,11 @@ public enum CommandEnum {
             this.command = new CalcStrengthCommand();
         }
     },
+    IMAGE {
+        {
+            this.command = new ImageCommand();
+        }
+    }
     ;
 
     ActionCommand command;
