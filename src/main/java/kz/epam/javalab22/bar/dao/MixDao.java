@@ -68,7 +68,7 @@ public class MixDao extends AbstractDao<Mix> {
                 "FROM public.mix m \n" +
                 "INNER JOIN public.component c ON m.component_id = c.id\n" +
                 "INNER JOIN public.component_name cn ON c.name_id = cn.id\n" +
-                "WHERE cocktail_id = "+ cocktailId +"";
+                "WHERE cocktail_id = "+ cocktailId;
 
         try {
             Statement statement = connection.createStatement();

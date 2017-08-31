@@ -4,7 +4,7 @@
 <c:set var="content" value="${content}" scope="page"/>
 <c:choose>
     <c:when test="${content == 'alcoholic'}">
-        <mytag:getinfo/>
+        <my:alcoholic/>
     </c:when>
     <c:when test="${content == 'non_alcoholic'}">
         <my:person Age="28" EmployeeId="74852" Name="Bruce Wayne" />

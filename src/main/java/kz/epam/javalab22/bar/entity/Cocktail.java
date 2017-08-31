@@ -13,16 +13,19 @@ public class Cocktail {
     private Glass glass;
     //private Map<Component, Integer> components = new HashMap<Component, Integer>();
     private Map<String, Integer> components = new HashMap<>();
+    private Image image;
+    private int imageId;
 
     public Cocktail(String name) {
         this.name = name;
     }
 
 
-    public Cocktail(String name, BuildMethod buildMethod, Glass glass) {
+    public Cocktail(String name, BuildMethod buildMethod, Glass glass, Image image) {
         this.name = name;
         this.buildMethod = buildMethod;
         this.glass = glass;
+        this.image = image;
     }
 
     public Cocktail(String name, BuildMethod buildMethod, Glass glass, String imgPath) {
@@ -32,12 +35,13 @@ public class Cocktail {
         this.imgPath = imgPath;
     }
 
-    public Cocktail(String name, Map<String,Integer> components, BuildMethod buildMethod, Glass glass, String imgPath) {
+    public Cocktail(String name, Map<String,Integer> components, BuildMethod buildMethod, Glass glass, String imgPath, int imageId) {
         this.name = name;
         this.buildMethod = buildMethod;
         this.glass = glass;
         this.imgPath = imgPath;
         this.components = components;
+        this.imageId = imageId;
     }
 
     public String getName() {
@@ -78,6 +82,22 @@ public class Cocktail {
 
     public Map<String, Integer> getComponents() {
         return components;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     @Override

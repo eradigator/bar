@@ -11,13 +11,13 @@
 
     <p>
         "A"<br/>
-        <input type='text' name='a' value='' required title="">
+        <input type="number" name="a" min="0" max="100" step="0.1" value="0" title="" required>
         <br/>
     </p>
     +
     <p>
         "B"<br/>
-        <input type='text' name='b' value='' required title="">
+        <input type="number" name="b" min="0" max="100" step="0.1" value="0" title="" required>
         <br/>
     </p>
 
