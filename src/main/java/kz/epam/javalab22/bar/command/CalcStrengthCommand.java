@@ -12,29 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 
 public class CalcStrengthCommand implements ActionCommand {
 
-    private static final Logger log = Logger.getLogger(CalcStrengthCommand.class);
-
     @Override
     public String execute(HttpServletRequest request) {
 
         String page;
-        User user;
 
-        int a = Integer.parseInt(request.getParameter("a"));
-        int b = Integer.parseInt(request.getParameter("b"));
-        int summ = a + b;
+        double a = Double.parseDouble(request.getParameter("a"));
+        double b = Double.parseDouble(request.getParameter("b"));
+        double summ = a + b;
 
         request.setAttribute("result", summ);
-        //log.info("Пользователь: " + login + " добавлен");
-
-        /*
-        } else{
-        request.setAttribute("errorLoginPassMessage",MessageManager.getProperty("message.loginerror"));
-        }
-        */
-
         request.setAttribute("content", "calculator");
-        page=ConfigurationManager.getProperty(Const.PAGE_INDEX);
+        page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
         return page;
-        }
-        }
+    }
+}

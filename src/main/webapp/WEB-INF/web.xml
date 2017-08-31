@@ -27,6 +27,15 @@
         <servlet-name>Controller</servlet-name>
         <url-pattern>/jsp/controller</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ImageServlet</servlet-name>
+        <servlet-class>kz.epam.javalab22.bar.servlet.ImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImageServlet</servlet-name>
+        <url-pattern>/image</url-pattern>
+    </servlet-mapping>
 
      <filter>
         <filter-name>EncodingFilter</filter-name>

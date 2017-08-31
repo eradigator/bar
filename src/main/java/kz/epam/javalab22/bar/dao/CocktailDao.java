@@ -37,19 +37,19 @@ public class CocktailDao extends AbstractDao<Cocktail> {
     @Override
     public boolean create(Cocktail entity) {
 
-        final String QUERY = "INSERT INTO public.cocktail(name/*,component*/,method,glass) " +
-                "VALUES(?/*,?*/,?,?)";
+        final String QUERY = "INSERT INTO public.cocktail(name,method,glass,image_id) " +
+                "VALUES(?,?,?,?)";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-        Boolean success = false;
         int buildMethodId = new BuildMethodDao().getId(entity.getBuildMethod());
+        Boolean success = false;
 
         try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
             ps.setString(1, entity.getName());
-            /*ps.setString(2, "123");*/
             ps.setInt(2, buildMethodId);
             ps.setString(3, entity.getGlass().toString());
+            ps.setInt(4,entity.getImage().getId());
             ps.execute();
             success = true;
         } catch (SQLException e) {
@@ -108,7 +108,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
     public List<Cocktail> getCocktailsList() {
 
-        final String QUERY = "SELECT c.id,c.name,c.glass,c.img,b.method_name AS method " +
+        final String QUERY = "SELECT c.id,c.name,c.glass,c.img,c.image_id,b.method_name AS method " +
                 "FROM public.cocktail c " +
                 "INNER JOIN public.build_method b ON c.method = b.id";
 
@@ -122,6 +122,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         Map<String, Integer> map;
         BuildMethod buildMethod;
         Glass glass;
+        int imageId;
 
         try {
             Statement statement = connection.createStatement();
@@ -132,8 +133,9 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 buildMethod = BuildMethod.valueOf(resultSet.getString("method"));
                 glass = Glass.valueOf(resultSet.getString("glass"));
                 imgPath = resultSet.getString("img");
+                imageId = resultSet.getInt("image_id");
                 map = new MixDao().getMix(id);
-                cocktailList.add(new Cocktail(name, map, buildMethod, glass, imgPath));
+                cocktailList.add(new Cocktail(name, map, buildMethod, glass, imgPath, imageId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
