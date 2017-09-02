@@ -49,7 +49,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             ps.setString(1, entity.getName());
             ps.setInt(2, buildMethodId);
             ps.setString(3, entity.getGlass().toString());
-            ps.setInt(4,entity.getImage().getId());
+            ps.setInt(4, entity.getImage().getId());
             ps.execute();
             success = true;
         } catch (SQLException e) {
@@ -88,7 +88,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
 
-        int id=0;
+        int id = 0;
 
         try {
             Statement statement = connection.createStatement();
@@ -147,19 +147,21 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
     public boolean deleteByName(String name) {
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
         Boolean success = false;
+        final String QUERY = String.format("DELETE FROM cocktail WHERE name = '%s'", name);
 
         try {
             Statement statement = connection.createStatement();
-            statement.executeQuery("DELETE FROM public.\"cocktail\" WHERE NAME = '" + name + "'");
-            success = true;
+            int rowsAffected = statement.executeUpdate(QUERY);
+
+            if (rowsAffected > 0) {
+                success = true;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return success;
     }
 
@@ -171,7 +173,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
         try {
             Statement statement = connection.createStatement();
-            statement.executeQuery("UPDATE public.\"cocktail\" SET img = '/bar/images/cocktails/black_russian.jpg'" +
+            statement.executeQuery("UPDATE public.\"cocktail\" SET img = '/bar/images/cocktails/name.jpg'" +
                     "WHERE NAME= '" + name + "'");
             success = true;
         } catch (SQLException e) {

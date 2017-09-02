@@ -1,5 +1,7 @@
-package kz.epam.javalab22.bar.command;
+package kz.epam.javalab22.bar.command.impl;
 
+import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.impl.LoginCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import org.apache.log4j.Logger;

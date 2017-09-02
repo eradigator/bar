@@ -16,7 +16,7 @@ public class UserManagement extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
 
-        List<User> userList;
+        /*List<User> userList;
         userList = new UserDao().getUserList();
 
         try {
@@ -51,7 +51,7 @@ public class UserManagement extends TagSupport {
 
         } catch (IOException e) {
             throw new JspException(e.getMessage());
-        }
+        }*/
 
         return SKIP_BODY;
     }

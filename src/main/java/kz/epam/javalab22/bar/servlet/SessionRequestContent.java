@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SessionRequestContent {
-    private HashMap<String, Object> requestAttributes;
-    private HashMap<String, String[]> requestParameters;
-    private HashMap<String, Object> sessionAttributes;
+    private Map<String, Object> requestAttributes;
+    private Map<String, String> nonArrayRequestParameters;
+    private Map<String, String[]> requestParameters;
+    private Map<String, Object> sessionAttributes;
 
-    public HashMap<String, Object> getRequestAttributes() {
+    public Map<String, Object> getRequestAttributes() {
         return requestAttributes;
     }
 
@@ -17,26 +18,31 @@ public class SessionRequestContent {
         this.requestAttributes = requestAttributes;
     }
 
-    public HashMap<String, String[]> getRequestParameters() {
+    public Map<String, String[]> getRequestParameters() {
         return requestParameters;
     }
 
-    public void setRequestParameters(HashMap<String, String[]> requestParameters) {
+    public Map<String, String> getNonArrayRequestParameters() {
+        return nonArrayRequestParameters;
+    }
+
+    public void setRequestParameters(Map<String, String[]> requestParameters) {
         this.requestParameters = requestParameters;
     }
 
-    public HashMap<String, Object> getSessionAttributes() {
+    public Map<String, Object> getSessionAttributes() {
         return sessionAttributes;
     }
 
-    public void setSessionAttributes(HashMap<String, Object> sessionAttributes) {
+    public void setSessionAttributes(Map<String, Object> sessionAttributes) {
         this.sessionAttributes = sessionAttributes;
     }
 
     // метод извлечения информации из запроса
     public void extractValues(HttpServletRequest request) {
-        // реализация
-        request.getParameterNames();
+        requestParameters = request.getParameterMap();
+        nonArrayRequestParameters = convertArrayValueToString(requestParameters);
+
     }
 
     // метод добавления в запрос данных для передачи в jsp
@@ -46,6 +52,16 @@ public class SessionRequestContent {
             request.getSession().setAttribute(entry.getKey(), entry.getValue());
         }
 
+    }
+
+    private Map<String,String> convertArrayValueToString(Map<String,String[]> map) {
+
+        Map<String,String> resultMap = new HashMap<>();
+
+        for (Map.Entry<String,String[]> pair : map.entrySet()) {
+            resultMap.put(pair.getKey(),pair.getValue()[0]);
+        }
+        return resultMap;
     }
 
 }

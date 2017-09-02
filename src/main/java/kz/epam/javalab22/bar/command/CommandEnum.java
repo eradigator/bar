@@ -1,7 +1,6 @@
-package kz.epam.javalab22.bar.command.client;
+package kz.epam.javalab22.bar.command;
 
-import kz.epam.javalab22.bar.command.*;
-import kz.epam.javalab22.bar.command.ImageCommand;
+import kz.epam.javalab22.bar.command.impl.*;
 
 public enum CommandEnum {
     LOGIN {
@@ -49,7 +48,7 @@ public enum CommandEnum {
             this.command = new AddComponentCommand();
         }
     },
-    CALC_STRENGTH {
+    CALCULATOR {
         {
             this.command = new CalcStrengthCommand();
         }

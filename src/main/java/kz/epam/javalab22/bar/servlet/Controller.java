@@ -56,7 +56,7 @@ public class Controller extends HttpServlet {
 
             // установка страницы c cообщением об ошибке
             page = ConfigurationManager.getProperty("path.page.index");
-            request.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullpage"));
+            request.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullPage"));
             response.sendRedirect(request.getContextPath() + page);
         }
     }
