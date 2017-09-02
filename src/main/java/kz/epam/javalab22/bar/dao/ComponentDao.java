@@ -98,7 +98,7 @@ public class ComponentDao extends AbstractDao {
             e.printStackTrace();
         }
 
-        Map<Integer,String> components = new LinkedHashMap<>();
+        Map<Integer, String> components = new LinkedHashMap<>();
         String name;
         int id;
 
@@ -112,7 +112,7 @@ public class ComponentDao extends AbstractDao {
             while (resultSet.next()) {
                 name = resultSet.getString("ru");
                 id = resultSet.getInt("id");
-                components.put(id,name);
+                components.put(id, name);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -125,7 +125,30 @@ public class ComponentDao extends AbstractDao {
             e.printStackTrace();
         }
 
-        //connectionPool.returnConnection(connection);
+        connectionPool.returnConnection(connection);
         return components;
+    }
+
+
+    public Component getComponent(int id) {
+
+        final String QUERY = "SELECT id,strength,price FROM component WHERE id=" + id;
+
+        double strength=0;
+        double price=0;
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(QUERY);
+            while (resultSet.next()) {
+                strength = resultSet.getDouble("strength");
+                price = resultSet.getDouble("price");
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new Component(id,strength,price);
     }
 }

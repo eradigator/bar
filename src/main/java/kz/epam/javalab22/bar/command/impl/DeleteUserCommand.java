@@ -1,5 +1,6 @@
-package kz.epam.javalab22.bar.command;
+package kz.epam.javalab22.bar.command.impl;
 
+import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.DeleteUserLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
@@ -18,15 +19,14 @@ public class DeleteUserCommand implements ActionCommand {
         String page;
 
         String checkedUserName = request.getParameter("checkedName");
-        System.out.println(checkedUserName);
+
         if (checkedUserName != null) {
             if (new DeleteUserLogic().deleteUser(checkedUserName)) {
-                System.out.println(true);
                 request.setAttribute("deleteUserResult", "Пользователь удален");
                 log.info("Пользователь: " + checkedUserName + " удален");
             }
         } else {
-            request.setAttribute("deleteUserResult", MessageManager.getProperty("message.loginerror"));
+            request.setAttribute("deleteUserResult", MessageManager.getProperty("message.deleteUserError"));
         }
 
         page = ConfigurationManager.getProperty(Const.PAGE_MAIN);

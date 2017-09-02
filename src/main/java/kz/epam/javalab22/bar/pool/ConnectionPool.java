@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.pool;
 
+import kz.epam.javalab22.bar.manager.DatabaseManager;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,10 +14,10 @@ public class ConnectionPool {
     private static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/bar";
     private static final String DB_USER = "postgres";
     private static final String DB_PASS = "pass123";
-
     private static int CONNECTIONS_COUNT = 10;
     private static ConnectionPool instance;
     private static ArrayBlockingQueue<Connection> connections = new ArrayBlockingQueue<>(CONNECTIONS_COUNT);
+
 
     private ConnectionPool() {
         initialize();

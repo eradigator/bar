@@ -1,5 +1,6 @@
-package kz.epam.javalab22.bar.command;
+package kz.epam.javalab22.bar.command.impl;
 
+import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
@@ -17,15 +18,12 @@ public class AddUserCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        String page;
-        User user;
-
         String login = request.getParameter(Const.PARAM_LOGIN);
         String password = request.getParameter(Const.PARAM_PASSWORD);
         String email = request.getParameter(Const.PARAM_EMAIL);
         Role role = Role.valueOf(request.getParameter(Const.PARAM_ROLE).toUpperCase());
 
-        user = new User(login,password,email,role);
+        User user = new User(login,password,email,role);
 
         if (!login.isEmpty()) {
             if (new AddUserLogic().addUser(user)) {
@@ -33,10 +31,10 @@ public class AddUserCommand implements ActionCommand {
             log.info("Пользователь: " + login + " добавлен");
             }
         } else {
-            request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
+            request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginError"));
         }
 
-        page = ConfigurationManager.getProperty(Const.PAGE_MAIN);
+        String page = ConfigurationManager.getProperty(Const.PAGE_MAIN);
         return page;
     }
 }

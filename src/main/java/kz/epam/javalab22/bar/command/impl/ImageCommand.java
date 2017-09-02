@@ -1,5 +1,6 @@
-package kz.epam.javalab22.bar.command;
+package kz.epam.javalab22.bar.command.impl;
 
+import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.dao.ImageDao;
 
 import javax.servlet.http.HttpServletRequest;

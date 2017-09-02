@@ -38,7 +38,7 @@ public class UserDao extends AbstractDao<User> {
         Connection connection = connectionPool.getConnection();
         Boolean success = false;
 
-        String query = "INSERT INTO public.\"webUsers\"(name,password,email,role) VALUES(?,?,?,?)";
+        String query = "INSERT INTO public.users (name,password,email,role) VALUES(?,?,?,?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, entity.getName());
             ps.setString(2, DigestUtils.md5Hex(entity.getPassword()));
@@ -54,17 +54,14 @@ public class UserDao extends AbstractDao<User> {
         return success;
     }
 
-    public String getPasswordByLogin(String enterLogin) {
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
+    public String getPass(String login) {
 
         String password = "";
+        final String QUERY = String.format("SELECT * FROM users WHERE NAME = '%s'", login);
 
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(
-                    "SELECT * FROM public.\"webUsers\" WHERE NAME = '" + enterLogin + "'");
+            ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
                 password = resultSet.getString("password");
             }
@@ -72,26 +69,27 @@ public class UserDao extends AbstractDao<User> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return password;
     }
 
     public boolean deleteByLogin(String login) {
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
+        boolean success = false;
+        final String QUERY = String.format("DELETE FROM users WHERE NAME = '%s'", login);
 
         try {
             Statement statement = connection.createStatement();
-            statement.executeQuery("DELETE FROM public.\"webUsers\" WHERE NAME = '" + login + "'");
+            int rowsDeleted = statement.executeUpdate(QUERY);
+
+            if (rowsDeleted > 0) {
+                success = true;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
-            connectionPool.returnConnection(connection);
-            return false;
         }
 
-        connectionPool.returnConnection(connection);
-        return true;
+        return success;
     }
 
     public List<User> getUserList() {
@@ -99,17 +97,15 @@ public class UserDao extends AbstractDao<User> {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
 
-        String name;
-        String email;
-        Role role;
+        final String QUERY = "SELECT * FROM users";
 
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM public.\"webUsers\"");
+            ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-                email = resultSet.getString("email");
-                role = Role.valueOf(resultSet.getString("role"));
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                Role role = Role.valueOf(resultSet.getString("role"));
                 userList.add(new User(name, email, role));
             }
         } catch (SQLException e) {
