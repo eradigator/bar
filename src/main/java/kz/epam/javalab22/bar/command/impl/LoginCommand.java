@@ -1,5 +1,6 @@
-package kz.epam.javalab22.bar.command;
+package kz.epam.javalab22.bar.command.impl;
 
+import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.LoginLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
@@ -9,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.Map;
 
 public class LoginCommand implements ActionCommand {
 
@@ -18,11 +20,12 @@ public class LoginCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
 
         SessionRequestContent sessionRequestContent = new SessionRequestContent();
-        HashMap<String, Object> sessionAttributes = new HashMap<>();
+        Map<String, Object> sessionAttributes = new HashMap<>();
         String page;
 
-        String login = request.getParameter(Const.PARAM_LOGIN);
-        String pass = request.getParameter(Const.PARAM_PASSWORD);
+        sessionRequestContent.extractValues(request);
+        String login = sessionRequestContent.getNonArrayRequestParameters().get(Const.PARAM_LOGIN);
+        String pass = sessionRequestContent.getNonArrayRequestParameters().get(Const.PARAM_PASSWORD);
 
         if (new LoginLogic().checkLogin(login, pass)) {
 
@@ -38,7 +41,7 @@ public class LoginCommand implements ActionCommand {
 
         } else {
             log.info(login + ": неудачная попытка входа");
-            String message = MessageManager.getProperty("message.loginerror");
+            String message = MessageManager.getProperty("message.loginError");
             request.setAttribute("errorLoginPassMessage", message);
             page = ConfigurationManager.getProperty(Const.PAGE_LOGIN);
         }

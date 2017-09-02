@@ -35,11 +35,10 @@
     </div>
 
     <div id="content">
-        <%--<my:addImage/>--%>
-
-        <my:cocktailManager/>
+        <my:cocktailManager/><%--сообщения--%>
         <my:addCocktail/>
-        <mytag:cocktailManager/>
+        <my:removeCocktail />
+        <%--<mytag:cocktailManager/>--%>
     </div>
 
     <div id="clear">

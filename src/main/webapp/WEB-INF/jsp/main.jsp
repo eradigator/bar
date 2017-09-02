@@ -36,9 +36,10 @@
     </div>
 
     <div id="content">
-        <mytag:userManagement/>
-        ${deleteUserResult}
+        <%--<mytag:userManagement/>--%>
+
         <my:addUser/>
+        <my:removeUser/>
     </div>
 
     <div id="clear">

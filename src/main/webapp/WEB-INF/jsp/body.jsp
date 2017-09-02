@@ -6,8 +6,8 @@
     <c:when test="${content == 'alcoholic'}">
         <my:alcoholic/>
     </c:when>
-    <c:when test="${content == 'non_alcoholic'}">
-        <my:person Age="28" EmployeeId="74852" Name="Bruce Wayne" />
+    <c:when test="${content == 'nonalcoholic'}">
+        <my:nonalco />
     </c:when>
     <c:when test="${content == 'calculator'}">
         <my:calculator />

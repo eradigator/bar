@@ -1,5 +1,6 @@
-package kz.epam.javalab22.bar.command;
+package kz.epam.javalab22.bar.command.impl;
 
+import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.CocktailDao;
 import kz.epam.javalab22.bar.dao.ImageDao;
@@ -7,7 +8,6 @@ import kz.epam.javalab22.bar.dao.MixDao;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
-import kz.epam.javalab22.bar.runner.Runner;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -41,7 +39,6 @@ public class AddCocktailCommand implements ActionCommand {
         Connection connection = ConnectionPool.getInstance().getConnection();
 
         /*-----------------------------------------------------------------------*/
-        //Картинка
 
         InputStream inputStream = null;
         long length=0;

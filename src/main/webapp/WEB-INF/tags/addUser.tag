@@ -43,12 +43,6 @@
     <div style="color:#02834b">
         ${addUserResult}
     </div>
-    <div style="color: crimson">
-        ${errorLoginPassMessage}
-        ${wrongAction}
-        ${nullPage}
-    </div>
-
 
 </form>
 

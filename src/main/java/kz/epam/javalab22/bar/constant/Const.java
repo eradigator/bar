@@ -12,6 +12,10 @@ public final class Const {
     public static final String PAGE_COCKTAIL_MANAGER = "path.page.cocktailManager";
     public static final String PAGE_COMPONENT_MANAGER = "path.page.componentManager";
 
+    /*Numbers*/
+    public static final int ZERO = 0;
+    public static final int ONE_HUNDRED = 100;
+
     /*Parameters*/
     public static final String PARAM_COMMAND = "command";
     public static final String PARAM_LOGIN = "login";

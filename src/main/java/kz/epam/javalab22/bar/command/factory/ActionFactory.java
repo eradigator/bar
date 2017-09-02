@@ -1,8 +1,8 @@
 package kz.epam.javalab22.bar.command.factory;
 
-import kz.epam.javalab22.bar.command.client.CommandEnum;
+import kz.epam.javalab22.bar.command.CommandEnum;
 import kz.epam.javalab22.bar.command.ActionCommand;
-import kz.epam.javalab22.bar.command.EmptyCommand;
+import kz.epam.javalab22.bar.command.impl.EmptyCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.MessageManager;
 
@@ -24,7 +24,7 @@ public class ActionFactory {
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
             current = currentEnum.getCurrentCommand();
         } catch (IllegalArgumentException e) {
-            request.setAttribute("wrongAction", action + MessageManager.getProperty("message.wrongaction"));
+            request.setAttribute("wrongAction", action + MessageManager.getProperty("message.wrongAction"));
         }
         return current;
     }

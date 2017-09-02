@@ -29,7 +29,7 @@
     <p>
         Компонент:
         <br/>
-        <select id="component" name="component" title="">
+        <select id="component" name="component" title="" style="width: 200px">
             <% for (Map.Entry<Integer,String> pair : new ComponentDao().getComponents().entrySet()) { %>
                 <option value='<%=pair.getKey()%>'>
             <%=pair.getValue()%>
@@ -37,7 +37,7 @@
             <%} %>
         </select>
         Количество
-        <input id="amount" name="amount" title=""/>
+        <input type="number" id="amount" name="amount" min="1" max="500" step="1" title="" required/>
         <button type="button" onclick="addComponent()">Добавить компонент</button>
     </p>
 
@@ -119,6 +119,9 @@
         input1.setAttribute("name", "amountOfIngredient");
         input1.setAttribute("value", selectedComponentAmount);
         form.appendChild(input1);
+
+        select.remove(select.selectedIndex);
+        amount.value="";
     }
 </script>
 
