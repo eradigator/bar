@@ -37,7 +37,7 @@
             <%} %>
         </select>
         Количество
-        <input type="number" id="amount" name="amount" min="1" max="500" step="1" title="" required/>
+        <input type="number" id="amount" name="amount" min="0" max="500" step="1" title="" value="0" />
         <button type="button" onclick="addComponent()">Добавить компонент</button>
     </p>
 
@@ -121,7 +121,7 @@
         form.appendChild(input1);
 
         select.remove(select.selectedIndex);
-        amount.value="";
+        amount.value="0";
     }
 </script>
 

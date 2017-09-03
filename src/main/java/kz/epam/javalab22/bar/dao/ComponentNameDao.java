@@ -12,6 +12,13 @@ import java.util.List;
  */
 
 public class ComponentNameDao extends AbstractDao<ComponentName> {
+
+    private Connection connection;
+
+    public ComponentNameDao(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public ComponentName update(ComponentName entity) {
         return null;
@@ -25,10 +32,8 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
     @Override
     public boolean create(ComponentName entity) {
 
-        final String QUERY = "INSERT INTO public.component_name (en,ru) VALUES (?,?)";
+        final String QUERY = "INSERT INTO component_name (en,ru) VALUES (?,?)";
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
         Boolean success = false;
 
         try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
@@ -40,33 +45,30 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return success;
     }
 
     public int getId(ComponentName entity) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
+
         int id = 0;
 
         try {
-            String QUERY = "SELECT id FROM public.component_name " + "WHERE en = '" + entity.getEn() + "'";
+            String QUERY = String.format("SELECT id FROM component_name WHERE en = '%s'", entity.getEn());
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
-                id = Integer.parseInt(resultSet.getString("id"));
+                id = resultSet.getInt("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return id;
     }
 
     public List<String> getComponentNameList() {
 
-        final String QUERY = "SELECT * FROM public.component_name ORDER BY ru ASC";
+        final String QUERY = "SELECT * FROM component_name ORDER BY ru ASC";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();

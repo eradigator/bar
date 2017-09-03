@@ -26,7 +26,6 @@ public class AddCocktailCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        String page;
         Cocktail cocktail;
 
         String name = request.getParameter("name");
@@ -94,7 +93,7 @@ public class AddCocktailCommand implements ActionCommand {
             request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
         }*/
 
-        page = ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
+        String page = ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
         return page;
     }
 }
