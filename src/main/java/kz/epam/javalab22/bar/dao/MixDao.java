@@ -65,9 +65,9 @@ public class MixDao extends AbstractDao<Mix> {
         Integer amount;
 
         String QUERY = "SELECT m.amount,cn.ru AS name\n" +
-                "FROM public.mix m \n" +
-                "INNER JOIN public.component c ON m.component_id = c.id\n" +
-                "INNER JOIN public.component_name cn ON c.name_id = cn.id\n" +
+                "FROM mix m \n" +
+                "INNER JOIN component c ON m.component_id = c.id\n" +
+                "INNER JOIN component_name cn ON c.name_id = cn.id\n" +
                 "WHERE cocktail_id = "+ cocktailId;
 
         try {

@@ -11,6 +11,8 @@
 <form name='addComponent' method='post' action='${pageContext.request.contextPath}/jsp/controller'>
     <input type='hidden' name='command' value='add_component'>
 
+    <h4>${result}</h4>
+
     <p>
         Название РУС
         <br/>

@@ -51,14 +51,14 @@ public class ImageDao extends AbstractDao<Image> {
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
+                throw new SQLException();
             }
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     image.setId(generatedKeys.getInt("id"));
                 } else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
+                    throw new SQLException("failed, no ID obtained.");
                 }
             }
 
@@ -75,11 +75,9 @@ public class ImageDao extends AbstractDao<Image> {
 
     public byte[] getImage(int id) {
 
-        //ConnectionPool connectionPool = ConnectionPool.getInstance();
-        //Connection connection = connectionPool.getConnection();
         byte[] bytes = null;
 
-        final String QUERY = "SELECT bytes FROM image WHERE id = " + id;
+        final String QUERY = "SELECT bytes FROM image WHERE id =" + id;
 
         try {
             Statement statement = connection.createStatement();
@@ -93,7 +91,6 @@ public class ImageDao extends AbstractDao<Image> {
             e.printStackTrace();
         }
 
-        //connectionPool.returnConnection(connection);
         return bytes;
     }
 

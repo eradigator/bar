@@ -24,40 +24,35 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        connectionPool.closeConnections();
+        ConnectionPool.getInstance().closeConnections();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String page;
 
         // определение команды, пришедшей из JSP
         ActionFactory client = new ActionFactory();
-        ActionCommand command = client.defineCommand(request);
+        ActionCommand command = client.defineCommand(req);
 
         //вызов реализованного метода execute() и передача параметров классу-обработчику конкретной команды
-        page = command.execute(request);
+        page = command.execute(req);
 
-        // метод возвращает страницу ответа
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-            // вызов страницы ответа на запрос
-            dispatcher.forward(request, response);
+            dispatcher.forward(req, resp);
         } else {
-
-            // установка страницы c cообщением об ошибке
             page = ConfigurationManager.getProperty("path.page.index");
-            request.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullPage"));
-            response.sendRedirect(request.getContextPath() + page);
+            req.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullPage"));
+            resp.sendRedirect(req.getContextPath() + page);
         }
     }
 }

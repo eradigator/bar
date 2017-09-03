@@ -4,11 +4,22 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SessionRequestContent {
+public class ReqHandler {
     private Map<String, Object> requestAttributes;
     private Map<String, String> nonArrayRequestParameters;
     private Map<String, String[]> requestParameters;
     private Map<String, Object> sessionAttributes;
+
+    private HttpServletRequest request;
+
+    public ReqHandler() {
+    }
+
+    public ReqHandler(HttpServletRequest request) {
+        this.request = request;
+        requestParameters = this.request.getParameterMap();
+        nonArrayRequestParameters = convertArrayValueToString(requestParameters);
+    }
 
     public Map<String, Object> getRequestAttributes() {
         return requestAttributes;
@@ -38,20 +49,26 @@ public class SessionRequestContent {
         this.sessionAttributes = sessionAttributes;
     }
 
-    // метод извлечения информации из запроса
-    public void extractValues(HttpServletRequest request) {
-        requestParameters = request.getParameterMap();
-        nonArrayRequestParameters = convertArrayValueToString(requestParameters);
+    public void extractValues() {
 
     }
 
-    // метод добавления в запрос данных для передачи в jsp
-    public void insertAttributes(HttpServletRequest request) {
+    public String getParam(String name) {
+        return request.getParameter(name);
+    }
 
+    public void insertAttributes(HttpServletRequest request) {
         for (Map.Entry<String, Object> entry : sessionAttributes.entrySet()) {
             request.getSession().setAttribute(entry.getKey(), entry.getValue());
         }
+    }
 
+    public void addAttribute(String name, Object entity) {
+        request.setAttribute(name,entity);
+    }
+
+    public void addSessionAttribute(String name, Object entity) {
+        request.getSession().setAttribute(name,entity);
     }
 
     private Map<String,String> convertArrayValueToString(Map<String,String[]> map) {
@@ -63,5 +80,7 @@ public class SessionRequestContent {
         }
         return resultMap;
     }
+
+
 
 }
