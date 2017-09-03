@@ -5,12 +5,10 @@ import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.LoginLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
-import kz.epam.javalab22.bar.servlet.SessionRequestContent;
+import kz.epam.javalab22.bar.servlet.ReqHandler;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginCommand implements ActionCommand {
 
@@ -19,24 +17,18 @@ public class LoginCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        SessionRequestContent sessionRequestContent = new SessionRequestContent();
-        Map<String, Object> sessionAttributes = new HashMap<>();
         String page;
 
-        sessionRequestContent.extractValues(request);
-        String login = sessionRequestContent.getNonArrayRequestParameters().get(Const.PARAM_LOGIN);
-        String pass = sessionRequestContent.getNonArrayRequestParameters().get(Const.PARAM_PASSWORD);
+        ReqHandler reqHandler = new ReqHandler(request);
+        String login = reqHandler.getParam(Const.PARAM_LOGIN);
+        String pass = reqHandler.getParam(Const.PARAM_PASSWORD);
 
         if (new LoginLogic().checkLogin(login, pass)) {
 
-            sessionAttributes.put("username", login);
-            sessionAttributes.put("role", "admin");
-
-            sessionRequestContent.setSessionAttributes(sessionAttributes);
-            sessionRequestContent.insertAttributes(request);
+            reqHandler.addSessionAttribute("username",login);
+            reqHandler.addSessionAttribute("role","admin");
 
             page = ConfigurationManager.getProperty(Const.PAGE_MAIN);
-
             log.info(login + " залогинился");
 
         } else {

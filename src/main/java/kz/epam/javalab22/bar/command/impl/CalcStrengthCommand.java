@@ -3,6 +3,7 @@ package kz.epam.javalab22.bar.command.impl;
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
+import kz.epam.javalab22.bar.servlet.ReqHandler;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +26,14 @@ public class CalcStrengthCommand implements ActionCommand {
         CalcAlcohol calcAlcohol = new CalcAlcohol();
         int strength = calcAlcohol.calcStrength(map);
         int totalAmount = calcAlcohol.totalAmount(map);
-        double cost = calcAlcohol.calcCost(map);
+        int cost = (int) calcAlcohol.calcCost(map);
 
-        request.setAttribute("result", "крепость: " + strength + " выход: " +
+        ReqHandler reqHandler = new ReqHandler(request);
+        reqHandler.addAttribute("result", "крепость: " + strength + " выход: " +
                 totalAmount + " мл" + " Цена: " + cost);
 
-        request.setAttribute("content", "calculator");
+        reqHandler.addAttribute("content","calculator");
+
         return ConfigurationManager.getProperty(Const.PAGE_INDEX);
     }
 }

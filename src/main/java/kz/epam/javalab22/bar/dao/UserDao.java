@@ -34,12 +34,10 @@ public class UserDao extends AbstractDao<User> {
     @Override
     public boolean create(User entity) {
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
         Boolean success = false;
+        final String QUERY = "INSERT INTO users (name,password,email,role) VALUES(?,?,?,?)";
 
-        String query = "INSERT INTO public.users (name,password,email,role) VALUES(?,?,?,?)";
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
             ps.setString(1, entity.getName());
             ps.setString(2, DigestUtils.md5Hex(entity.getPassword()));
             ps.setString(3, entity.getEmail());
@@ -50,7 +48,6 @@ public class UserDao extends AbstractDao<User> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return success;
     }
 

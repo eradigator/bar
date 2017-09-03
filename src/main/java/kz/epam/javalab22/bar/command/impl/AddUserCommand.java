@@ -7,6 +7,7 @@ import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.logic.AddUserLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
+import kz.epam.javalab22.bar.servlet.ReqHandler;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,23 +19,16 @@ public class AddUserCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        String login = request.getParameter(Const.PARAM_LOGIN);
-        String password = request.getParameter(Const.PARAM_PASSWORD);
-        String email = request.getParameter(Const.PARAM_EMAIL);
-        Role role = Role.valueOf(request.getParameter(Const.PARAM_ROLE).toUpperCase());
+        ReqHandler reqHandler = new ReqHandler(request);
+        AddUserLogic addUserLogic = new AddUserLogic(reqHandler);
 
-        User user = new User(login,password,email,role);
-
-        if (!login.isEmpty()) {
-            if (new AddUserLogic().addUser(user)) {
-            request.setAttribute("addUserResult", "Пользователь добавлен");
-            log.info("Пользователь: " + login + " добавлен");
-            }
+        if (addUserLogic.addUser()) {
+            reqHandler.addAttribute("addUserResult", "Пользователь добавлен");
+            log.info("Пользователь: " + reqHandler.getParam(Const.PARAM_LOGIN) + " добавлен");
         } else {
             request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginError"));
         }
 
-        String page = ConfigurationManager.getProperty(Const.PAGE_MAIN);
-        return page;
+        return ConfigurationManager.getProperty(Const.PAGE_MAIN);
     }
 }
