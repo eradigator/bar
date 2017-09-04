@@ -2,9 +2,9 @@ package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.dao.CocktailDao;
-import kz.epam.javalab22.bar.logic.DeleteCocktailLogic;
+import kz.epam.javalab22.bar.logic.CocktailLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
+import kz.epam.javalab22.bar.servlet.ReqHandler;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +16,15 @@ public class RemoveCocktailCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        String page;
+        ReqHandler reqHandler = new ReqHandler(request);
 
-        String name = request.getParameter("cocktailToDelete");
-
-        if (new DeleteCocktailLogic().deleteCocktail(name)) {
+        if (new CocktailLogic(reqHandler).deleteCocktail()) {
             request.setAttribute("removeCocktailResult", "Коктейль удален");
-            log.info("Коктейль: " + name + " удален");
+            log.info("Коктейль: " + reqHandler.getParam("cocktailToDelete") + " удален");
         } else {
             request.setAttribute("removeCocktailResult", "Коктейль не удален");
         }
 
-        page = ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
-        return page;
+        return ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
     }
 }

@@ -8,6 +8,12 @@
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
+<div style="color:#02834b">
+    <h5>${addCocktailResult}</h5>
+</div>
+<div style="color: crimson">
+    <h5>${removeCocktailResult}</h5>
+</div>
 
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">Добавление коктейля</button>

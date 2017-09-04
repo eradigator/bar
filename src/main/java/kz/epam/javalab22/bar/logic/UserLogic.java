@@ -9,11 +9,11 @@ import kz.epam.javalab22.bar.servlet.ReqHandler;
 
 import java.sql.Connection;
 
-public class AddUserLogic {
+public class UserLogic {
 
     private ReqHandler reqHandler;
 
-    public AddUserLogic(ReqHandler reqHandler) {
+    public UserLogic(ReqHandler reqHandler) {
         this.reqHandler = reqHandler;
     }
 
@@ -33,6 +33,16 @@ public class AddUserLogic {
         ConnectionPool.getInstance().returnConnection(connection);
 
         return success;
+    }
+
+    public boolean deleteUser() {
+
+        String login = reqHandler.getParam("checkedName");
+        Connection connection = ConnectionPool.getInstance().getConnection();
+        Boolean result = new UserDao(connection).deleteByLogin(login);
+        ConnectionPool.getInstance().returnConnection(connection);
+
+        return result;
     }
 
 }

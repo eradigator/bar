@@ -81,6 +81,7 @@ public class ReqHandler {
         return resultMap;
     }
 
-
-
+    public HttpServletRequest getRequest() {
+        return request;
+    }
 }

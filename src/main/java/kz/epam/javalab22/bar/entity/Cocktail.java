@@ -11,8 +11,7 @@ public class Cocktail {
     private String imgPath;
     private BuildMethod buildMethod;
     private Glass glass;
-    //private Map<Component, Integer> components = new HashMap<Component, Integer>();
-    private Map<String, Integer> components = new HashMap<>();
+    private Map<String, Integer> components = new LinkedHashMap<>();
     private Image image;
     private int imageId;
 
@@ -28,18 +27,10 @@ public class Cocktail {
         this.image = image;
     }
 
-    public Cocktail(String name, BuildMethod buildMethod, Glass glass, String imgPath) {
+    public Cocktail(String name, Map<String,Integer> components, BuildMethod buildMethod, Glass glass, int imageId) {
         this.name = name;
         this.buildMethod = buildMethod;
         this.glass = glass;
-        this.imgPath = imgPath;
-    }
-
-    public Cocktail(String name, Map<String,Integer> components, BuildMethod buildMethod, Glass glass, String imgPath, int imageId) {
-        this.name = name;
-        this.buildMethod = buildMethod;
-        this.glass = glass;
-        this.imgPath = imgPath;
         this.components = components;
         this.imageId = imageId;
     }
@@ -50,14 +41,6 @@ public class Cocktail {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getImgPath() {
-        return imgPath;
-    }
-
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
     }
 
     public BuildMethod getBuildMethod() {
