@@ -35,8 +35,6 @@
     </div>
 
     <div id="content">
-        <%--<my:componentManager/>--%>
-        <%--<mytag:componentManager/>--%>
         <my:addComponent />
     </div>
 

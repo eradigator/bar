@@ -7,7 +7,8 @@
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
-<h5>Удаление коктейля:</h5>
+
+<div id="remove" class="tabcontent">
 
 <form name="removeCocktail" method="post" action="${pageContext.request.contextPath}/jsp/controller">
     <input type="hidden" name="command" value="remove_cocktail">
@@ -29,3 +30,5 @@
 
     <input type="submit" value="Удалить"/>
 </form>
+
+</div>
