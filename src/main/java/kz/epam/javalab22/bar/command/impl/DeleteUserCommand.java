@@ -2,9 +2,10 @@ package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.logic.DeleteUserLogic;
+import kz.epam.javalab22.bar.logic.UserLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
+import kz.epam.javalab22.bar.servlet.ReqHandler;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,20 +17,15 @@ public class DeleteUserCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        String page;
+        ReqHandler reqHandler = new ReqHandler(request);
 
-        String checkedUserName = request.getParameter("checkedName");
-
-        if (checkedUserName != null) {
-            if (new DeleteUserLogic().deleteUser(checkedUserName)) {
-                request.setAttribute("deleteUserResult", "Пользователь удален");
-                log.info("Пользователь: " + checkedUserName + " удален");
-            }
+        if (new UserLogic(reqHandler).deleteUser()) {
+            request.setAttribute("deleteUserResult", "Пользователь удален");
+            log.info("Пользователь: " + reqHandler.getParam("checkedName") + " удален");
         } else {
             request.setAttribute("deleteUserResult", MessageManager.getProperty("message.deleteUserError"));
         }
 
-        page = ConfigurationManager.getProperty(Const.PAGE_MAIN);
-        return page;
+        return ConfigurationManager.getProperty(Const.PAGE_MAIN);
     }
 }

@@ -4,6 +4,7 @@ import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.servlet.ReqHandler;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

@@ -35,10 +35,8 @@
     </div>
 
     <div id="content">
-        <my:cocktailManager/><%--сообщения--%>
         <my:addCocktail/>
         <my:removeCocktail />
-        <%--<mytag:cocktailManager/>--%>
     </div>
 
     <div id="clear">

@@ -6,6 +6,13 @@
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
+<div style="color:#02834b">
+    <h5>${result}</h5>
+</div>
+<div style="color: crimson">
+    <h5>${redResult}</h5>
+</div>
+
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">Добавление компонента</button>
     <button class="tablinks" onclick="openTab(event, 'remove')">Удаление компонента</button>
@@ -16,8 +23,6 @@
 
     <form name='addComponent' method='post' action='${pageContext.request.contextPath}/jsp/controller'>
         <input type='hidden' name='command' value='add_component'>
-
-        <h4>${result}</h4>
 
         <p>
             Название РУС

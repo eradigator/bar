@@ -7,11 +7,6 @@
     <short-name>mytag</short-name>
     <uri>/WEB-INF/tld/mytaglib.tld</uri>
 
-    <tag>
-        <name>userManagement</name>
-        <tag-class>kz.epam.javalab22.bar.tag.UserManagement</tag-class>
-        <body-content>empty</body-content>
-    </tag>
 
 </taglib>
 

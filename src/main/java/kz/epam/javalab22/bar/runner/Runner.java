@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.runner;
 
+import kz.epam.javalab22.bar.dao.CocktailDao;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import javax.imageio.ImageIO;
@@ -21,28 +22,9 @@ public class Runner {
 
     public static void main(String[] args) throws IOException {
 
-        Connection conn = ConnectionPool.getInstance().getConnection();
-        PreparedStatement ps = null;
-
-        byte[] imgBytes=null;
-
-        try {
-            ps = conn.prepareStatement("SELECT img FROM images WHERE imgname = ?");
-            ps.setString(1, "test");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                imgBytes = rs.getBytes(1);
-                // use the data in some way here
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        ConnectionPool.getInstance().returnConnection(conn);
-
-        getImg(imgBytes);
+        Connection connection = ConnectionPool.getInstance().getConnection();
+        System.out.println(new CocktailDao(connection).getId("b54"));
+        ConnectionPool.getInstance().returnConnection(connection);
 
     }
 
