@@ -70,7 +70,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
-                    "SELECT * FROM public.\"cocktail\" WHERE ID = '" + id + "'");
+                    "SELECT * FROM cocktail WHERE ID =" + id);
             while (resultSet.next()) {
                 entity = resultSet.getString("name");
             }
@@ -85,15 +85,12 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
     public int getId(String name) {
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-
+        final String QUERY = "SELECT id FROM cocktail WHERE name='" + name + "'";
         int id = 0;
 
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(
-                    "SELECT id FROM public.\"cocktail\" WHERE name = '" + name + "'");
+            ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
                 id = resultSet.getInt("id");
             }
@@ -101,23 +98,21 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return id;
     }
 
 
     public List<Cocktail> getCocktailsList() {
 
-        final String QUERY = "SELECT c.id,c.name,c.glass,c.img,c.image_id,b.method_name AS method " +
-                "FROM public.cocktail c " +
-                "INNER JOIN public.build_method b ON c.method = b.id";
+        final String QUERY = "SELECT c.id,c.name,c.glass,c.image_id,b.method_name AS method " +
+                "FROM cocktail c " +
+                "INNER JOIN build_method b ON c.method = b.id";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         List<Cocktail> cocktailList = new ArrayList<>();
 
         String name;
-        String imgPath;
         int id;
         Map<String, Integer> map;
         BuildMethod buildMethod;
@@ -132,10 +127,9 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 name = resultSet.getString("name");
                 buildMethod = BuildMethod.valueOf(resultSet.getString("method"));
                 glass = Glass.valueOf(resultSet.getString("glass"));
-                imgPath = resultSet.getString("img");
                 imageId = resultSet.getInt("image_id");
-                map = new MixDao().getMix(id);
-                cocktailList.add(new Cocktail(name, map, buildMethod, glass, imgPath, imageId));
+                map = new MixDao(connection).getMix(id);
+                cocktailList.add(new Cocktail(name, map, buildMethod, glass, imageId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -173,7 +167,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
         try {
             Statement statement = connection.createStatement();
-            statement.executeQuery("UPDATE public.\"cocktail\" SET img = '/bar/images/cocktails/name.jpg'" +
+            statement.executeQuery("UPDATE cocktail SET img = '/bar/images/cocktails/name.jpg'" +
                     "WHERE NAME= '" + name + "'");
             success = true;
         } catch (SQLException e) {

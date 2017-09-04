@@ -2,7 +2,7 @@ package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.logic.AddComponentLogic;
+import kz.epam.javalab22.bar.logic.ComponentLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqHandler;
@@ -19,7 +19,7 @@ public class AddComponentCommand implements ActionCommand {
 
         ReqHandler reqHandler = new ReqHandler(request);
 
-        if (new AddComponentLogic(reqHandler).addComponent()) {
+        if (new ComponentLogic(reqHandler).addComponent()) {
 
             String message = MessageManager.getProperty("message.componentAdded");
             reqHandler.addAttribute("result",message);

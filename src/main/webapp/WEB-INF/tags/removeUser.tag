@@ -9,9 +9,7 @@
 
 <div id="remove" class="tabcontent">
 
-    <div style="color: crimson">
-        ${deleteUserResult}
-    </div>
+
 
     <%List<User> userList = new UserDao().getUserList();%>
 

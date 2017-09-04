@@ -15,6 +15,12 @@ import java.util.Map;
 
 public class MixDao extends AbstractDao<Mix> {
 
+    private Connection connection;
+
+    public MixDao(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public Mix update(Mix entity) {
         return null;
@@ -32,10 +38,7 @@ public class MixDao extends AbstractDao<Mix> {
 
     public boolean add(Mix entity, int cocktailId) {
 
-        final String QUERY = "INSERT INTO public.mix (cocktail_id,component_id,amount) VALUES (?,?,?)";
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
+        final String QUERY = "INSERT INTO mix (cocktail_id,component_id,amount) VALUES (?,?,?)";
         Boolean success = false;
 
         try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
@@ -51,14 +54,11 @@ public class MixDao extends AbstractDao<Mix> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return success;
     }
 
     public Map<String,Integer> getMix(int cocktailId) {
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
         Map<String,Integer> map = new LinkedHashMap<>();
 
         String name;
@@ -82,7 +82,6 @@ public class MixDao extends AbstractDao<Mix> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return map;
     }
 

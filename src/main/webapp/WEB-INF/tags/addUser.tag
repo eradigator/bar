@@ -4,6 +4,13 @@
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
+<div style="color: crimson">
+    <h5>${deleteUserResult}</h5>
+</div>
+<div style="color:#02834b">
+    <h5>${addUserResult}</h5>
+</div>
+
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">Регистрация пользователя</button>
     <button class="tablinks" onclick="openTab(event, 'remove')">Удаление пользователя</button>
@@ -42,11 +49,6 @@
             <input type="submit" value="Регистрация"/>
         </p>
     </form>
-
-    <div style="color:#02834b">
-        ${addUserResult}
-    </div>
-
 </div>
 
 <script>
