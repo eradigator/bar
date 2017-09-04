@@ -8,7 +8,14 @@
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
-<h5>Добавление коктейля:</h5>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">Добавление коктейля</button>
+    <button class="tablinks" onclick="openTab(event, 'remove')">Удаление коктейля</button>
+    <%--<button class="tablinks" onclick="openTab(event, 'Tokyo')">Tokyo</button>--%>
+</div>
+
+<div id="add" class="tabcontent">
 
 <form name='addCocktail' method='post' action='${pageContext.request.contextPath}/jsp/controller'
       enctype="multipart/form-data">
@@ -82,7 +89,38 @@
     </p>
 
 </form>
+</div>
 
+<%--<div id="Tokyo" class="tabcontent">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+</div>--%>
+
+
+<script>
+    function openTab(evt, tabName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    document.getElementById("defaultOpen").click();
+</script>
 
 <script>
     function addComponent() {

@@ -36,10 +36,6 @@ public class PageCommand implements ActionCommand {
                 case "calculator":
                     request.setAttribute("content", "calculator");
                     break;
-                case "contacts":
-                    request.setAttribute("content", "contacts");
-                    break;
-
             }
         }
 
