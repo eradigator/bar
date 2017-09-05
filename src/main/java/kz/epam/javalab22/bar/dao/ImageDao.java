@@ -76,7 +76,6 @@ public class ImageDao extends AbstractDao<Image> {
     public byte[] getImage(int id) {
 
         byte[] bytes = null;
-
         final String QUERY = "SELECT bytes FROM image WHERE id =" + id;
 
         try {

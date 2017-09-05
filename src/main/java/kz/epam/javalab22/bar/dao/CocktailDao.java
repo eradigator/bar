@@ -60,29 +60,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         return success;
     }
 
-    public String getNameById(int id) {
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-
-        String entity = "";
-
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(
-                    "SELECT * FROM cocktail WHERE ID =" + id);
-            while (resultSet.next()) {
-                entity = resultSet.getString("name");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        connectionPool.returnConnection(connection);
-        return entity;
-    }
-
-
     public int getId(String name) {
 
         final String QUERY = "SELECT id FROM cocktail WHERE name='" + name + "'";
