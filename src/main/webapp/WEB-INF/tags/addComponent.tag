@@ -1,17 +1,20 @@
-<%@ tag import="java.util.Map" %>
-<%@ tag import="kz.epam.javalab22.bar.dao.ComponentTypeDao" %>
 <%@ tag body-content="empty" dynamic-attributes="dynattrs" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
-<div style="color:#02834b">
-    <h5>${result}</h5>
-</div>
-<div style="color: crimson">
-    <h5>${redResult}</h5>
-</div>
+<c:if test="${(not empty result) or (not empty redResult)}">
+    <div class="result_field">
+        <div style="color:#02834b">
+            <h5>${result}</h5>
+        </div>
+        <div style="color: crimson">
+            <h5>${error}</h5>
+        </div>
+    </div>
+    <br/>
+</c:if>
 
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">Добавление компонента</button>
@@ -40,17 +43,10 @@
         <p>
             Тип
             <br/>
-            <select name='componentType' title='componentType'>
-
-                <%
-                    Map<Integer, String> componentTypes = new ComponentTypeDao().getComponentTypes();
-                    for (Map.Entry<Integer, String> pair : componentTypes.entrySet()) {
-                %>
-                <option value='<%=pair.getKey()%>'>
-                    <%=pair.getValue()%>
-                </option>
-                <%}%>
-
+            <select name="componentType" title="">
+                <c:forEach items="${componentTypes}" var="componentType">
+                    <option value="${componentType.key}">${componentType.value}</option>
+                </c:forEach>
             </select>
         </p>
 

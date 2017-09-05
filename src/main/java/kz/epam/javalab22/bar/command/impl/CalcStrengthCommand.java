@@ -1,6 +1,7 @@
 package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageCalcCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.servlet.ReqHandler;
@@ -17,23 +18,29 @@ public class CalcStrengthCommand implements ActionCommand {
 
         String[] components = request.getParameterValues("ingredient");
         String[] amounts = request.getParameterValues("amountOfIngredient");
+        String[] componentNames = request.getParameterValues("ingredientName");
 
-        Map<Integer, Double> map = new LinkedHashMap<>();
+        Map<Integer, Double> mix = new LinkedHashMap<>();
         for (int i = Const.ZERO; i < components.length; i++) {
-            map.put(Integer.parseInt(components[i]), Double.parseDouble(amounts[i]));
+            mix.put(Integer.parseInt(components[i]), Double.parseDouble(amounts[i]));
+        }
+
+        Map<String, Integer> outMap = new LinkedHashMap<>();
+        for (int i = Const.ZERO; i < components.length; i++) {
+            outMap.put(componentNames[i], Integer.parseInt(amounts[i]));
         }
 
         CalcAlcohol calcAlcohol = new CalcAlcohol();
-        int strength = calcAlcohol.calcStrength(map);
-        int totalAmount = calcAlcohol.totalAmount(map);
-        int cost = (int) calcAlcohol.calcCost(map);
+        int strength = calcAlcohol.calcStrength(mix);
+        int totalAmount = calcAlcohol.totalAmount(mix);
+        int cost = (int) calcAlcohol.calcCost(mix);
 
         ReqHandler reqHandler = new ReqHandler(request);
-        reqHandler.addAttribute("result", "крепость: " + strength + " выход: " +
-                totalAmount + " мл" + " Цена: " + cost);
+        reqHandler.addAttribute("strength",strength);
+        reqHandler.addAttribute("amount",totalAmount);
+        reqHandler.addAttribute("cost",cost);
+        reqHandler.addAttribute("outMap",outMap);
 
-        reqHandler.addAttribute("content","calculator");
-
-        return ConfigurationManager.getProperty(Const.PAGE_INDEX);
+        return new PageCalcCommand().execute(request);
     }
 }

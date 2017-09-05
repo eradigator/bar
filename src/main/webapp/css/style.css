@@ -172,6 +172,15 @@ td, th {
     box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }*/
 
+.result_field {
+    color: #02834b;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #F4EEC5;
+    padding: 5px;
+    border-radius: 5px;
+}
+
 
 /* Style the tab */
 div.tab {
@@ -198,7 +207,7 @@ div.tab button:hover {
 
 /* Create an active/current tablink class */
 div.tab button.active {
-    background-color: #00aff1;
+    background-color: #729CD4;
 }
 
 /* Style the tab content */
