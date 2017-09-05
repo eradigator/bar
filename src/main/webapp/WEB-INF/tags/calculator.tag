@@ -1,12 +1,9 @@
-<%@ tag import="java.util.Map" %>
-<%@ tag import="kz.epam.javalab22.bar.dao.ComponentDao" %>
 <%@ tag body-content="empty" dynamic-attributes="dynattrs" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
-<h5>Калькулятор</h5>
 
 <form name="calculator" method="post" action='${pageContext.request.contextPath}/jsp/controller'>
     <input type="hidden" name="command" value="calculator">
@@ -14,13 +11,12 @@
     <p>
         Компонент:
         <br/>
-        <select id="component" name="component" title="">
-            <% for (Map.Entry<Integer, String> pair : new ComponentDao().getComponents().entrySet()) { %>
-            <option value='<%=pair.getKey()%>'>
-                <%=pair.getValue()%>
-            </option>
-            <%} %>
+        <select name="component" title="">
+            <c:forEach items="${components}" var="component">
+                <option value="${component.key}">${component.value}</option>
+            </c:forEach>
         </select>
+
         Количество
         <input type="number" id="amount" name="amount" title="" min="0" max="500" step="1" value="0"/>
         <button type="button" onclick="addComponent()">Добавить компонент</button>
@@ -29,13 +25,33 @@
     <div id="outputPlace"></div>
 
     <p>
-        <input type='submit' value='Рассчитать'/><br/>
+        <input type='submit' value='Рассчитать'/>
+        <br/>
     </p>
-    <p>
-    <h4>${result}</h4>
-    </p>
-
 </form>
+
+<c:if test="${not empty outMap}">
+    <div class="result_field">
+
+        Компоненты:
+        <br/>
+        <c:forEach items="${outMap}" var="pair">
+            ${pair.key}: ${pair.value}
+            <br/>
+        </c:forEach>
+
+        <br/>
+        <c:if test="${not empty strength}">
+            Крепость: ${strength}%<br/>
+        </c:if>
+        <c:if test="${not empty amount}">
+            Выход: ${amount} мл<br/>
+        </c:if>
+        <c:if test="${not empty cost}">
+            Цена: ${cost} тг<br/>
+        </c:if>
+    </div>
+</c:if>
 
 <script>
     function addComponent() {
@@ -73,8 +89,14 @@
         input1.setAttribute("value", selectedComponentAmount);
         form.appendChild(input1);
 
+        var input2 = document.createElement("input");
+        input2.setAttribute("type", "hidden");
+        input2.setAttribute("name", "ingredientName");
+        input2.setAttribute("value", selectedComponentText);
+        form.appendChild(input2);
+
         select.remove(select.selectedIndex);
-        amount.value="0";
+        amount.value = "0";
     }
 </script>
 

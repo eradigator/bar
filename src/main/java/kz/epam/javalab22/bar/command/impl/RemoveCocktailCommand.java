@@ -1,6 +1,7 @@
 package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageCocktailCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.CocktailLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
@@ -25,6 +26,6 @@ public class RemoveCocktailCommand implements ActionCommand {
             request.setAttribute("removeCocktailResult", "Коктейль не удален");
         }
 
-        return ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
+        return new PageCocktailCommand().execute(request);
     }
 }
