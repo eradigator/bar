@@ -1,6 +1,7 @@
 package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageComponentCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.ComponentLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
@@ -20,12 +21,13 @@ public class AddComponentCommand implements ActionCommand {
         ReqHandler reqHandler = new ReqHandler(request);
 
         if (new ComponentLogic(reqHandler).addComponent()) {
-
             String message = MessageManager.getProperty("message.componentAdded");
             reqHandler.addAttribute("result",message);
             log.info(message);
+        } else {
+            reqHandler.addAttribute("error","error");
         }
 
-        return ConfigurationManager.getProperty(Const.PAGE_COMPONENT_MANAGER);
+        return new PageComponentCommand().execute(request);
     }
 }

@@ -4,12 +4,17 @@
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
-<div style="color: crimson">
-    <h5>${deleteUserResult}</h5>
-</div>
-<div style="color:#02834b">
-    <h5>${addUserResult}</h5>
-</div>
+<c:if test="${(not empty addUserResult) or (not empty deleteUserResult)}">
+    <div class="result_field">
+        <div style="color:#02834b">
+            <h5>${addUserResult}</h5>
+        </div>
+        <div style="color: crimson">
+            <h5>${deleteUserResult}</h5>
+        </div>
+    </div>
+    <br/>
+</c:if>
 
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">Регистрация пользователя</button>

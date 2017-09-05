@@ -1,6 +1,7 @@
 package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageCocktailCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.CocktailLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
@@ -26,6 +27,6 @@ public class AddCocktailCommand implements ActionCommand {
             request.setAttribute("addCocktailResult", MessageManager.getProperty("message.loginerror"));
         }
 
-        return ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
+        return new PageCocktailCommand().execute(request);
     }
 }

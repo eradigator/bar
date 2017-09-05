@@ -10,7 +10,7 @@
 <a href="${pageContext.request.contextPath}/jsp/controller?command=page&chosen=nonalcoholic">
     <fmt:message key="nonalcoholic" bundle="${ rb }"/><br>
 </a>
-<a href="${pageContext.request.contextPath}/jsp/controller?command=page&chosen=calculator">
+<a href="${pageContext.request.contextPath}/jsp/controller?command=page_calc">
     <fmt:message key="calculator" bundle="${ rb }"/><br>
 </a>
 <br/>

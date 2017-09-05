@@ -36,8 +36,6 @@
     </div>
 
     <div id="content">
-        <%--<mytag:userManagement/>--%>
-
         <my:addUser/>
         <my:removeUser/>
     </div>
