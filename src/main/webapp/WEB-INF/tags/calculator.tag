@@ -77,23 +77,23 @@
         div.appendChild(output);
         div.appendChild(br);
 
-        var input = document.createElement("input");
-        input.setAttribute("type", "hidden");
-        input.setAttribute("name", "ingredient");
-        input.setAttribute("value", selectedComponentId);
-        form.appendChild(input);
+        var ingredientInput = document.createElement("input");
+        ingredientInput.setAttribute("type", "hidden");
+        ingredientInput.setAttribute("name", "ingredient");
+        ingredientInput.setAttribute("value", selectedComponentId);
+        form.appendChild(ingredientInput);
 
-        var input1 = document.createElement("input");
-        input1.setAttribute("type", "hidden");
-        input1.setAttribute("name", "amountOfIngredient");
-        input1.setAttribute("value", selectedComponentAmount);
-        form.appendChild(input1);
+        var amountInput = document.createElement("input");
+        amountInput.setAttribute("type", "hidden");
+        amountInput.setAttribute("name", "amountOfIngredient");
+        amountInput.setAttribute("value", selectedComponentAmount);
+        form.appendChild(amountInput);
 
-        var input2 = document.createElement("input");
-        input2.setAttribute("type", "hidden");
-        input2.setAttribute("name", "ingredientName");
-        input2.setAttribute("value", selectedComponentText);
-        form.appendChild(input2);
+        var ingredientNameInput = document.createElement("input");
+        ingredientNameInput.setAttribute("type", "hidden");
+        ingredientNameInput.setAttribute("name", "ingredientName");
+        ingredientNameInput.setAttribute("value", selectedComponentText);
+        form.appendChild(ingredientNameInput);
 
         select.remove(select.selectedIndex);
         amount.value = "0";

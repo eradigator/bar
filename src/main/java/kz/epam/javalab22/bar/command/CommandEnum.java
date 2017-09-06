@@ -33,7 +33,7 @@ public enum CommandEnum {
     },
     DELETE_USER{
         {
-            this.command = new DeleteUserCommand();
+            this.command = new DelUserCommand();
         }
     },
     ADD_COCKTAIL {
@@ -49,6 +49,11 @@ public enum CommandEnum {
     ADD_COMPONENT {
         {
             this.command = new AddComponentCommand();
+        }
+    },
+    DEL_COMPONENT {
+        {
+            this.command = new DelComponentCommand();
         }
     },
     CALCULATOR {
