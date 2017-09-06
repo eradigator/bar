@@ -2,6 +2,7 @@ package kz.epam.javalab22.bar.util;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.ComponentDao;
+import kz.epam.javalab22.bar.entity.Mix;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import java.sql.Connection;
@@ -13,7 +14,11 @@ import java.util.Map;
 
 public class CalcAlcohol {
 
-    public int calcStrength(Map<Integer, Double> componentsAndAmountsMap) {
+    public double calcStrength(Mix mix) {
+        return calcStrength(mix.getMix());
+    }
+
+    public double calcStrength(Map<Integer, Double> componentsAndAmountsMap) {
 
         final int VALUE_100_ML = Const.ONE_HUNDRED;
         double strength100Ml = Const.ZERO;
@@ -26,7 +31,7 @@ public class CalcAlcohol {
         for (Map.Entry<Integer, Double> pair : componentsAndAmountsMap.entrySet()) {
             double strength = componentDao.getComponent(pair.getKey()).getStrength();
             double amount = pair.getValue();
-            strength100Ml += (strength * amount)/VALUE_100_ML;
+            strength100Ml += (strength * amount) / VALUE_100_ML;
             totalAmount += amount;
         }
 
@@ -34,12 +39,12 @@ public class CalcAlcohol {
 
         resultStrength = (strength100Ml * VALUE_100_ML) / totalAmount;
 
-        return (int) resultStrength;
+        return resultStrength;
     }
 
-    public int totalAmount(Map<Integer,Double> componentsAndAmountsMap) {
+    public int totalAmount(Map<Integer, Double> componentsAndAmountsMap) {
 
-        double totalAmount=0;
+        double totalAmount = 0;
         for (Map.Entry<Integer, Double> pair : componentsAndAmountsMap.entrySet()) {
             double amount = pair.getValue();
             totalAmount += amount;

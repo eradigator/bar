@@ -10,22 +10,22 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DeleteUserCommand implements ActionCommand {
+public class DelUserCommand implements ActionCommand {
 
-    private static final Logger log = Logger.getLogger(DeleteUserCommand.class);
+    private static final Logger log = Logger.getLogger(DelUserCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
 
         ReqHandler reqHandler = new ReqHandler(request);
 
-        if (new UserLogic(reqHandler).deleteUser()) {
+        if (new UserLogic(reqHandler).delUser()) {
             request.setAttribute("deleteUserResult", "Пользователь удален");
             log.info("Пользователь: " + reqHandler.getParam("checkedName") + " удален");
         } else {
             request.setAttribute("deleteUserResult", MessageManager.getProperty("message.deleteUserError"));
         }
 
-        return ConfigurationManager.getProperty(Const.PAGE_MAIN);
+        return ConfigurationManager.getProperty(Const.PAGE_USER_MANAGER);
     }
 }

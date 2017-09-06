@@ -27,6 +27,6 @@ public class AddUserCommand implements ActionCommand {
             request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginError"));
         }
 
-        return ConfigurationManager.getProperty(Const.PAGE_MAIN);
+        return ConfigurationManager.getProperty(Const.PAGE_USER_MANAGER);
     }
 }

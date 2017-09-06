@@ -31,7 +31,7 @@ public class CalcStrengthCommand implements ActionCommand {
         }
 
         CalcAlcohol calcAlcohol = new CalcAlcohol();
-        int strength = calcAlcohol.calcStrength(mix);
+        int strength = (int) calcAlcohol.calcStrength(mix);
         int totalAmount = calcAlcohol.totalAmount(mix);
         int cost = (int) calcAlcohol.calcCost(mix);
 

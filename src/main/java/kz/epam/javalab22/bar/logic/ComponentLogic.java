@@ -41,4 +41,31 @@ public class ComponentLogic {
         return success;
     }
 
+    public boolean delComponent() {
+        Connection connection = ConnectionPool.getInstance().getConnection();
+        boolean success = false;
+
+        int componentId = Integer.parseInt(reqHandler.getParam("componentToDel"));
+
+        ComponentName componentName = new ComponentName(componentId);
+        ComponentNameDao componentNameDao = new ComponentNameDao(connection);
+
+        //autocommit false
+
+        if (componentNameDao.delete(componentName)) {
+            Component component = new Component(componentId);
+            ComponentDao componentDao = new ComponentDao(connection);
+            if (componentDao.delete(component)) {
+                success = true;
+                //commit
+            }
+        } else {
+            //rollback
+            success = false;
+        }
+
+        ConnectionPool.getInstance().returnConnection(connection);
+        return success;
+    }
+
 }

@@ -26,7 +26,7 @@
     («устрицы») – напитки с яичным желтком (который не может быть заменён яичным ликёром). Пьют ойстер одним глотком.
 </p>
 
-<%List<Cocktail> cocktailList = new CocktailDao().getCocktailsList();%>
+<%List<Cocktail> cocktailList = new CocktailDao().getNonAlcoList();%>
 <%for (Cocktail cocktail : cocktailList) {%>
 
 <div class="cocktail">

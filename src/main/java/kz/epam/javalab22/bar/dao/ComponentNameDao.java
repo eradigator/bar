@@ -26,7 +26,27 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
 
     @Override
     public boolean delete(ComponentName entity) {
-        return false;
+
+        String QUERY = "UPDATE component_name " +
+                "SET deleted = '1' WHERE id =" +
+                "(SELECT name_id " +
+                "FROM component " +
+                "WHERE id =" + entity.getId() + ")";
+
+        Boolean success = false;
+
+        try {
+            Statement statement = connection.createStatement();
+            int rowsAffected = statement.executeUpdate(QUERY);
+
+            if (rowsAffected > 0) {
+                success = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
     }
 
     @Override
@@ -50,10 +70,10 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
 
     public int getId(ComponentName entity) {
 
+        final String QUERY = String.format("SELECT id FROM component_name WHERE en = '%s'", entity.getEn());
         int id = 0;
 
         try {
-            String QUERY = String.format("SELECT id FROM component_name WHERE en = '%s'", entity.getEn());
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
@@ -66,27 +86,4 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
         return id;
     }
 
-    public List<String> getComponentNameList() {
-
-        final String QUERY = "SELECT * FROM component_name ORDER BY ru ASC";
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-        List<String> componentNamesList = new ArrayList<>();
-        String name;
-
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
-            while (resultSet.next()) {
-                name = resultSet.getString("ru");
-                componentNamesList.add(name);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        connectionPool.returnConnection(connection);
-        return componentNamesList;
-    }
 }

@@ -5,6 +5,10 @@ import kz.epam.javalab22.bar.dao.MixDao;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqHandler;
+import kz.epam.javalab22.bar.util.CalcAlcohol;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -45,6 +49,13 @@ public class CocktailLogic {
 
         Mix cocktailMix = new Mix(mix);
         new MixDao(connection).add(cocktailMix, cocktailId);
+
+        //вычисляем и записываем крепость
+        double tempStrength = new CalcAlcohol().calcStrength(cocktailMix);
+        double strength = new BigDecimal(tempStrength).setScale(3, RoundingMode.UP).doubleValue();
+        System.out.println(strength);
+        System.out.println(new CocktailDao(connection).setStrength(cocktailId,strength));
+
 
         ConnectionPool.getInstance().returnConnection(connection);
 
