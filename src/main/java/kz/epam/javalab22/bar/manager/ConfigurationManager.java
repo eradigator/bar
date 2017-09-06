@@ -4,10 +4,8 @@ import java.util.ResourceBundle;
 
 public class ConfigurationManager {
 
-    private static final String FILENAME = "config";
-    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(FILENAME);
+    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
 
-    // класс извлекает информацию из файла config.properties
     private ConfigurationManager() {
     }
 

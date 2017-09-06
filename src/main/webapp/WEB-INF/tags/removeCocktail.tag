@@ -11,7 +11,7 @@
     <input type="hidden" name="command" value="remove_cocktail">
 
     <p>
-        Название коктейля
+        <fmt:message key="cocktailName" bundle="${rb}"/>
         <br/>
 
         <select name="cocktailToDelete" title="">
@@ -21,7 +21,7 @@
         </select>
     </p>
 
-    <input type="submit" value="Удалить"/>
+    <input type="submit" value="<fmt:message key="del" bundle="${rb}"/>"/>
 </form>
 
 </div>
