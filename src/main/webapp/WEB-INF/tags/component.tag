@@ -17,8 +17,12 @@
 </c:if>
 
 <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">Добавление компонента</button>
-    <button class="tablinks" onclick="openTab(event, 'remove')">Удаление компонента</button>
+    <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">
+        <fmt:message key="addComponent" bundle="${rb}"/>
+    </button>
+    <button class="tablinks" onclick="openTab(event, 'remove')">
+        <fmt:message key="delComponent" bundle="${rb}"/>
+    </button>
 </div>
 
 <div id="add" class="tabcontent">
@@ -27,20 +31,20 @@
         <input type='hidden' name='command' value='add_component'>
 
         <p>
-            Название РУС
+            <fmt:message key="name_ru" bundle="${rb}"/>
             <br/>
             <input name='name_RU' value='' required title="">
             <br/>
         </p>
         <p>
-            Название EN
+            <fmt:message key="name_en" bundle="${rb}"/>
             <br/>
             <input name='name_EN' value='' required title="">
             <br/>
         </p>
 
         <p>
-            Тип
+            <fmt:message key="type" bundle="${rb}"/>
             <br/>
             <select name="componentType" title="">
                 <c:forEach items="${componentTypes}" var="componentType">
@@ -50,18 +54,19 @@
         </p>
 
         <p>
-            Крепость (%)
+            <fmt:message key="strength" bundle="${rb}"/> (%)
             <br/>
             <input type="number" name="strength" min="0" max="100" step="0.1" value="" title="" required>
         </p>
 
         <p>
-            Цена (за мл)
+            <fmt:message key="price" bundle="${rb}"/>,
+            <fmt:message key="ml" bundle="${rb}"/>
             <br/>
             <input type="number" name='price' min="0" max="100000" step="0.01" value="" title="" required>
             <br/>
         </p>
-        <input type='submit' value='Добавить'/>
+        <input type='submit' value='<fmt:message key="add" bundle="${rb}"/>'/>
     </form>
 </div>
 
@@ -71,7 +76,7 @@
         <input type="hidden" name="command" value="del_component">
 
         <p>
-            Название компонента
+            <fmt:message key="componentName" bundle="${rb}"/>
             <br/>
 
             <select name="componentToDel" title="">
@@ -81,7 +86,7 @@
             </select>
         </p>
 
-        <input type="submit" value="Удалить"/>
+        <input type="submit" value="<fmt:message key="del" bundle="${rb}"/>"/>
     </form>
 
 </div>
