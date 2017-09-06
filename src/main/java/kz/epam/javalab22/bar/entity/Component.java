@@ -15,6 +15,10 @@ public class Component {
     public Component() {
     }
 
+    public Component(int id) {
+        this.id = id;
+    }
+
     public Component(int id, double strength, double price) {
         this.id = id;
         this.strength = strength;
@@ -26,6 +30,14 @@ public class Component {
         this.type = type;
         this.strength = strength;
         this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNameId() {

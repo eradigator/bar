@@ -17,8 +17,12 @@
 </c:if>
 
 <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">Регистрация пользователя</button>
-    <button class="tablinks" onclick="openTab(event, 'remove')">Удаление пользователя</button>
+    <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">
+        <fmt:message key="regUser" bundle="${rb}" />
+    </button>
+    <button class="tablinks" onclick="openTab(event, 'remove')">
+        <fmt:message key="delUser" bundle="${rb}" />
+    </button>
 </div>
 
 <div id="add" class="tabcontent">
@@ -44,13 +48,18 @@
         <p>
             <fmt:message key="role" bundle="${ rb }"/><br/>
             <select name="role" title="role">
-                <option value="admin">Администратор</option>
-                <option selected value="user">Пользователь</option>
+                <option value="admin">
+                    <fmt:message key="administrator" bundle="${rb}" />
+                </option>
+                <option selected value="user">
+                    <fmt:message key="user" bundle="${rb}" />
+                </option>
             </select>
         </p>
 
         <p>
-            <input type="submit" value="Регистрация"/>
+
+            <input type="submit" value="<fmt:message key="registration" bundle="${ rb }"/>"/>
         </p>
     </form>
 </div>

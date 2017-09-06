@@ -7,8 +7,8 @@ public final class Const {
 
     /*Pages*/
     public static final String PAGE_INDEX = "path.page.index";
-    public static final String PAGE_MAIN = "path.page.main";
     public static final String PAGE_LOGIN = "path.page.login";
+    public static final String PAGE_USER_MANAGER = "path.page.userManager";
     public static final String PAGE_COCKTAIL_MANAGER = "path.page.cocktailManager";
     public static final String PAGE_COMPONENT_MANAGER = "path.page.componentManager";
 

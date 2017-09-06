@@ -28,7 +28,7 @@ public class LoginCommand implements ActionCommand {
             reqHandler.addSessionAttribute("username",login);
             reqHandler.addSessionAttribute("role","admin");
 
-            page = ConfigurationManager.getProperty(Const.PAGE_MAIN);
+            page = ConfigurationManager.getProperty(Const.PAGE_USER_MANAGER);
             log.info(login + " залогинился");
 
         } else {

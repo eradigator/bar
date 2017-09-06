@@ -4,13 +4,13 @@
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
 
-<c:if test="${(not empty result) or (not empty redResult)}">
+<c:if test="${(not empty result) or (not empty delComponentMessage)}">
     <div class="result_field">
         <div style="color:#02834b">
             <h5>${result}</h5>
         </div>
         <div style="color: crimson">
-            <h5>${error}</h5>
+            <h5>${delComponentMessage}</h5>
         </div>
     </div>
     <br/>
@@ -66,8 +66,24 @@
 </div>
 
 <div id="remove" class="tabcontent">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p>
+
+    <form name="delComponent" method="post" action="${pageContext.request.contextPath}/jsp/controller">
+        <input type="hidden" name="command" value="del_component">
+
+        <p>
+            Название компонента
+            <br/>
+
+            <select name="componentToDel" title="">
+                <c:forEach items="${components}" var="pair">
+                    <option value="${pair.key}">${pair.value}</option>
+                </c:forEach>
+            </select>
+        </p>
+
+        <input type="submit" value="Удалить"/>
+    </form>
+
 </div>
 
 <script src="${pageContext.request.contextPath}/js/tab.js"></script>

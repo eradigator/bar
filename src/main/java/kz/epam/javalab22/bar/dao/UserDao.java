@@ -71,17 +71,19 @@ public class UserDao extends AbstractDao<User> {
 
     public boolean deleteByLogin(String login) {
 
-        boolean success = false;
-        final String QUERY = String.format("DELETE FROM users WHERE NAME = '%s'", login);
+        String QUERY = "UPDATE users " +
+                "SET deleted = '1' " +
+                "WHERE name ='" + login + "'";
+
+        Boolean success = false;
 
         try {
             Statement statement = connection.createStatement();
-            int rowsDeleted = statement.executeUpdate(QUERY);
+            int rowsAffected = statement.executeUpdate(QUERY);
 
-            if (rowsDeleted > 0) {
+            if (rowsAffected > 0) {
                 success = true;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,7 +96,9 @@ public class UserDao extends AbstractDao<User> {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
 
-        final String QUERY = "SELECT * FROM users";
+        final String QUERY = "SELECT * " +
+                "FROM users " +
+                "WHERE deleted IS NOT TRUE";
 
         try {
             Statement statement = connection.createStatement();

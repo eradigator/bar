@@ -35,7 +35,7 @@
     </div>
 
     <div id="content">
-        <my:addComponent />
+        <my:component/>
     </div>
 
     <div id="clear">

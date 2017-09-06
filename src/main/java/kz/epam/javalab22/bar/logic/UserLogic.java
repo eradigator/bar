@@ -35,7 +35,7 @@ public class UserLogic {
         return success;
     }
 
-    public boolean deleteUser() {
+    public boolean delUser() {
 
         String login = reqHandler.getParam("checkedName");
         Connection connection = ConnectionPool.getInstance().getConnection();

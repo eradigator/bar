@@ -13,14 +13,6 @@
     </a>
 </form>
 
-<%--<form name="cocktailManager" method="post" action="${pageContext.request.contextPath}/jsp/controller">
-    <input type="hidden" name="command" value="page">
-    <input type="hidden" name="chosen" value="cocktailManager">
-    <a href="#" onclick="document.cocktailManager.submit();return(false)">
-        <fmt:message key="cocktailManager" bundle="${ rb }"/>
-    </a>
-</form>--%>
-
 <form name="cocktailManager" method="post" action="${pageContext.request.contextPath}/jsp/controller">
     <input type="hidden" name="command" value="page_cocktail">
     <a href="#" onclick="document.cocktailManager.submit();return(false)">

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by vten on 25.08.2017.
  */
-public class ComponentDao extends AbstractDao {
+public class ComponentDao extends AbstractDao<Component> {
 
     private Connection connection;
 
@@ -24,17 +24,34 @@ public class ComponentDao extends AbstractDao {
     }
 
     @Override
-    public Object update(Object entity) {
+    public Component update(Component entity) {
         return null;
     }
 
     @Override
-    public boolean delete(Object entity) {
-        return false;
+    public boolean delete(Component entity) {
+        String QUERY = "UPDATE component " +
+                "SET deleted = '1' " +
+                "WHERE id =" + entity.getId();
+
+        Boolean success = false;
+
+        try {
+            Statement statement = connection.createStatement();
+            int rowsAffected = statement.executeUpdate(QUERY);
+
+            if (rowsAffected > 0) {
+                success = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
     }
 
     @Override
-    public boolean create(Object entity) {
+    public boolean create(Component entity) {
         return false;
     }
 
@@ -66,12 +83,11 @@ public class ComponentDao extends AbstractDao {
         Connection connection = connectionPool.getConnection();
         List<String> components = new ArrayList<>();
         String name;
+        final String QUERY = "SELECT cn.ru AS ru, cn.en AS en\n" +
+                "FROM component c \n" +
+                "INNER JOIN component_name cn ON c.name_id = cn.id";
 
         try {
-            final String QUERY = "SELECT cn.ru AS ru, cn.en AS en\n" +
-                    "FROM public.component c \n" +
-                    "INNER JOIN public.component_name cn ON c.name_id = cn.id";
-
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
@@ -103,9 +119,11 @@ public class ComponentDao extends AbstractDao {
         int id;
 
         try {
-            final String QUERY = "SELECT c.id,cn.ru AS ru, cn.en AS en\n" +
-                    "FROM public.component c \n" +
-                    "INNER JOIN public.component_name cn ON c.name_id = cn.id";
+            final String QUERY = "SELECT c.id,cn.ru AS ru, cn.en AS en " +
+                    "FROM component c " +
+                    "INNER JOIN component_name cn ON c.name_id = cn.id " +
+                    "WHERE c.deleted IS NOT TRUE " +
+                    "ORDER BY cn.ru";
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
@@ -129,13 +147,12 @@ public class ComponentDao extends AbstractDao {
         return components;
     }
 
-
     public Component getComponent(int id) {
 
         final String QUERY = "SELECT id,strength,price FROM component WHERE id=" + id;
 
-        double strength=0;
-        double price=0;
+        double strength = 0;
+        double price = 0;
 
         try {
             Statement statement = connection.createStatement();
@@ -149,6 +166,6 @@ public class ComponentDao extends AbstractDao {
             e.printStackTrace();
         }
 
-        return new Component(id,strength,price);
+        return new Component(id, strength, price);
     }
 }

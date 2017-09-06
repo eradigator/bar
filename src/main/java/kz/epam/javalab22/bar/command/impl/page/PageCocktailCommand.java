@@ -28,8 +28,6 @@ public class PageCocktailCommand implements ActionCommand {
 
         Map<Integer,String> components = new ComponentDao().getComponents();
 
-
-
         reqHandler.addAttribute("cocktailNames", cocktailNames);
         reqHandler.addAttribute("components", components);
 

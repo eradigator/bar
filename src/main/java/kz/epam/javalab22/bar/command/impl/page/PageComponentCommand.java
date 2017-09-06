@@ -18,8 +18,12 @@ public class PageComponentCommand implements ActionCommand {
         ReqHandler reqHandler = new ReqHandler(request);
 
         Map<Integer, String> componentTypes = new ComponentTypeDao().getComponentTypes();
-
         reqHandler.addAttribute("componentTypes",componentTypes);
+
+        Map<Integer,String> components = new ComponentDao().getComponents();
+        reqHandler.addAttribute("components",components);
+
+
         return ConfigurationManager.getProperty(Const.PAGE_COMPONENT_MANAGER);
     }
 }

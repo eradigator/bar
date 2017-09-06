@@ -31,7 +31,9 @@
     </div>
 
     <div id="navigation">
-        <h2>Welcome</h2>
+        <h2>
+            Users
+        </h2>
         <hr/>
     </div>
 

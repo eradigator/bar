@@ -83,7 +83,48 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
         final String QUERY = "SELECT c.id,c.name,c.glass,c.image_id,b.method_name AS method " +
                 "FROM cocktail c " +
-                "INNER JOIN build_method b ON c.method = b.id";
+                "INNER JOIN build_method b ON c.method = b.id " +
+                "WHERE strength > 0 " +
+                "ORDER BY c.name";
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        List<Cocktail> cocktailList = new ArrayList<>();
+
+        String name;
+        int id;
+        Map<String, Integer> map;
+        BuildMethod buildMethod;
+        Glass glass;
+        int imageId;
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(QUERY);
+            while (resultSet.next()) {
+                id = resultSet.getInt("id");
+                name = resultSet.getString("name");
+                buildMethod = BuildMethod.valueOf(resultSet.getString("method"));
+                glass = Glass.valueOf(resultSet.getString("glass"));
+                imageId = resultSet.getInt("image_id");
+                map = new MixDao(connection).getMix(id);
+                cocktailList.add(new Cocktail(name, map, buildMethod, glass, imageId));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        connectionPool.returnConnection(connection);
+        return cocktailList;
+    }
+
+    public List<Cocktail> getNonAlcoList() {
+
+        final String QUERY = "SELECT c.id,c.name,c.glass,c.image_id,b.method_name AS method " +
+                "FROM cocktail c " +
+                "INNER JOIN build_method b ON c.method = b.id " +
+                "WHERE strength = 0 " +
+                "ORDER BY c.name";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
@@ -152,6 +193,26 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         }
 
         connectionPool.returnConnection(connection);
+        return success;
+    }
+
+    public boolean setStrength(int cocktailId, Double strength) {
+
+        String QUERY = "UPDATE cocktail " +
+                "SET strength = "+ strength +
+                " WHERE id=" + cocktailId;
+        Boolean success = false;
+
+        try {
+            Statement statement = connection.createStatement();
+            int rowsAffected = statement.executeUpdate(QUERY);
+            if (rowsAffected > 0) {
+                success = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return success;
     }
 

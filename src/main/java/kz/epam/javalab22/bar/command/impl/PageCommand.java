@@ -18,7 +18,7 @@ public class PageCommand implements ActionCommand {
                 case "login":
                     return ConfigurationManager.getProperty(Const.PAGE_LOGIN);
                 case "admin":
-                    return ConfigurationManager.getProperty(Const.PAGE_MAIN);
+                    return ConfigurationManager.getProperty(Const.PAGE_USER_MANAGER);
                 case "cocktailManager":
                     return ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
                 case "componentManager":
