@@ -19,8 +19,12 @@
 </c:if>
 
 <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">Добавление коктейля</button>
-    <button class="tablinks" onclick="openTab(event, 'remove')">Удаление коктейля</button>
+    <button class="tablinks" onclick="openTab(event, 'add')" id="defaultOpen">
+        <fmt:message key="addCocktail" bundle="${rb}"/>
+    </button>
+    <button class="tablinks" onclick="openTab(event, 'remove')">
+        <fmt:message key="delCocktail" bundle="${rb}"/>
+    </button>
 </div>
 
 <div id="add" class="tabcontent">
@@ -30,35 +34,39 @@
         <input type='hidden' name='command' value='add_cocktail'>
 
         <p>
-            Название РУС<br/>
-            <input type='text' name='name' value='' required title="">
+            <fmt:message key="name_ru" bundle="${rb}"/>
+            <br/>
+            <input name='name' value='' required title="">
             <br/>
         </p>
 
         <p>
-            Название EN<br/>
-            <input type='text' name='name_en' value='' required title="">
+            <fmt:message key="name_en" bundle="${rb}"/>
+            <br/>
+            <input name='name_en' value='' required title="">
             <br/>
         </p>
 
         <p>
-            Компонент:
+            <fmt:message key="component" bundle="${rb}"/>
             <br/>
             <select id="component" name="component" title="" style="width: 200px">
                 <c:forEach items="${components}" var="pair">
                     <option value="${pair.key}">${pair.value}</option>
                 </c:forEach>
             </select>
-            Количество
+            <fmt:message key="amount" bundle="${rb}"/>
             <input type="number" id="amount" name="amount" min="0" max="500" step="1" title="" value="0"/>
-            <button type="button" onclick="addComponent()">Добавить компонент</button>
+            <button type="button" onclick="addComponent()">
+                <fmt:message key="addComponent" bundle="${rb}"/>
+            </button>
         </p>
-
 
         <div id="outputPlace"></div>
 
         <p>
-            Метод:<br/>
+            <fmt:message key="method" bundle="${rb}"/>
+            <br/>
             <select name='buildMethod' title='buildMethod'>
                 <% for (BuildMethod buildMethod : BuildMethod.values()) { %>
                 <option value=<%=buildMethod%>>
@@ -69,7 +77,8 @@
         </p>
 
         <p>
-            Стакан:<br/>
+            <fmt:message key="glass" bundle="${rb}"/>
+            <br/>
             <select name='glass' title='glass'>
                 <%for (Glass glass : Glass.values()) {%>
                 <option value=<%=glass%>>
@@ -80,12 +89,13 @@
         </p>
 
         <p>
-            Изображение:<br/>
+            <fmt:message key="image" bundle="${rb}"/>
+            <br/>
             <input type="file" name="image" accept="image/*" size="5"/>
         </p>
 
         <p>
-            <input type='submit' value='Добавить'/>
+            <input type='submit' value='<fmt:message key="add" bundle="${rb}"/>'/>
         </p>
 
     </form>

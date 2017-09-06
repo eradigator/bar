@@ -9,7 +9,7 @@
     <input type="hidden" name="command" value="calculator">
 
     <p>
-        Компонент:
+        <fmt:message key="component" bundle="${rb}"/>
         <br/>
         <select name="component" title="">
             <c:forEach items="${components}" var="component">
@@ -17,15 +17,17 @@
             </c:forEach>
         </select>
 
-        Количество
+        <fmt:message key="amount" bundle="${rb}"/>
         <input type="number" id="amount" name="amount" title="" min="0" max="500" step="1" value="0"/>
-        <button type="button" onclick="addComponent()">Добавить компонент</button>
+        <button type="button" onclick="addComponent()">
+            <fmt:message key="addComponent" bundle="${rb}"/>
+        </button>
     </p>
 
     <div id="outputPlace"></div>
 
     <p>
-        <input type='submit' value='Рассчитать'/>
+        <input type='submit' value='<fmt:message key="calculate" bundle="${rb}"/>'/>
         <br/>
     </p>
 </form>
@@ -33,7 +35,7 @@
 <c:if test="${not empty outMap}">
     <div class="result_field">
 
-        Компоненты:
+        <fmt:message key="components" bundle="${rb}"/>
         <br/>
         <c:forEach items="${outMap}" var="pair">
             ${pair.key}: ${pair.value}
@@ -42,13 +44,20 @@
 
         <br/>
         <c:if test="${not empty strength}">
-            Крепость: ${strength}%<br/>
+            <fmt:message key="strength" bundle="${rb}"/>
+            ${strength}%<br/>
         </c:if>
         <c:if test="${not empty amount}">
-            Выход: ${amount} мл<br/>
+            <fmt:message key="drinkAmount" bundle="${rb}"/>
+            ${amount}
+            <fmt:message key="ml" bundle="${rb}"/>
+            <br/>
         </c:if>
         <c:if test="${not empty cost}">
-            Цена: ${cost} тг<br/>
+            <fmt:message key="price" bundle="${rb}"/>
+            ${cost}
+            <fmt:message key="currency" bundle="${rb}"/>
+            <br/>
         </c:if>
     </div>
 </c:if>
