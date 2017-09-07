@@ -5,26 +5,26 @@ import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
-import kz.epam.javalab22.bar.servlet.ReqHandler;
+import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import java.sql.Connection;
 
 public class UserLogic {
 
-    private ReqHandler reqHandler;
+    private ReqWrapper reqWrapper;
 
-    public UserLogic(ReqHandler reqHandler) {
-        this.reqHandler = reqHandler;
+    public UserLogic(ReqWrapper reqWrapper) {
+        this.reqWrapper = reqWrapper;
     }
 
     public boolean addUser() {
 
         boolean success;
 
-        String login = reqHandler.getParam(Const.PARAM_LOGIN);
-        String password = reqHandler.getParam(Const.PARAM_PASSWORD);
-        String email = reqHandler.getParam(Const.PARAM_EMAIL);
-        Role role = Role.valueOf(reqHandler.getParam(Const.PARAM_ROLE).toUpperCase());
+        String login = reqWrapper.getParam(Const.PARAM_LOGIN);
+        String password = reqWrapper.getParam(Const.PARAM_PASSWORD);
+        String email = reqWrapper.getParam(Const.PARAM_EMAIL);
+        Role role = Role.valueOf(reqWrapper.getParam(Const.PARAM_ROLE).toUpperCase());
 
         User user = new User(login,password,email,role);
 
@@ -37,7 +37,7 @@ public class UserLogic {
 
     public boolean delUser() {
 
-        String login = reqHandler.getParam("checkedName");
+        String login = reqWrapper.getParam("checkedName");
         Connection connection = ConnectionPool.getInstance().getConnection();
         Boolean result = new UserDao(connection).deleteByLogin(login);
         ConnectionPool.getInstance().returnConnection(connection);

@@ -6,8 +6,7 @@
 
 
 <form name="userManagement" method="post" action="${pageContext.request.contextPath}/jsp/controller">
-    <input type="hidden" name="command" value="page">
-    <input type="hidden" name="chosen" value="admin">
+    <input type="hidden" name="command" value="page_user_manager">
     <a href="#" onclick="document.userManagement.submit();return(false)">
         <fmt:message key="users" bundle="${ rb }"/>
     </a>

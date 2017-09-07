@@ -2,6 +2,7 @@ package kz.epam.javalab22.bar.filter;
 
 import javax.servlet.*;
 import java.io.IOException;
+import java.util.Locale;
 
 public class EncodingFilter implements Filter {
 

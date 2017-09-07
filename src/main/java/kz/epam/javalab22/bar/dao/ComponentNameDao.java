@@ -57,8 +57,8 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
         Boolean success = false;
 
         try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
-            ps.setString(1, entity.getEn());
-            ps.setString(2, entity.getRu());
+            ps.setString(1, entity.getNameEn());
+            ps.setString(2, entity.getNameRu());
             ps.execute();
             success = true;
         } catch (SQLException e) {
@@ -70,7 +70,7 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
 
     public int getId(ComponentName entity) {
 
-        final String QUERY = String.format("SELECT id FROM component_name WHERE en = '%s'", entity.getEn());
+        final String QUERY = String.format("SELECT id FROM component_name WHERE en = '%s'", entity.getNameEn());
         int id = 0;
 
         try {
@@ -84,6 +84,35 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
         }
 
         return id;
+    }
+
+    public List<ComponentName> getList() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        List<ComponentName> componentNames = new ArrayList<>();
+
+        try {
+            final String QUERY = "SELECT c.id,cn.ru AS ru, cn.en AS en " +
+                    "FROM component c " +
+                    "INNER JOIN component_name cn ON c.name_id = cn.id " +
+                    "WHERE c.deleted IS NOT TRUE " +
+                    "ORDER BY cn.ru";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(QUERY);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nameRu = resultSet.getString("ru");
+                String nameEn = resultSet.getString("en");
+                componentNames.add(new ComponentName(id,nameRu,nameEn));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        connectionPool.returnConnection(connection);
+        return componentNames;
     }
 
 }

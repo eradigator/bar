@@ -1,11 +1,9 @@
-package kz.epam.javalab22.bar.command.impl;
+package kz.epam.javalab22.bar.command.impl.component;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageCocktailCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageComponentCommand;
-import kz.epam.javalab22.bar.logic.CocktailLogic;
 import kz.epam.javalab22.bar.logic.ComponentLogic;
-import kz.epam.javalab22.bar.servlet.ReqHandler;
+import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +15,11 @@ public class DelComponentCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        ReqHandler reqHandler = new ReqHandler(request);
+        ReqWrapper reqWrapper = new ReqWrapper(request);
 
-        if (new ComponentLogic(reqHandler).delComponent()) {
-            reqHandler.addAttribute("delComponentMessage", "Компонент удален");
-            log.info("Компонент: id" + reqHandler.getParam("componentToDel") + " удален");
+        if (new ComponentLogic(reqWrapper).delComponent()) {
+            reqWrapper.addAttribute("delComponentMessage", "Компонент удален");
+            log.info("Компонент: id" + reqWrapper.getParam("componentToDel") + " удален");
         } else {
             request.setAttribute("delComponentMessage", "Компонент не удален");
         }

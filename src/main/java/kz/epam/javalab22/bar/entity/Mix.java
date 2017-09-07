@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.entity;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -7,17 +8,13 @@ import java.util.Map;
  */
 public class Mix {
 
-    private Map<Integer,Double> mix;
+    private Map<Component, Integer> mix = new LinkedHashMap<>();
 
-    public Mix(Map<Integer, Double> mix) {
-        this.mix = mix;
-    }
-
-    public Map<Integer, Double> getMix() {
+    public Map<Component, Integer> getMix() {
         return mix;
     }
 
-    public void setMix(Map<Integer, Double> mix) {
+    public void setMix(Map<Component, Integer> mix) {
         this.mix = mix;
     }
 }

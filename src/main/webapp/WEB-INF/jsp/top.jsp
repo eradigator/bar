@@ -1,19 +1,19 @@
 <%@ page language="java" pageEncoding="UTF-8" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form name="en" method="post" action="${pageContext.request.contextPath}/jsp/controller">
+<form name="nameEn" method="post" action="${pageContext.request.contextPath}/jsp/controller">
     <div style="float: left">
         <input type="hidden" name="command" value="lang">
         <input type="hidden" name="chosen" value="EN">
-        <a href="#" onclick="document.en.submit();return(false)">EN</a>&nbsp;
+        <a href="#" onclick="document.nameEn.submit();return(false)">EN</a>&nbsp;
     </div>
 </form>
 
-<form name="ru" method="post" action="${pageContext.request.contextPath}/jsp/controller">
+<form name="nameRu" method="post" action="${pageContext.request.contextPath}/jsp/controller">
     <div style="float: left">
         <input type="hidden" name="command" value="lang">
         <input type="hidden" name="chosen" value="RU">
-        <a href="#" onclick="document.ru.submit();return(false)">RU</a>&nbsp;
+        <a href="#" onclick="document.nameRu.submit();return(false)">RU</a>&nbsp;
     </div>
 </form>
 

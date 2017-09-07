@@ -3,17 +3,13 @@ package kz.epam.javalab22.bar.entity;
 /**
  * Created by erad on 10.07.2017.
  */
-public class Glass {
+public class Method {
 
     private int id;
     private String nameRu;
     private String nameEn;
 
-    public Glass(int id) {
-        this.id = id;
-    }
-
-    public Glass(int id, String nameRu, String nameEn) {
+    public Method(int id, String nameRu, String nameEn) {
         this.id = id;
         this.nameRu = nameRu;
         this.nameEn = nameEn;

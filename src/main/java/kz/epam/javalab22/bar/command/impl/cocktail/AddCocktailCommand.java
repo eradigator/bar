@@ -1,12 +1,10 @@
-package kz.epam.javalab22.bar.command.impl;
+package kz.epam.javalab22.bar.command.impl.cocktail;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageCocktailCommand;
-import kz.epam.javalab22.bar.constant.Const;
+import kz.epam.javalab22.bar.command.impl.page.PageCocktailManagerCommand;
 import kz.epam.javalab22.bar.logic.CocktailLogic;
-import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
-import kz.epam.javalab22.bar.servlet.ReqHandler;
+import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,16 +15,16 @@ public class AddCocktailCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        ReqHandler reqHandler = new ReqHandler(request);
-        CocktailLogic cocktailLogic = new CocktailLogic(reqHandler);
+        ReqWrapper reqWrapper = new ReqWrapper(request);
+        CocktailLogic cocktailLogic = new CocktailLogic(reqWrapper);
 
         if (cocktailLogic.addCocktail()) {
             request.setAttribute("addCocktailResult", "Коктейль добавлен");
-            log.info("Коктейль: " + reqHandler.getParam("name") + " добавлен");
+            log.info("Коктейль: " + reqWrapper.getParam("name") + " добавлен");
         } else {
             request.setAttribute("addCocktailResult", MessageManager.getProperty("message.loginerror"));
         }
 
-        return new PageCocktailCommand().execute(request);
+        return new PageCocktailManagerCommand().execute(request);
     }
 }

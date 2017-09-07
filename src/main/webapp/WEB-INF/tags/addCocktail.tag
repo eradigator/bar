@@ -1,10 +1,9 @@
-<%@ tag import="kz.epam.javalab22.bar.entity.BuildMethod" %>
-<%@ tag import="kz.epam.javalab22.bar.entity.Glass" %>
 <%@ tag body-content="empty" dynamic-attributes="dynattrs" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
+<c:set var="locale" value="${pageContext.request.session.getAttribute('locale')}" scope="page"/>
 
 <c:if test="${(not empty addCocktailResult) or (not empty removeCocktailResult)}">
     <div class="result_field">
@@ -51,8 +50,13 @@
             <fmt:message key="component" bundle="${rb}"/>
             <br/>
             <select id="component" name="component" title="" style="width: 200px">
-                <c:forEach items="${components}" var="pair">
-                    <option value="${pair.key}">${pair.value}</option>
+                <c:forEach items="${componentNames}" var="componentName">
+                    <option value="${componentName.id}">
+                        <c:choose>
+                            <c:when test="${locale.toString() eq 'ru_RU'}">${componentName.nameRu}</c:when>
+                            <c:when test="${locale.toString() eq 'en_US'}">${componentName.nameEn}</c:when>
+                        </c:choose>
+                    </option>
                 </c:forEach>
             </select>
             <fmt:message key="amount" bundle="${rb}"/>
@@ -64,15 +68,19 @@
 
         <div id="outputPlace"></div>
 
+
         <p>
             <fmt:message key="method" bundle="${rb}"/>
             <br/>
-            <select name='buildMethod' title='buildMethod'>
-                <% for (BuildMethod buildMethod : BuildMethod.values()) { %>
-                <option value=<%=buildMethod%>>
-                    <%=buildMethod%>
-                </option>
-                <%} %>
+            <select name='method' title="">
+                <c:forEach items="${methods}" var="method">
+                    <option value="${method.id}">
+                        <c:choose>
+                            <c:when test="${locale.toString() eq 'ru_RU'}">${method.nameRu}</c:when>
+                            <c:when test="${locale.toString() eq 'en_US'}">${method.nameEn}</c:when>
+                        </c:choose>
+                    </option>
+                </c:forEach>
             </select>
         </p>
 
@@ -80,11 +88,14 @@
             <fmt:message key="glass" bundle="${rb}"/>
             <br/>
             <select name='glass' title='glass'>
-                <%for (Glass glass : Glass.values()) {%>
-                <option value=<%=glass%>>
-                    <%=glass%>
-                </option>
-                <%} %>
+                <c:forEach items="${glasses}" var="glass">
+                    <option value="${glass.id}">
+                        <c:choose>
+                            <c:when test="${locale.toString() eq 'ru_RU'}">${glass.nameRu}</c:when>
+                            <c:when test="${locale.toString() eq 'en_US'}">${glass.nameEn}</c:when>
+                        </c:choose>
+                    </option>
+                </c:forEach>
             </select>
         </p>
 

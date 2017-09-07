@@ -1,11 +1,12 @@
 package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageUserManagerCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.LoginLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
-import kz.epam.javalab22.bar.servlet.ReqHandler;
+import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,16 +20,16 @@ public class LoginCommand implements ActionCommand {
 
         String page;
 
-        ReqHandler reqHandler = new ReqHandler(request);
-        String login = reqHandler.getParam(Const.PARAM_LOGIN);
-        String pass = reqHandler.getParam(Const.PARAM_PASSWORD);
+        ReqWrapper reqWrapper = new ReqWrapper(request);
+        String login = reqWrapper.getParam(Const.PARAM_LOGIN);
+        String pass = reqWrapper.getParam(Const.PARAM_PASSWORD);
 
         if (new LoginLogic().checkLogin(login, pass)) {
 
-            reqHandler.addSessionAttribute("username",login);
-            reqHandler.addSessionAttribute("role","admin");
+            reqWrapper.addSessionAttribute("username",login);
+            reqWrapper.addSessionAttribute("role","admin");
 
-            page = ConfigurationManager.getProperty(Const.PAGE_USER_MANAGER);
+            page = new PageUserManagerCommand().execute(request);
             log.info(login + " залогинился");
 
         } else {

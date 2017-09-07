@@ -5,16 +5,16 @@ import kz.epam.javalab22.bar.dao.ComponentNameDao;
 import kz.epam.javalab22.bar.entity.Component;
 import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
-import kz.epam.javalab22.bar.servlet.ReqHandler;
+import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import java.sql.Connection;
 
 public class ComponentLogic {
 
-    private ReqHandler reqHandler;
+    private ReqWrapper reqWrapper;
 
-    public ComponentLogic(ReqHandler reqHandler) {
-        this.reqHandler = reqHandler;
+    public ComponentLogic(ReqWrapper reqWrapper) {
+        this.reqWrapper = reqWrapper;
     }
 
     public boolean addComponent() {
@@ -22,13 +22,13 @@ public class ComponentLogic {
         Connection connection = ConnectionPool.getInstance().getConnection();
         boolean success = false;
 
-        String name_RU = reqHandler.getNonArrayRequestParameters().get("name_RU");
-        String name_EN = reqHandler.getNonArrayRequestParameters().get("name_EN");
-        int componentType = Integer.parseInt(reqHandler.getNonArrayRequestParameters().get("componentType"));
-        double strength = Double.parseDouble(reqHandler.getNonArrayRequestParameters().get("strength"));
-        double price = Double.parseDouble(reqHandler.getNonArrayRequestParameters().get("price"));
+        String name_RU = reqWrapper.getNonArrayRequestParameters().get("name_RU");
+        String name_EN = reqWrapper.getNonArrayRequestParameters().get("name_EN");
+        int componentType = Integer.parseInt(reqWrapper.getNonArrayRequestParameters().get("componentType"));
+        double strength = Double.parseDouble(reqWrapper.getNonArrayRequestParameters().get("strength"));
+        double price = Double.parseDouble(reqWrapper.getNonArrayRequestParameters().get("price"));
 
-        ComponentName componentName = new ComponentName(name_EN, name_RU);
+        ComponentName componentName = new ComponentName(name_RU, name_EN);
 
         if (new ComponentNameDao(connection).create(componentName)) {
             int nameId = new ComponentNameDao(connection).getId(componentName);
@@ -45,7 +45,7 @@ public class ComponentLogic {
         Connection connection = ConnectionPool.getInstance().getConnection();
         boolean success = false;
 
-        int componentId = Integer.parseInt(reqHandler.getParam("componentToDel"));
+        int componentId = Integer.parseInt(reqWrapper.getParam("componentToDel"));
 
         ComponentName componentName = new ComponentName(componentId);
         ComponentNameDao componentNameDao = new ComponentNameDao(connection);
