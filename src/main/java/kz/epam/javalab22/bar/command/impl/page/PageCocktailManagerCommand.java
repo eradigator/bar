@@ -2,19 +2,20 @@ package kz.epam.javalab22.bar.command.impl.page;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.dao.ComponentNameDao;
-import kz.epam.javalab22.bar.dao.ComponentTypeDao;
-import kz.epam.javalab22.bar.entity.ComponentName;
+import kz.epam.javalab22.bar.dao.*;
+import kz.epam.javalab22.bar.entity.*;
+import kz.epam.javalab22.bar.jdbc.Connect;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PageComponentCommand implements ActionCommand {
+public class PageCocktailManagerCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -23,14 +24,18 @@ public class PageComponentCommand implements ActionCommand {
 
         Connection connection = ConnectionPool.getInstance().getConnection();
 
-        Map<Integer, String> componentTypes = new ComponentTypeDao().getComponentTypes();
-        reqWrapper.addAttribute("componentTypes", componentTypes);
-
+        List<CocktailName> cocktailNames = new CocktailNameDao(connection).getList();
         List<ComponentName> componentNames = new ComponentNameDao(connection).getList();
-        reqWrapper.addAttribute("componentNames", componentNames);
+        List<Method> methods = new MethodDao().getList();
+        List<Glass> glasses = new GlassDao().getList();
 
         ConnectionPool.getInstance().returnConnection(connection);
 
-        return ConfigurationManager.getProperty(Const.PAGE_COMPONENT_MANAGER);
+        reqWrapper.addAttribute("cocktailNames", cocktailNames);
+        reqWrapper.addAttribute("componentNames", componentNames);
+        reqWrapper.addAttribute("methods", methods);
+        reqWrapper.addAttribute("glasses",glasses);
+
+        return ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
     }
 }

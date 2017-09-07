@@ -11,6 +11,7 @@ public class Component {
     private int type;
     private double strength;
     private double price;
+    private ComponentName componentName;
 
     public Component() {
     }
@@ -62,5 +63,13 @@ public class Component {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public ComponentName getComponentName() {
+        return componentName;
+    }
+
+    public void setComponentName(ComponentName componentName) {
+        this.componentName = componentName;
     }
 }

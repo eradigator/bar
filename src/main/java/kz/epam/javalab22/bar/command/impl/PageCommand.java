@@ -17,24 +17,9 @@ public class PageCommand implements ActionCommand {
             switch (chosen) {
                 case "login":
                     return ConfigurationManager.getProperty(Const.PAGE_LOGIN);
-                case "admin":
-                    return ConfigurationManager.getProperty(Const.PAGE_USER_MANAGER);
-                case "cocktailManager":
-                    return ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
-                case "componentManager":
-                    return ConfigurationManager.getProperty(Const.PAGE_COMPONENT_MANAGER);
 
                 case "catalog":
                     request.setAttribute("content", "catalog");
-                    break;
-                case "alcoholic":
-                    request.setAttribute("content", "alcoholic");
-                    break;
-                case "nonalcoholic":
-                    request.setAttribute("content", "nonalcoholic");
-                    break;
-                case "calculator":
-                    request.setAttribute("content", "calculator");
                     break;
             }
         }

@@ -1,19 +1,14 @@
 package kz.epam.javalab22.bar.entity;
 
 /**
- * Created by erad on 10.07.2017.
+ * Created by vten on 07.09.2017.
  */
-public class Glass {
-
+public class CocktailName {
     private int id;
     private String nameRu;
     private String nameEn;
 
-    public Glass(int id) {
-        this.id = id;
-    }
-
-    public Glass(int id, String nameRu, String nameEn) {
+    public CocktailName(int id, String nameRu, String nameEn) {
         this.id = id;
         this.nameRu = nameRu;
         this.nameEn = nameEn;

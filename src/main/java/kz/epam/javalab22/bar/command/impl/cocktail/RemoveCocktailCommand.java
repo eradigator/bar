@@ -1,11 +1,9 @@
-package kz.epam.javalab22.bar.command.impl;
+package kz.epam.javalab22.bar.command.impl.cocktail;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageCocktailCommand;
-import kz.epam.javalab22.bar.constant.Const;
+import kz.epam.javalab22.bar.command.impl.page.PageCocktailManagerCommand;
 import kz.epam.javalab22.bar.logic.CocktailLogic;
-import kz.epam.javalab22.bar.manager.ConfigurationManager;
-import kz.epam.javalab22.bar.servlet.ReqHandler;
+import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,15 +15,15 @@ public class RemoveCocktailCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        ReqHandler reqHandler = new ReqHandler(request);
+        ReqWrapper reqWrapper = new ReqWrapper(request);
 
-        if (new CocktailLogic(reqHandler).deleteCocktail()) {
+        if (new CocktailLogic(reqWrapper).deleteCocktail()) {
             request.setAttribute("removeCocktailResult", "Коктейль удален");
-            log.info("Коктейль: " + reqHandler.getParam("cocktailToDelete") + " удален");
+            log.info("Коктейль: " + reqWrapper.getParam("cocktailToDelete") + " удален");
         } else {
             request.setAttribute("removeCocktailResult", "Коктейль не удален");
         }
 
-        return new PageCocktailCommand().execute(request);
+        return new PageCocktailManagerCommand().execute(request);
     }
 }

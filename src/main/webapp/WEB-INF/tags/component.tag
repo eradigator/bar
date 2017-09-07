@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
+<c:set var="locale" value="${pageContext.request.session.getAttribute('locale')}" scope="page"/>
 
 <c:if test="${(not empty result) or (not empty delComponentMessage)}">
     <div class="result_field">
@@ -80,8 +81,13 @@
             <br/>
 
             <select name="componentToDel" title="">
-                <c:forEach items="${components}" var="pair">
-                    <option value="${pair.key}">${pair.value}</option>
+                <c:forEach items="${componentNames}" var="componentName">
+                    <option value="${componentName.id}">
+                        <c:choose>
+                            <c:when test="${locale.toString() eq 'ru_RU'}">${componentName.nameRu}</c:when>
+                            <c:when test="${locale.toString() eq 'en_US'}">${componentName.nameEn}</c:when>
+                        </c:choose>
+                    </option>
                 </c:forEach>
             </select>
         </p>

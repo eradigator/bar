@@ -3,7 +3,7 @@ package kz.epam.javalab22.bar.logic;
 import kz.epam.javalab22.bar.dao.ImageDao;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
-import kz.epam.javalab22.bar.servlet.ReqHandler;
+import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Part;
@@ -16,10 +16,10 @@ import java.sql.Connection;
  */
 public class ImageLogic {
 
-    private ReqHandler reqHandler;
+    private ReqWrapper reqWrapper;
 
-    public ImageLogic(ReqHandler reqHandler) {
-        this.reqHandler = reqHandler;
+    public ImageLogic(ReqWrapper reqWrapper) {
+        this.reqWrapper = reqWrapper;
     }
 
     public Image addImage() {
@@ -30,7 +30,7 @@ public class ImageLogic {
         long length=0;
 
         try {
-            Part filePart = reqHandler.getRequest().getPart("image");
+            Part filePart = reqWrapper.getRequest().getPart("image");
 
             if (filePart != null) {
                 //System.out.println(filePart.getName());

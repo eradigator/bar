@@ -4,10 +4,10 @@
 <a href="${pageContext.request.contextPath}/jsp/controller?command=page&chosen=catalog">
     <fmt:message key="catalog" bundle="${ rb }"/><br>
 </a>
-<a href="${pageContext.request.contextPath}/jsp/controller?command=page&chosen=alcoholic">
+<a href="${pageContext.request.contextPath}/jsp/controller?command=page_alcoholic">
     <fmt:message key="alcoholic" bundle="${ rb }"/><br>
 </a>
-<a href="${pageContext.request.contextPath}/jsp/controller?command=page&chosen=nonalcoholic">
+<a href="${pageContext.request.contextPath}/jsp/controller?command=page_nonalco">
     <fmt:message key="nonalcoholic" bundle="${ rb }"/><br>
 </a>
 <a href="${pageContext.request.contextPath}/jsp/controller?command=page_calc">

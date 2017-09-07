@@ -5,24 +5,31 @@ package kz.epam.javalab22.bar.entity;
  */
 public class ComponentName {
     private int id;
-    private String en;
-    private String ru;
+    private String nameRu;
+    private String nameEn;
+
 
     public ComponentName(int id) {
         this.id = id;
     }
 
-    public ComponentName(String en, String ru) {
-        this.en = en;
-        this.ru = ru;
+    public ComponentName(String nameRu, String nameEn) {
+        this.nameRu = nameRu;
+        this.nameEn = nameEn;
     }
 
-    public String getEn() {
-        return en;
+    public ComponentName(int id, String nameRu, String nameEn) {
+        this.id = id;
+        this.nameRu = nameRu;
+        this.nameEn = nameEn;
     }
 
-    public String getRu() {
-        return ru;
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public String getNameRu() {
+        return nameRu;
     }
 
     public int getId() {
