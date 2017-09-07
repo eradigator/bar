@@ -1,5 +1,7 @@
 package kz.epam.javalab22.bar.dao;
 
+import kz.epam.javalab22.bar.entity.Component;
+import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.entity.Mix;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
 
@@ -42,9 +44,9 @@ public class MixDao extends AbstractDao<Mix> {
         Boolean success = false;
 
         try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
-            for (Map.Entry<Integer, Double> pair : entity.getMix().entrySet()) {
+            for (Map.Entry<Component, Integer> pair : entity.getMix().entrySet()) {
                 ps.setInt(1, cocktailId);
-                ps.setInt(2, pair.getKey());
+                ps.setInt(2, pair.getKey().getId());
                 ps.setDouble(3, pair.getValue());
                 ps.execute();
             }
@@ -57,32 +59,35 @@ public class MixDao extends AbstractDao<Mix> {
         return success;
     }
 
-    public Map<String,Integer> getMix(int cocktailId) {
+    public Mix getMix(int cocktailId) {
 
-        Map<String,Integer> map = new LinkedHashMap<>();
+        Mix mix = new Mix();
 
-        String name;
-        Integer amount;
-
-        String QUERY = "SELECT m.amount,cn.ru AS name\n" +
-                "FROM mix m \n" +
-                "INNER JOIN component c ON m.component_id = c.id\n" +
-                "INNER JOIN component_name cn ON c.name_id = cn.id\n" +
+        String QUERY = "SELECT m.amount, " +
+                "cn.ru AS nameRu," +
+                "cn.en AS nameEn " +
+                "FROM mix m " +
+                "INNER JOIN component c ON m.component_id = c.id " +
+                "INNER JOIN component_name cn ON c.name_id = cn.id " +
                 "WHERE cocktail_id = "+ cocktailId;
 
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
-                name = resultSet.getString("name");
-                amount = Integer.parseInt(resultSet.getString("amount"));
-                map.put(name,amount);
+                int amount = Integer.parseInt(resultSet.getString("amount"));
+                String nameRu = resultSet.getString("nameRu");
+                String nameEn = resultSet.getString("nameEn");
+                ComponentName componentName = new ComponentName(nameRu,nameEn);
+                Component component = new Component();
+                component.setComponentName(componentName);
+                mix.getMix().put(component,amount);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return map;
+        return mix;
     }
 
 }

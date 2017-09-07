@@ -1,9 +1,14 @@
 package kz.epam.javalab22.bar.command;
 
 import kz.epam.javalab22.bar.command.impl.*;
-import kz.epam.javalab22.bar.command.impl.page.PageCalcCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageCocktailCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageComponentCommand;
+import kz.epam.javalab22.bar.command.impl.CalcStrengthCommand;
+import kz.epam.javalab22.bar.command.impl.cocktail.AddCocktailCommand;
+import kz.epam.javalab22.bar.command.impl.cocktail.RemoveCocktailCommand;
+import kz.epam.javalab22.bar.command.impl.component.AddComponentCommand;
+import kz.epam.javalab22.bar.command.impl.component.DelComponentCommand;
+import kz.epam.javalab22.bar.command.impl.page.*;
+import kz.epam.javalab22.bar.command.impl.user.AddUserCommand;
+import kz.epam.javalab22.bar.command.impl.user.DelUserCommand;
 
 public enum CommandEnum {
     LOGIN {
@@ -66,9 +71,24 @@ public enum CommandEnum {
             this.command = new ImageCommand();
         }
     },
+    PAGE_ALCOHOLIC {
+        {
+            this.command = new PageAlcoholicCommand();
+        }
+    },
+    PAGE_NONALCO {
+        {
+            this.command = new PageNonAlcoCommand();
+        }
+    },
     PAGE_CALC {
         {
             this.command = new PageCalcCommand();
+        }
+    },
+    PAGE_USER_MANAGER {
+        {
+            this.command = new PageUserManagerCommand();
         }
     },
     PAGE_COMPONENT {
@@ -78,7 +98,7 @@ public enum CommandEnum {
     },
     PAGE_COCKTAIL {
         {
-            this.command = new PageCocktailCommand();
+            this.command = new PageCocktailManagerCommand();
         }
     }
     ;

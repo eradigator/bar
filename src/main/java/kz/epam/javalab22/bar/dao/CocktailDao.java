@@ -1,8 +1,6 @@
 package kz.epam.javalab22.bar.dao;
 
-import kz.epam.javalab22.bar.entity.BuildMethod;
-import kz.epam.javalab22.bar.entity.Cocktail;
-import kz.epam.javalab22.bar.entity.Glass;
+import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
@@ -37,18 +35,19 @@ public class CocktailDao extends AbstractDao<Cocktail> {
     @Override
     public boolean create(Cocktail entity) {
 
-        final String QUERY = "INSERT INTO public.cocktail(name,method,glass,image_id) " +
+        final String QUERY = "INSERT INTO cocktail(name,method,glass_id,image_id) " +
                 "VALUES(?,?,?,?)";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-        int buildMethodId = new BuildMethodDao().getId(entity.getBuildMethod());
+
+        int methodId = entity.getMethodId();
         Boolean success = false;
 
         try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
             ps.setString(1, entity.getName());
-            ps.setInt(2, buildMethodId);
-            ps.setString(3, entity.getGlass().toString());
+            ps.setInt(2, methodId);
+            ps.setInt(3, entity.getGlass().getId());
             ps.setInt(4, entity.getImage().getId());
             ps.execute();
             success = true;
@@ -81,34 +80,59 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
     public List<Cocktail> getCocktailsList() {
 
-        final String QUERY = "SELECT c.id,c.name,c.glass,c.image_id,b.method_name AS method " +
+        final String QUERY = "SELECT c.id,c.glass,c.image_id," +
+                "cn.id AS cocktailNameId, " +
+                "cn.name_ru AS cocktailNameNameRu, " +
+                "cn.name_en AS cocktailNameNameEn, " +
+                "b.id AS methodId, " +
+                "b.name_ru AS methodNameRu, " +
+                "b.name_en AS methodNameEn, " +
+                "g.id AS glassId, " +
+                "g.name_ru AS glassNameRu, " +
+                "g.name_en AS glassNameEn " +
                 "FROM cocktail c " +
+                "INNER JOIN cocktail_name cn ON c.name_id = cn.id " +
                 "INNER JOIN build_method b ON c.method = b.id " +
+                "INNER JOIN glass g ON c.glass_id = g.id " +
                 "WHERE strength > 0 " +
+                "AND c.deleted IS NOT TRUE " +
                 "ORDER BY c.name";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         List<Cocktail> cocktailList = new ArrayList<>();
 
-        String name;
-        int id;
-        Map<String, Integer> map;
-        BuildMethod buildMethod;
-        Glass glass;
-        int imageId;
 
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
-                id = resultSet.getInt("id");
-                name = resultSet.getString("name");
-                buildMethod = BuildMethod.valueOf(resultSet.getString("method"));
-                glass = Glass.valueOf(resultSet.getString("glass"));
-                imageId = resultSet.getInt("image_id");
-                map = new MixDao(connection).getMix(id);
-                cocktailList.add(new Cocktail(name, map, buildMethod, glass, imageId));
+                int id = resultSet.getInt("id");
+                CocktailName cocktailName;
+                {
+                    int cocktailNameId = resultSet.getInt("cocktailNameId");
+                    String cocktailNameNameRu = resultSet.getString("cocktailNameNameRu");
+                    String cocktailNameNameEn = resultSet.getString("cocktailNameNameEn");
+                    cocktailName = new CocktailName(cocktailNameId, cocktailNameNameRu, cocktailNameNameEn);
+                }
+                Method method;
+                {
+                    int methodId = resultSet.getInt("methodId");
+                    String methodNameRU = resultSet.getString("methodNameRu");
+                    String methodNameEn = resultSet.getString("methodNameEn");
+                    method = new Method(methodId, methodNameRU, methodNameEn);
+                }
+                Glass glass;
+                {
+                    int glassId = resultSet.getInt("glassId");
+                    String glassNameRu = resultSet.getString("glassNameRu");
+                    String glassNameEn = resultSet.getString("glassNameEn");
+                    glass = new Glass(glassId, glassNameRu, glassNameEn);
+                }
+
+                int imageId = resultSet.getInt("image_id");
+                Mix mix = new MixDao(connection).getMix(id);
+                cocktailList.add(new Cocktail(cocktailName, mix, method, glass, imageId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,50 +141,79 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         connectionPool.returnConnection(connection);
         return cocktailList;
     }
+
 
     public List<Cocktail> getNonAlcoList() {
 
-        final String QUERY = "SELECT c.id,c.name,c.glass,c.image_id,b.method_name AS method " +
+        final String QUERY = "SELECT c.id,/*c.name,*/c.glass,c.image_id," +
+                "cn.id AS cocktailNameId, " +
+                "cn.name_ru AS cocktailNameNameRu, " +
+                "cn.name_en AS cocktailNameNameEn, " +
+                "b.id AS methodId, " +
+                "b.name_ru AS methodNameRu, " +
+                "b.name_en AS methodNameEn, " +
+                "g.id AS glassId, " +
+                "g.name_ru AS glassNameRu, " +
+                "g.name_en AS glassNameEn " +
                 "FROM cocktail c " +
+                "INNER JOIN cocktail_name cn ON c.name_id = cn.id " +
                 "INNER JOIN build_method b ON c.method = b.id " +
+                "INNER JOIN glass g ON c.glass_id = g.id " +
                 "WHERE strength = 0 " +
+                "AND c.deleted IS NOT TRUE " +
                 "ORDER BY c.name";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         List<Cocktail> cocktailList = new ArrayList<>();
 
-        String name;
-        int id;
-        Map<String, Integer> map;
-        BuildMethod buildMethod;
-        Glass glass;
-        int imageId;
-
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
-                id = resultSet.getInt("id");
-                name = resultSet.getString("name");
-                buildMethod = BuildMethod.valueOf(resultSet.getString("method"));
-                glass = Glass.valueOf(resultSet.getString("glass"));
-                imageId = resultSet.getInt("image_id");
-                map = new MixDao(connection).getMix(id);
-                cocktailList.add(new Cocktail(name, map, buildMethod, glass, imageId));
+                int id = resultSet.getInt("id");
+                CocktailName cocktailName;
+                {
+                    int cocktailNameId = resultSet.getInt("cocktailNameId");
+                    String cocktailNameNameRu = resultSet.getString("cocktailNameNameRu");
+                    String cocktailNameNameEn = resultSet.getString("cocktailNameNameEn");
+                    cocktailName = new CocktailName(cocktailNameId, cocktailNameNameRu, cocktailNameNameEn);
+                }
+                Method method;
+                {
+                    int methodId = resultSet.getInt("methodId");
+                    String methodNameRU = resultSet.getString("methodNameRu");
+                    String methodNameEn = resultSet.getString("methodNameEn");
+                    method = new Method(methodId, methodNameRU, methodNameEn);
+                }
+                Glass glass;
+                {
+                    int glassId = resultSet.getInt("glassId");
+                    String glassNameRu = resultSet.getString("glassNameRu");
+                    String glassNameEn = resultSet.getString("glassNameEn");
+                    glass = new Glass(glassId, glassNameRu, glassNameEn);
+                }
+
+                int imageId = resultSet.getInt("image_id");
+                Mix mix = new MixDao(connection).getMix(id);
+                cocktailList.add(new Cocktail(cocktailName, mix, method, glass, imageId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+
         connectionPool.returnConnection(connection);
         return cocktailList;
     }
 
-    public boolean deleteByName(String name) {
+    public boolean deleteById(int cocktailId) {
+
+        String QUERY = "UPDATE cocktail " +
+                "SET deleted = '1' " +
+                "WHERE id ='" + cocktailId + "'";
 
         Boolean success = false;
-        final String QUERY = String.format("DELETE FROM cocktail WHERE name = '%s'", name);
 
         try {
             Statement statement = connection.createStatement();
@@ -169,7 +222,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             if (rowsAffected > 0) {
                 success = true;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -199,7 +251,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
     public boolean setStrength(int cocktailId, Double strength) {
 
         String QUERY = "UPDATE cocktail " +
-                "SET strength = "+ strength +
+                "SET strength = " + strength +
                 " WHERE id=" + cocktailId;
         Boolean success = false;
 

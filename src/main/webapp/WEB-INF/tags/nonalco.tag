@@ -1,7 +1,3 @@
-<%@ tag import="kz.epam.javalab22.bar.entity.Cocktail" %>
-<%@ tag import="java.util.List" %>
-<%@ tag import="kz.epam.javalab22.bar.dao.CocktailDao" %>
-<%@ tag import="java.util.Map" %>
 <%@ tag body-content="empty" dynamic-attributes="dynattrs" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -26,38 +22,46 @@
     («устрицы») – напитки с яичным желтком (который не может быть заменён яичным ликёром). Пьют ойстер одним глотком.
 </p>
 
-<%List<Cocktail> cocktailList = new CocktailDao().getNonAlcoList();%>
-<%for (Cocktail cocktail : cocktailList) {%>
 
-<div class="cocktail">
+<c:forEach items="${cocktailList}" var="currentCocktail">
+    <div class="cocktail">
+        <img class="cocktail_image" src="${pageContext.request.contextPath}/image?id=${currentCocktail.imageId}">
+        <b>
+            <c:choose>
+                <c:when test="${locale.toString() eq 'ru_RU'}">${currentCocktail.cocktailName.nameRu}</c:when>
+                <c:when test="${locale.toString() eq 'en_US'}">${currentCocktail.cocktailName.nameEn}</c:when>
+            </c:choose>
+        </b>
+        <br/>
 
-    <img class="cocktail_image" src="${pageContext.request.contextPath}/image?id=<%=cocktail.getImageId()%>">
+        <fmt:message key="method" bundle="${rb}"/>
+        <c:choose>
+            <c:when test="${locale.toString() eq 'ru_RU'}">${currentCocktail.method.nameRu}</c:when>
+            <c:when test="${locale.toString() eq 'en_US'}">${currentCocktail.method.nameEn}</c:when>
+        </c:choose>
+        <br/>
 
-    <b>
-        Название:
-        <%=cocktail.getName()%>
-    </b>
+        <fmt:message key="glass" bundle="${rb}"/>
+        <c:choose>
+            <c:when test="${locale.toString() eq 'ru_RU'}">${currentCocktail.glass.nameRu}</c:when>
+            <c:when test="${locale.toString() eq 'en_US'}">${currentCocktail.glass.nameEn}</c:when>
+        </c:choose>
+
+        <br/>
+        <br/>
+        <fmt:message key="components" bundle="${rb}"/>
+        <br/>
+
+        <c:forEach items="${currentCocktail.mix.mix}" var="currentComponent">
+            <c:choose>
+                <c:when test="${locale.toString() eq 'ru_RU'}">${currentComponent.key.componentName.nameRu}</c:when>
+                <c:when test="${locale.toString() eq 'en_US'}">${currentComponent.key.componentName.nameEn}</c:when>
+            </c:choose>
+            ${currentComponent.value}
+            <fmt:message key="ml" bundle="${rb}"/>
+            <br/>
+        </c:forEach>
+
+    </div>
     <br/>
-
-    Метод приготовления:
-    <%=cocktail.getBuildMethod()%>
-    <br/>
-
-    Стакан:
-    <%=cocktail.getGlass()%>
-    <br/>
-
-    Компоненты:
-    <br/>
-
-    <% for (Map.Entry<String, Integer> pair : cocktail.getComponents().entrySet()) {%>
-    <%=pair.getKey()%> :  <%=pair.getValue()%>  ml
-    <br/>
-
-    <%}%>
-
-</div>
-
-<br/>
-
-<%}%>
+</c:forEach>

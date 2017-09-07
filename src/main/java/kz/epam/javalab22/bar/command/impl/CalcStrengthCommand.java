@@ -3,8 +3,7 @@ package kz.epam.javalab22.bar.command.impl;
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageCalcCommand;
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.manager.ConfigurationManager;
-import kz.epam.javalab22.bar.servlet.ReqHandler;
+import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,11 +34,11 @@ public class CalcStrengthCommand implements ActionCommand {
         int totalAmount = calcAlcohol.totalAmount(mix);
         int cost = (int) calcAlcohol.calcCost(mix);
 
-        ReqHandler reqHandler = new ReqHandler(request);
-        reqHandler.addAttribute("strength",strength);
-        reqHandler.addAttribute("amount",totalAmount);
-        reqHandler.addAttribute("cost",cost);
-        reqHandler.addAttribute("outMap",outMap);
+        ReqWrapper reqWrapper = new ReqWrapper(request);
+        reqWrapper.addAttribute("strength",strength);
+        reqWrapper.addAttribute("amount",totalAmount);
+        reqWrapper.addAttribute("cost",cost);
+        reqWrapper.addAttribute("outMap",outMap);
 
         return new PageCalcCommand().execute(request);
     }

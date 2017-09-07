@@ -56,11 +56,19 @@ public class ComponentDao extends AbstractDao<Component> {
     }
 
     public boolean insert(Component entity) {
+
         final String QUERY = "INSERT INTO public.component (type_id,name_id,strength,price) VALUES (?,?,?,?)";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         Boolean success = false;
+
+        //autocommit - false
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
             ps.setInt(1, entity.getType());
@@ -69,6 +77,13 @@ public class ComponentDao extends AbstractDao<Component> {
             ps.setDouble(4, entity.getPrice());
             ps.execute();
             success = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //commit
+        try {
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,13 +122,6 @@ public class ComponentDao extends AbstractDao<Component> {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
 
-        //autocommit - false
-        try {
-            connection.setAutoCommit(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         Map<Integer, String> components = new LinkedHashMap<>();
         String name;
         int id;
@@ -132,13 +140,6 @@ public class ComponentDao extends AbstractDao<Component> {
                 id = resultSet.getInt("id");
                 components.put(id, name);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        //commit
-        try {
-            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReqHandler {
+public class ReqWrapper {
     private Map<String, Object> requestAttributes;
     private Map<String, String> nonArrayRequestParameters;
     private Map<String, String[]> requestParameters;
@@ -12,10 +12,10 @@ public class ReqHandler {
 
     private HttpServletRequest request;
 
-    public ReqHandler() {
+    public ReqWrapper() {
     }
 
-    public ReqHandler(HttpServletRequest request) {
+    public ReqWrapper(HttpServletRequest request) {
         this.request = request;
         requestParameters = this.request.getParameterMap();
         nonArrayRequestParameters = convertArrayValueToString(requestParameters);

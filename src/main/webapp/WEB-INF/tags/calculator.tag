@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
-
+<c:set var="locale" value="${pageContext.request.session.getAttribute('locale')}" scope="page"/>
 
 <form name="calculator" method="post" action='${pageContext.request.contextPath}/jsp/controller'>
     <input type="hidden" name="command" value="calculator">
@@ -12,8 +12,13 @@
         <fmt:message key="component" bundle="${rb}"/>
         <br/>
         <select name="component" title="">
-            <c:forEach items="${components}" var="component">
-                <option value="${component.key}">${component.value}</option>
+            <c:forEach items="${componentNames}" var="componentName">
+                <option value="${componentName.id}">
+                    <c:choose>
+                        <c:when test="${locale.toString() eq 'ru_RU'}">${componentName.nameRu}</c:when>
+                        <c:when test="${locale.toString() eq 'en_US'}">${componentName.nameEn}</c:when>
+                    </c:choose>
+                </option>
             </c:forEach>
         </select>
 
