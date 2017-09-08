@@ -113,7 +113,5 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/js/tab.js"></script>
-<script src="${pageContext.request.contextPath}/js/addCocktail.js">
-
-</script>
+<script src="${pageContext.request.contextPath}/js/addCocktail.js"></script>
 

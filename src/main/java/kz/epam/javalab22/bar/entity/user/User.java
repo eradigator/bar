@@ -1,10 +1,21 @@
 package kz.epam.javalab22.bar.entity.user;
 
 public class User {
+    private int id;
     private String name;
-    private String email;
     private String password;
+    private String email;
     private Role role;
+
+    public User() {
+    }
+
+    public User(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        role = Role.USER;
+    }
 
     public User(String name, String email, Role role) {
         this.name = name;
@@ -19,6 +30,13 @@ public class User {
         this.role = role;
     }
 
+    public User(int id, String name, String password, String email, Role role) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
 
     public String getName() {
         return name;

@@ -12,9 +12,16 @@ public final class Const {
     public static final String PAGE_COCKTAIL_MANAGER = "path.page.cocktailManager";
     public static final String PAGE_COMPONENT_MANAGER = "path.page.componentManager";
 
+    /*Attributes*/
+    public static final String ATTR_CONTENT = "content";
+
+    /*Log messages*/
+    public static final String LOG_FORBITTEN_PAGE = "Attempt to load a forbidden page";
+
+
     /*Numbers*/
-    public static final int ZERO = 0;
-    public static final int ONE_HUNDRED = 100;
+    public static final int N_0 = 0;
+    public static final int N_100 = 100;
 
     /*Parameters*/
     public static final String PARAM_COMMAND = "command";
@@ -23,20 +30,15 @@ public final class Const {
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_ROLE = "role";
 
+    /*Values*/
+    public static final String VAL_MAIN = "main";
+
     /*Strings*/
     public static final String STR_EN = "EN";
     public static final String STR_RU = "RU";
 
-    /*HTML Tags*/
-    public static final String BR = "<br/>";
-    public static final String P_OPN = "<p>";
-    public static final String P_CLS = "</p>";
-    public static final String H5_OPN = "<h5>";
-    public static final String H5_CLS = "</h5>";
-    public static final String TR_OPN = "<tr>";
-    public static final String TR_CLS = "</tr>";
-    public static final String TD_OPN = "<td>";
-    public static final String TD_CLS = "</td>";
-    public static final String TABLE_OPN = "<table width='100%'>";
-    public static final String TABLE_CLS = "</table>";
+    /*Locales*/
+    public static final String STR_LOCALE = "locale";
+    public static final String STR_RU_RU = "ru_RU";
+
 }

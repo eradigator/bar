@@ -3,8 +3,8 @@
 
 <c:set var="content" value="${content}" scope="page"/>
 <c:choose>
-    <c:when test="${content == 'catalog'}">
-        <my:catalog/>
+    <c:when test="${content == 'main'}">
+        <my:main/>
     </c:when>
 
     <c:when test="${content == 'alcoholic'}">
@@ -15,6 +15,9 @@
     </c:when>
     <c:when test="${content == 'calculator'}">
         <my:calculator />
+    </c:when>
+    <c:when test="${content == 'cocktail'}">
+        <my:cocktail />
     </c:when>
     <c:otherwise>
         <p>текст на русском языке</p>

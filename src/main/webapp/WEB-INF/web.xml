@@ -27,7 +27,7 @@
         <servlet-name>Controller</servlet-name>
         <url-pattern>/jsp/controller</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>ImageServlet</servlet-name>
         <servlet-class>kz.epam.javalab22.bar.servlet.ImageServlet</servlet-class>
@@ -37,7 +37,7 @@
         <url-pattern>/image</url-pattern>
     </servlet-mapping>
 
-     <filter>
+    <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>kz.epam.javalab22.bar.filter.EncodingFilter</filter-class>
         <init-param>
@@ -48,6 +48,26 @@
 
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>LocaleFilter</filter-name>
+        <filter-class>kz.epam.javalab22.bar.filter.LocaleFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>LocaleFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>ContentFilter</filter-name>
+        <filter-class>kz.epam.javalab22.bar.filter.ContentFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ContentFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 

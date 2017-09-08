@@ -30,7 +30,9 @@
     </div>
 
     <div id="navigation">
-        <h2>Component Manager</h2>
+        <h2>
+            <fmt:message key="componentManager" bundle="${rb}" />
+        </h2>
         <hr/>
     </div>
 

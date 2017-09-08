@@ -37,18 +37,10 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // определение команды, пришедшей из JSP
         ActionFactory client = new ActionFactory();
         ActionCommand command = client.defineCommand(req);
 
-        //вызов реализованного метода execute() и передача параметров классу-обработчику конкретной команды
         String page = command.execute(req);
-
-        //временно для локали
-        if (req.getSession().getAttribute("locale") == null) {
-            req.getSession().setAttribute("locale", "ru_RU");
-        }
-
 
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
