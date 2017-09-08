@@ -9,22 +9,17 @@
     <form name='deleteUserForm' method='POST' action='${pageContext.request.contextPath}/jsp/controller'>
         <input type='hidden' name='command' value='delete_user'>
 
-        <table>
+        <table width="100%">
 
             <tr>
-                <td>img</td>
-                <td>Name</td>
-                <td>email</td>
-                <td>Role</td>
-                <td>Delete</td>
+                <td><b><fmt:message key="enterLogin" bundle="${rb}"/></b></td>
+                <td><b><fmt:message key="email" bundle="${rb}"/></b></td>
+                <td><b><fmt:message key="role" bundle="${rb}"/></b></td>
+                <td><b><fmt:message key="del" bundle="${rb}"/></b></td>
             </tr>
 
             <c:forEach items="${users}" var="user">
                 <tr>
-                    <td>
-                        <img src='${pageContext.request.contextPath}/images/user_ico.png'
-                             style='width:75px;height:75px;'>
-                    </td>
                     <td>${user.name}</td>
                     <td>${user.email}</td>
                     <td>${user.role}</td>
@@ -36,7 +31,7 @@
 
         </table>
         <br/>
-        <input type="submit" value="Delete"/>
+        <input type="submit" value="<fmt:message key="delUser" bundle="${rb}" />"/>
     </form>
 
 </div>

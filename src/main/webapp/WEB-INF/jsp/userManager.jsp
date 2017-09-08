@@ -32,7 +32,7 @@
 
     <div id="navigation">
         <h2>
-            Users
+            <fmt:message key="userManager" bundle="${rb}" />
         </h2>
         <hr/>
     </div>

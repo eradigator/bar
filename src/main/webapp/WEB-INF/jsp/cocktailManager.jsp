@@ -30,13 +30,15 @@
     </div>
 
     <div id="navigation">
-        <h2>Cocktail Manager</h2>
+        <h2>
+            <fmt:message key="cocktailManager" bundle="${rb}" />
+        </h2>
         <hr/>
     </div>
 
     <div id="content">
         <my:addCocktail/>
-        <my:removeCocktail />
+        <my:removeCocktail/>
     </div>
 
     <div id="clear">

@@ -136,14 +136,9 @@ td, th {
 /* Login */
 
 #login {
-    margin: 150px auto;
+    margin: 120px auto;
     width: 280px;
 }
-
-#login > p {
-    text-align: center;
-}
-
 
 /* Cocktail Images */
 

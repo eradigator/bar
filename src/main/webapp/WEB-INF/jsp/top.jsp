@@ -17,7 +17,7 @@
     </div>
 </form>
 
-<c:if test="${empty pageContext.request.session.getAttribute('username')}">
+<c:if test="${empty user}">
     <form name="login" method="post" action="${pageContext.request.contextPath}/jsp/controller">
         <div style="float: right">
             <input type="hidden" name="command" value="page">
@@ -29,7 +29,7 @@
     </form>
 </c:if>
 
-<c:if test="${not empty pageContext.request.session.getAttribute('username')}">
+<c:if test="${not empty user}">
     <form name="logout" method="post" action="${pageContext.request.contextPath}/jsp/controller">
     <input type="hidden" name="command" value="logout">
     <div style="float: right">
@@ -38,8 +38,8 @@
         </a>
     </div>
     <div style="text-align: center">
-        userName: <b>${pageContext.request.session.getAttribute('username')}</b>&nbsp;
-        role: <b>${pageContext.request.session.getAttribute('role')}</b>&nbsp;
+        userName: <b>${user.name}</b>&nbsp;
+        role: <b>${user.role}</b>&nbsp;
         locale: <b>${pageContext.request.session.getAttribute('locale')}&nbsp;</b>
     </div>
     </form>

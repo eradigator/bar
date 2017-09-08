@@ -17,9 +17,9 @@ public class CalcAlcohol {
 
     public double calcStrength(Mix mix) {
 
-        final int VALUE_100_ML = Const.ONE_HUNDRED;
-        double strength100Ml = Const.ZERO;
-        double totalAmount = Const.ZERO;
+        final int VALUE_100_ML = Const.N_100;
+        double strength100Ml = Const.N_0;
+        double totalAmount = Const.N_0;
         double resultStrength;
 
         Connection connection = ConnectionPool.getInstance().getConnection();
@@ -41,9 +41,9 @@ public class CalcAlcohol {
 
     public double calcStrength(Map<Integer, Double> mix) {
 
-        final int VALUE_100_ML = Const.ONE_HUNDRED;
-        double strength100Ml = Const.ZERO;
-        double totalAmount = Const.ZERO;
+        final int VALUE_100_ML = Const.N_100;
+        double strength100Ml = Const.N_0;
+        double totalAmount = Const.N_0;
         double resultStrength;
 
         Connection connection = ConnectionPool.getInstance().getConnection();
@@ -76,7 +76,7 @@ public class CalcAlcohol {
 
     public double calcCost(Map<Integer, Double> mix) {
 
-        double cost = Const.ZERO;
+        double cost = Const.N_0;
 
         Connection connection = ConnectionPool.getInstance().getConnection();
         ComponentDao componentDao = new ComponentDao(connection);

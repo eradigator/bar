@@ -1,6 +1,7 @@
 package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 
@@ -24,9 +25,10 @@ public class LangCommand implements ActionCommand {
             }
         }
 
-        String page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
         //String page = request.getHeader("referer");             //откуда пришли
-        request.setAttribute("content", "catalog");          //костылек
-        return page;
+        /*System.out.println(request.getRequestURL().toString());
+
+        System.out.println(request.getAttribute("javax.servlet.forward.query_string"));*/
+        return new PageMainCommand().execute(request);
     }
 }

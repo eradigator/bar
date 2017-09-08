@@ -2,11 +2,11 @@ package kz.epam.javalab22.bar.command.impl.page;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.dao.*;
-import kz.epam.javalab22.bar.entity.*;
+import kz.epam.javalab22.bar.dao.ComponentNameDao;
+import kz.epam.javalab22.bar.dao.ComponentTypeDao;
+import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
-import kz.epam.javalab22.bar.jdbc.Connect;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
@@ -14,13 +14,12 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PageCocktailManagerCommand implements ActionCommand {
+public class PageComponentManagerCommand implements ActionCommand {
 
-    private static final Logger log = Logger.getLogger(PageCocktailManagerCommand.class);
+    private static final Logger log = Logger.getLogger(PageComponentManagerCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -35,20 +34,16 @@ public class PageCocktailManagerCommand implements ActionCommand {
                 case ADMIN:
                     Connection connection = ConnectionPool.getInstance().getConnection();
 
-                    List<CocktailName> cocktailNames = new CocktailNameDao(connection).getList();
+                    Map<Integer, String> componentTypes = new ComponentTypeDao().getComponentTypes();
+                    reqWrapper.addAttribute("componentTypes", componentTypes);
+
                     List<ComponentName> componentNames = new ComponentNameDao(connection).getList();
-                    List<Method> methods = new MethodDao().getList();
-                    List<Glass> glasses = new GlassDao().getList();
+                    reqWrapper.addAttribute("componentNames", componentNames);
 
                     ConnectionPool.getInstance().returnConnection(connection);
 
-                    reqWrapper.addAttribute("cocktailNames", cocktailNames);
-                    reqWrapper.addAttribute("componentNames", componentNames);
-                    reqWrapper.addAttribute("methods", methods);
-                    reqWrapper.addAttribute("glasses", glasses);
-                    reqWrapper.addAttribute("content", "cocktailManager");
-
-                    page = ConfigurationManager.getProperty(Const.PAGE_COCKTAIL_MANAGER);
+                    reqWrapper.addAttribute("content", "componentManager");
+                    page = ConfigurationManager.getProperty(Const.PAGE_COMPONENT_MANAGER);
                     break;
                 case USER:
                     log.info(user.getName() + Const.LOG_FORBITTEN_PAGE);
@@ -57,8 +52,6 @@ public class PageCocktailManagerCommand implements ActionCommand {
         } else {
             log.info(Const.LOG_FORBITTEN_PAGE);
         }
-
         return page;
     }
-
 }

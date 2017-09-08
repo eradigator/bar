@@ -2,7 +2,9 @@ package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.LoginCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
 import kz.epam.javalab22.bar.constant.Const;
+import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import org.apache.log4j.Logger;
 
@@ -14,15 +16,13 @@ public class LogoutCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
-        if (request.getSession().getAttribute("username") != null) {
-            String username = request.getSession().getAttribute("username").toString();
-            log.info(username + " вышел");
-            request.getSession().invalidate();
 
-            //костыль
-            request.setAttribute("content", "catalog");
+        if (request.getSession().getAttribute("user") != null) {
+
+            User user = (User) request.getSession().getAttribute("user");
+            log.info(user.getName() + " вышел");
+            request.getSession().invalidate();
         }
-        return page;
+        return new PageMainCommand().execute(request);
     }
 }

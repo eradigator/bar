@@ -5,18 +5,17 @@ package kz.epam.javalab22.bar.entity;
  */
 public class Cocktail {
 
+    int id;
     private String name;
     private CocktailName cocktailName;
     private Method method;
     private int methodId;
     private Glass glass;
-    //private Map<String, Integer> components = new LinkedHashMap<>();
     private Image image;
     private int imageId;
     private Mix mix;
 
-    public Cocktail(String name) {
-        this.name = name;
+    public Cocktail() {
     }
 
     public Cocktail(String name, int methodId, Glass glass, Image image) {
@@ -26,20 +25,21 @@ public class Cocktail {
         this.image = image;
     }
 
- /*   public Cocktail(String name, Map<String,Integer> components, Method method, Glass glass, int imageId) {
-        this.name = name;
-        this.method = method;
-        this.glass = glass;
-        this.components = components;
-        this.imageId = imageId;
-    }*/
-
-    public Cocktail(CocktailName cocktailName, Mix mix, Method method, Glass glass, int imageId) {
+    public Cocktail(int id, CocktailName cocktailName, Mix mix, Method method, Glass glass, int imageId) {
+        this.id=id;
         this.cocktailName = cocktailName;
         this.method = method;
         this.glass = glass;
         this.mix = mix;
         this.imageId = imageId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -81,14 +81,6 @@ public class Cocktail {
     public void setGlass(Glass glass) {
         this.glass = glass;
     }
-
-   /* public void addComponent(String string, Integer amount) {
-        components.put(string, amount);
-    }
-
-    public Map<String, Integer> getComponents() {
-        return components;
-    }*/
 
     public Image getImage() {
         return image;
