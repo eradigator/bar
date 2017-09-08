@@ -1,7 +1,7 @@
 package kz.epam.javalab22.bar.command.impl.component;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageComponentCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageComponentManagerCommand;
 import kz.epam.javalab22.bar.logic.ComponentLogic;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
@@ -24,6 +24,6 @@ public class DelComponentCommand implements ActionCommand {
             request.setAttribute("delComponentMessage", "Компонент не удален");
         }
 
-        return new PageComponentCommand().execute(request);
+        return new PageComponentManagerCommand().execute(request);
     }
 }

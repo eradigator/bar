@@ -4,11 +4,13 @@ import kz.epam.javalab22.bar.command.impl.*;
 import kz.epam.javalab22.bar.command.impl.CalcStrengthCommand;
 import kz.epam.javalab22.bar.command.impl.cocktail.AddCocktailCommand;
 import kz.epam.javalab22.bar.command.impl.cocktail.RemoveCocktailCommand;
+import kz.epam.javalab22.bar.command.impl.cocktail.ShowCocktailCommand;
 import kz.epam.javalab22.bar.command.impl.component.AddComponentCommand;
 import kz.epam.javalab22.bar.command.impl.component.DelComponentCommand;
 import kz.epam.javalab22.bar.command.impl.page.*;
 import kz.epam.javalab22.bar.command.impl.user.AddUserCommand;
 import kz.epam.javalab22.bar.command.impl.user.DelUserCommand;
+import kz.epam.javalab22.bar.command.impl.user.SignUpCommand;
 
 public enum CommandEnum {
     LOGIN {
@@ -19,6 +21,11 @@ public enum CommandEnum {
     LOGOUT {
         {
             this.command = new LogoutCommand();
+        }
+    },
+    SIGN_UP {
+        {
+            this.command = new SignUpCommand();
         }
     },
     PAGE {
@@ -71,6 +78,11 @@ public enum CommandEnum {
             this.command = new ImageCommand();
         }
     },
+    PAGE_MAIN {
+        {
+            this.command = new PageMainCommand();
+        }
+    },
     PAGE_ALCOHOLIC {
         {
             this.command = new PageAlcoholicCommand();
@@ -93,12 +105,17 @@ public enum CommandEnum {
     },
     PAGE_COMPONENT {
         {
-            this.command = new PageComponentCommand();
+            this.command = new PageComponentManagerCommand();
         }
     },
     PAGE_COCKTAIL {
         {
             this.command = new PageCocktailManagerCommand();
+        }
+    },
+    SHOW_COCKTAIL {
+        {
+            this.command = new ShowCocktailCommand();
         }
     }
     ;

@@ -1,6 +1,7 @@
 package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
@@ -15,10 +16,8 @@ public class EmptyCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
 
-        String page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
-        request.setAttribute("content", "catalog");
-
         log.info("Пришла пустая команда");
-        return page;
+        request.setAttribute("content", "main");
+        return new PageMainCommand().execute(request);
     }
 }

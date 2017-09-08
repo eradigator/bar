@@ -17,10 +17,6 @@ public class PageCommand implements ActionCommand {
             switch (chosen) {
                 case "login":
                     return ConfigurationManager.getProperty(Const.PAGE_LOGIN);
-
-                case "catalog":
-                    request.setAttribute("content", "catalog");
-                    break;
             }
         }
 

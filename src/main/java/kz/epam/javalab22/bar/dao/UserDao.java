@@ -31,6 +31,29 @@ public class UserDao extends AbstractDao<User> {
         throw new UnsupportedOperationException("Так пока делать нельзя");
     }
 
+    public User getUser(String login) {
+
+        User user = new User();
+        final String QUERY = "SELECT * FROM users " +
+                "WHERE NAME='"+ login + "'" +
+                " AND deleted IS NOT TRUE";
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(QUERY);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                Role role = Role.valueOf(resultSet.getString("role"));
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                user = new User(id,login,password,email,role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
     @Override
     public boolean create(User entity) {
 

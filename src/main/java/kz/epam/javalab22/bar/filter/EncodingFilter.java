@@ -2,7 +2,6 @@ package kz.epam.javalab22.bar.filter;
 
 import javax.servlet.*;
 import java.io.IOException;
-import java.util.Locale;
 
 public class EncodingFilter implements Filter {
 
@@ -10,7 +9,6 @@ public class EncodingFilter implements Filter {
     private static final String STR_REQUEST_ENCODING = "requestEncoding";
 
     private String encoding;
-
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -27,6 +25,7 @@ public class EncodingFilter implements Filter {
         if (null == servletRequest.getCharacterEncoding()) {
             servletRequest.setCharacterEncoding(encoding);
         }
+
         servletResponse.setCharacterEncoding(encoding);
         filterChain.doFilter(servletRequest, servletResponse);
     }

@@ -20,12 +20,12 @@ public class CalcStrengthCommand implements ActionCommand {
         String[] componentNames = request.getParameterValues("ingredientName");
 
         Map<Integer, Double> mix = new LinkedHashMap<>();
-        for (int i = Const.ZERO; i < components.length; i++) {
+        for (int i = Const.N_0; i < components.length; i++) {
             mix.put(Integer.parseInt(components[i]), Double.parseDouble(amounts[i]));
         }
 
         Map<String, Integer> outMap = new LinkedHashMap<>();
-        for (int i = Const.ZERO; i < components.length; i++) {
+        for (int i = Const.N_0; i < components.length; i++) {
             outMap.put(componentNames[i], Integer.parseInt(amounts[i]));
         }
 

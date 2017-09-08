@@ -12,20 +12,18 @@ import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class PageNonAlcoCommand implements ActionCommand {
+public class PageMainCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
 
         ReqWrapper reqWrapper = new ReqWrapper(request);
 
-        List<Cocktail> cocktailList = new CocktailDao().getNonAlcoList();
-        UIText uiText = new UITextDao().get(Integer.parseInt(ConfigurationManager.getProperty("uiTextIdForNonalcoPage")));
 
-        reqWrapper.addAttribute("cocktailList", cocktailList);
+        UIText uiText = new UITextDao().get(Integer.parseInt(ConfigurationManager.getProperty("uiTextIdForMainPage")));
         reqWrapper.addAttribute("uiText",uiText);
-        reqWrapper.addAttribute("content", "nonalcoholic");
 
+        reqWrapper.addAttribute("content", "main");
         return ConfigurationManager.getProperty(Const.PAGE_INDEX);
     }
 }

@@ -1,13 +1,10 @@
-package kz.epam.javalab22.bar.command.impl;
+package kz.epam.javalab22.bar.command.impl.user;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageUserManagerCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.UserDao;
-import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
-import kz.epam.javalab22.bar.logic.LoginLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.pool.ConnectionPool;
@@ -17,9 +14,9 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 
-public class LoginCommand implements ActionCommand {
+public class SignUpCommand implements ActionCommand {
 
-    private static final Logger log = Logger.getLogger(LoginCommand.class);
+    private static final Logger log = Logger.getLogger(SignUpCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -27,27 +24,25 @@ public class LoginCommand implements ActionCommand {
         String page;
 
         ReqWrapper reqWrapper = new ReqWrapper(request);
+
         String login = reqWrapper.getParam(Const.PARAM_LOGIN);
-        String pass = reqWrapper.getParam(Const.PARAM_PASSWORD);
+        String password = reqWrapper.getParam(Const.PARAM_PASSWORD);
+        String email = reqWrapper.getParam(Const.PARAM_EMAIL);
+
+        User user = new User(login, password, email);
 
         Connection connection = ConnectionPool.getInstance().getConnection();
-        User user = new UserDao(connection).getUser(login);
+        boolean success = new UserDao(connection).create(user);
         ConnectionPool.getInstance().returnConnection(connection);
 
-
-        if (new LoginLogic().checkLogin(login, pass)) {
-
-            reqWrapper.addSessionAttribute("user", user);
-
+        if (success) {
+            log.info("Пользователь: " + reqWrapper.getParam(Const.PARAM_LOGIN) + " добавлен");
             page = new PageMainCommand().execute(request);
-            log.info(login + " залогинился");
-
         } else {
-            log.info(login + ": неудачная попытка входа");
-            String message = MessageManager.getProperty("message.loginError");
-            request.setAttribute("errorLoginPassMessage", message);
-            page = ConfigurationManager.getProperty(Const.PAGE_LOGIN);
+            page = ConfigurationManager.getProperty(Const.PARAM_LOGIN);
+            request.setAttribute("error", MessageManager.getProperty("message.loginError"));
         }
+
         return page;
     }
 }
