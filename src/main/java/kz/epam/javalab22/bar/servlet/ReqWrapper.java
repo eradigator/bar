@@ -21,14 +21,6 @@ public class ReqWrapper {
         nonArrayRequestParameters = convertArrayValueToString(requestParameters);
     }
 
-    public Map<String, Object> getRequestAttributes() {
-        return requestAttributes;
-    }
-
-    public void setRequestAttributes(HashMap<String, Object> requestAttributes) {
-        this.requestAttributes = requestAttributes;
-    }
-
     public Map<String, String[]> getRequestParameters() {
         return requestParameters;
     }
@@ -37,34 +29,20 @@ public class ReqWrapper {
         return nonArrayRequestParameters;
     }
 
-    public void setRequestParameters(Map<String, String[]> requestParameters) {
-        this.requestParameters = requestParameters;
-    }
-
-    public Map<String, Object> getSessionAttributes() {
-        return sessionAttributes;
-    }
-
-    public void setSessionAttributes(Map<String, Object> sessionAttributes) {
-        this.sessionAttributes = sessionAttributes;
-    }
-
-    public void extractValues() {
-
-    }
-
     public String getParam(String name) {
         return request.getParameter(name);
     }
 
-    public void insertAttributes(HttpServletRequest request) {
-        for (Map.Entry<String, Object> entry : sessionAttributes.entrySet()) {
-            request.getSession().setAttribute(entry.getKey(), entry.getValue());
-        }
+    public String[] getParams(String name) {
+        return request.getParameterValues(name);
     }
 
     public void addAttribute(String name, Object entity) {
         request.setAttribute(name,entity);
+    }
+
+    public Object getSessionAttribute(String name) {
+        return request.getSession().getAttribute(name);
     }
 
     public void addSessionAttribute(String name, Object entity) {

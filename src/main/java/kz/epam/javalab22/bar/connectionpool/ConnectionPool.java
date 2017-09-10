@@ -1,4 +1,4 @@
-package kz.epam.javalab22.bar.pool;
+package kz.epam.javalab22.bar.connectionpool;
 
 import org.apache.log4j.Logger;
 import java.sql.Connection;
@@ -19,6 +19,7 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         initialize();
+        log.info("Connection Pool has been initialized");
     }
 
     public static ConnectionPool getInstance() {
@@ -41,11 +42,9 @@ public class ConnectionPool {
                     resourceBundle.getString("url"),
                     resourceBundle.getString("user"),
                     resourceBundle.getString("pass"));
-            log.info("new connection created");
             return connection;
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            log.info("SQLException on new connection creation");
         }
         return null;
     }

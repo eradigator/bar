@@ -1,6 +1,3 @@
-<%@ page language="java" pageEncoding="UTF-8" session="true" %>
-
-
 <a href="${pageContext.request.contextPath}/jsp/controller?command=page_main">
     <fmt:message key="main" bundle="${rb}"/><br>
 </a>

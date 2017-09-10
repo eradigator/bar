@@ -1,21 +1,25 @@
 package kz.epam.javalab22.bar.dao;
 
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.entity.ComponentType;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by vten on 24.08.2017.
  */
 
 public class ComponentTypeDao extends AbstractDao {
+
+    private Connection connection;
+
+    public ComponentTypeDao(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public Object update(Object entity) {
@@ -32,51 +36,24 @@ public class ComponentTypeDao extends AbstractDao {
         throw new UnsupportedOperationException();
     }
 
-    /*public int getId(String name) {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-        int id=0;
+    public List<ComponentType> getComponentTypes() {
 
-        final String QUERY = "SELECT id FROM public.component_type " +
-                "WHERE name = '" + name + "'";
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
-            while (resultSet.next()) {
-                id = Integer.parseInt(resultSet.getString("id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        connectionPool.returnConnection(connection);
-        return id;
-    }*/
-
-    public Map<Integer,String> getComponentTypes() {
-
-        final String QUERY = "SELECT * FROM public.component_type ORDER BY name ASC";
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-        //List<String> componentTypesList = new ArrayList<>();
-        Map<Integer,String> componentTypes = new HashMap<>();
-        String name;
-        int id;
+        final String QUERY = "SELECT * FROM component_type ORDER BY id";
+        List<ComponentType> componentTypes = new ArrayList<>();
 
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
-                id = resultSet.getInt("id");
-                name = resultSet.getString("name");
-                componentTypes.put(id,name);
+                int id = resultSet.getInt("id");
+                String nameEn = resultSet.getString("name_en");
+                String nameRu = resultSet.getString("name_ru");
+                componentTypes.add(new ComponentType(id,nameRu,nameEn));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return componentTypes;
     }
 }

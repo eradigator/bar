@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
+<c:set var="locale" value="${pageContext.request.session.getAttribute('locale')}" scope="page"/>
 
 <div id="remove" class="tabcontent">
 

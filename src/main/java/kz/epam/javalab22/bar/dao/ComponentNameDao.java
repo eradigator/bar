@@ -1,7 +1,6 @@
 package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.entity.ComponentName;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -87,31 +86,27 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
     }
 
     public List<ComponentName> getList() {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
 
+        final String QUERY = "SELECT c.id,cn.ru AS ru, cn.en AS en " +
+                "FROM component c " +
+                "INNER JOIN component_name cn ON c.name_id = cn.id " +
+                "WHERE c.deleted IS NOT TRUE " +
+                "ORDER BY cn.ru";
         List<ComponentName> componentNames = new ArrayList<>();
 
         try {
-            final String QUERY = "SELECT c.id,cn.ru AS ru, cn.en AS en " +
-                    "FROM component c " +
-                    "INNER JOIN component_name cn ON c.name_id = cn.id " +
-                    "WHERE c.deleted IS NOT TRUE " +
-                    "ORDER BY cn.ru";
-
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String nameRu = resultSet.getString("ru");
                 String nameEn = resultSet.getString("en");
-                componentNames.add(new ComponentName(id,nameRu,nameEn));
+                componentNames.add(new ComponentName(id, nameRu, nameEn));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return componentNames;
     }
 

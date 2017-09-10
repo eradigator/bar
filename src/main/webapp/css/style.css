@@ -3,7 +3,6 @@
 
 html, body {
     height: 100%;
-    /*margin-top: 5px;*/
 }
 
 body {
@@ -38,7 +37,6 @@ ul {
 /* Table */
 table {
     border-collapse: collapse;
-    /*border: 1px;*/
 }
 
 td, th {
@@ -54,13 +52,10 @@ td, th {
     margin: 7px auto;
     width: 90%;
     height: auto;
-    /*box-shadow: 0px 0px 2px #888888;*/
 }
 
 #top {
-    /*background: #02834b;*/
     height: 30px;
-    /*width: 90%;*/
     padding-top: 10px;
 }
 
@@ -78,7 +73,6 @@ td, th {
 #header {
     background: #6BA085;
     height: 80px;
-    /*width: 900px;*/
     padding: 20px;
     text-align: center;
     color: #fff;
@@ -86,13 +80,10 @@ td, th {
 
 #space {
     background: #D2D3DA;
-    /*width: 900px;*/
     height: 20px;
-    /*padding: 40px 5px 5px 20%;*/
 }
 
 #menu {
-    /*background: #333333;*/
     float: left;
     width: 19%;
     height: 400px;
@@ -102,22 +93,18 @@ td, th {
 }
 
 #navigation {
-    /*background: #d2d0d2;*/
     float: right;
     padding-top: 0;
     margin-right: 10px;
     width: 75%;
-    /*height: 600px;*/
 }
 
 #content {
-    /*background: #d2d0d2;*/
     float: right;
     padding-top: 10px;
     padding-bottom: 20px;
     margin-right: 10px;
     width: 75%;
-    /*height: 600px;*/
 }
 
 #clear {
@@ -127,7 +114,6 @@ td, th {
 #footer {
     background: #17311F;
     height: 100px;
-    /*width: 900px;*/
     padding: 5px;
     text-align: center;
     color: #fff;
@@ -154,18 +140,12 @@ td, th {
 }
 
 .cocktail_image {
-    /*border: 1px solid #ddd;*/
     border-radius: 4px;
     padding: 5px;
     width: 150px;
     height: 150px;
     float: left;
 }
-
-/*
-.cocktail_image:hover {
-    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-}*/
 
 .result_field {
     color: #02834b;
@@ -176,15 +156,14 @@ td, th {
     border-radius: 5px;
 }
 
+/* Tab */
 
-/* Style the tab */
 div.tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
 }
 
-/* Style the buttons inside the tab */
 div.tab button {
     background-color: inherit;
     float: left;
@@ -195,33 +174,17 @@ div.tab button {
     transition: 0.3s;
 }
 
-/* Change background color of buttons on hover */
 div.tab button:hover {
     background-color: #ddd;
 }
 
-/* Create an active/current tablink class */
 div.tab button.active {
     background-color: #729CD4;
 }
 
-/* Style the tab content */
 .tabcontent {
     display: none;
     padding: 30px 12px;
     border: 1px solid #ccc;
     border-top: none;
-    /*-webkit-animation: fadeEffect 1s;
-    animation: fadeEffect 1s; !* Fading effect takes 1 second *!*/
 }
-
-/*
-@-webkit-keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-@keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}*/

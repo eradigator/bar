@@ -1,8 +1,6 @@
 package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.entity.Glass;
-import kz.epam.javalab22.bar.entity.Method;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,6 +14,13 @@ import java.util.List;
  */
 
 public class GlassDao extends AbstractDao<Glass> {
+
+    private Connection connection;
+
+    public GlassDao(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public Glass update(Glass entity) {
         throw new UnsupportedOperationException();
@@ -32,29 +37,23 @@ public class GlassDao extends AbstractDao<Glass> {
     }
 
     public List<Glass> getList() {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
 
         List<Glass> glasses = new ArrayList<>();
-        int id;
-        String nameRu;
-        String nameEn;
 
         final String QUERY = "SELECT * FROM glass ORDER BY id";
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
-                id = Integer.parseInt(resultSet.getString("id"));
-                nameRu = resultSet.getString("name_ru");
-                nameEn = resultSet.getString("name_en");
+                int id = Integer.parseInt(resultSet.getString("id"));
+                String nameRu = resultSet.getString("name_ru");
+                String nameEn = resultSet.getString("name_en");
                 glasses.add(new Glass(id, nameRu, nameEn));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return glasses;
     }
 }

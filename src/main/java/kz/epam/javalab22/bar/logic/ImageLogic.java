@@ -2,7 +2,7 @@ package kz.epam.javalab22.bar.logic;
 
 import kz.epam.javalab22.bar.dao.ImageDao;
 import kz.epam.javalab22.bar.entity.*;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import javax.servlet.ServletException;
@@ -24,8 +24,6 @@ public class ImageLogic {
 
     public Image addImage() {
 
-        Connection connection = ConnectionPool.getInstance().getConnection();
-
         InputStream inputStream = null;
         long length=0;
 
@@ -33,10 +31,7 @@ public class ImageLogic {
             Part filePart = reqWrapper.getRequest().getPart("image");
 
             if (filePart != null) {
-                //System.out.println(filePart.getName());
-                //System.out.println(filePart.getSize());
                 length = filePart.getSize();
-                //System.out.println(filePart.getContentType());
                 inputStream = filePart.getInputStream();
             }
 
@@ -45,7 +40,10 @@ public class ImageLogic {
         }
 
         Image image = new Image(inputStream,length);
+
+        Connection connection = ConnectionPool.getInstance().getConnection();
         new ImageDao(connection).add(image);
+        ConnectionPool.getInstance().returnConnection(connection);
 
         try {
             assert inputStream != null;
@@ -53,8 +51,6 @@ public class ImageLogic {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        ConnectionPool.getInstance().returnConnection(connection);
 
         return image;
     }

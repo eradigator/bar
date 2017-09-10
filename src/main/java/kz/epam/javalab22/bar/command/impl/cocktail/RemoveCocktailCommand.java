@@ -2,6 +2,7 @@ package kz.epam.javalab22.bar.command.impl.cocktail;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageCocktailManagerCommand;
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.CocktailLogic;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
@@ -13,17 +14,20 @@ public class RemoveCocktailCommand implements ActionCommand {
     private static final Logger log = Logger.getLogger(RemoveCocktailCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
-
-        ReqWrapper reqWrapper = new ReqWrapper(request);
+    public String execute(ReqWrapper reqWrapper) {
 
         if (new CocktailLogic(reqWrapper).deleteCocktail()) {
-            request.setAttribute("removeCocktailResult", "Коктейль удален");
-            log.info("Коктейль: " + reqWrapper.getParam("cocktailToDelete") + " удален");
+            log.info(Const.LOG_COCKTAIL + Const.DIV_SPACE + reqWrapper.getParam(Const.PARAM_COCKTAIL_TO_DELETE) +
+                    Const.DIV_SPACE + Const.LOG_HAS_BEEN_DELETED);
+
+            String message = "Коктейль удален";
+            reqWrapper.addAttribute(Const.ATTR_DEL_COCKTAIL_RESULT, message);
+
         } else {
-            request.setAttribute("removeCocktailResult", "Коктейль не удален");
+            String message = "Коктейль не удален";
+            reqWrapper.addAttribute(Const.ATTR_DEL_COCKTAIL_RESULT, message);
         }
 
-        return new PageCocktailManagerCommand().execute(request);
+        return new PageCocktailManagerCommand().execute(reqWrapper);
     }
 }

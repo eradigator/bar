@@ -5,52 +5,40 @@ import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.ComponentNameDao;
 import kz.epam.javalab22.bar.dao.ComponentTypeDao;
 import kz.epam.javalab22.bar.entity.ComponentName;
-import kz.epam.javalab22.bar.entity.user.Role;
-import kz.epam.javalab22.bar.entity.user.User;
+import kz.epam.javalab22.bar.entity.ComponentType;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
+import kz.epam.javalab22.bar.util.UserCheck;
 import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 
 public class PageComponentManagerCommand implements ActionCommand {
 
     private static final Logger log = Logger.getLogger(PageComponentManagerCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(ReqWrapper reqWrapper) {
 
-        ReqWrapper reqWrapper = new ReqWrapper(request);
-        String page = new PageMainCommand().execute(request);
+        String page = new PageMainCommand().execute(reqWrapper);
 
-        if (null != request.getSession().getAttribute("user")) {
-            User user = (User) request.getSession().getAttribute("user");
+        if (new UserCheck(reqWrapper).roleIsAdminCheck()) {
 
-            switch (user.getRole()) {
-                case ADMIN:
-                    Connection connection = ConnectionPool.getInstance().getConnection();
+            Connection connection = ConnectionPool.getInstance().getConnection();
 
-                    Map<Integer, String> componentTypes = new ComponentTypeDao().getComponentTypes();
-                    reqWrapper.addAttribute("componentTypes", componentTypes);
+            List<ComponentType> componentTypes = new ComponentTypeDao(connection).getComponentTypes();
+            List<ComponentName> componentNames = new ComponentNameDao(connection).getList();
+            ConnectionPool.getInstance().returnConnection(connection);
 
-                    List<ComponentName> componentNames = new ComponentNameDao(connection).getList();
-                    reqWrapper.addAttribute("componentNames", componentNames);
+            reqWrapper.addAttribute(Const.ATTR_COMPONENT_TYPES, componentTypes);
+            reqWrapper.addAttribute(Const.ATTR_COMPONENT_NAMES, componentNames);
+            reqWrapper.addAttribute(Const.ATTR_CONTENT, Const.VAL_COMPONENT_MANAGER);
+            page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
 
-                    ConnectionPool.getInstance().returnConnection(connection);
-
-                    reqWrapper.addAttribute("content", "componentManager");
-                    page = ConfigurationManager.getProperty(Const.PAGE_COMPONENT_MANAGER);
-                    break;
-                case USER:
-                    log.info(user.getName() + Const.LOG_FORBITTEN_PAGE);
-                    break;
-            }
         } else {
-            log.info(Const.LOG_FORBITTEN_PAGE);
+            log.info(Const.LOG_FORBIDDEN_PAGE);
         }
         return page;
     }

@@ -2,6 +2,7 @@ package kz.epam.javalab22.bar.command.impl.component;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageComponentManagerCommand;
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.ComponentLogic;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
@@ -13,17 +14,17 @@ public class DelComponentCommand implements ActionCommand {
     private static final Logger log = Logger.getLogger(DelComponentCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
-
-        ReqWrapper reqWrapper = new ReqWrapper(request);
+    public String execute(ReqWrapper reqWrapper) {
 
         if (new ComponentLogic(reqWrapper).delComponent()) {
-            reqWrapper.addAttribute("delComponentMessage", "Компонент удален");
-            log.info("Компонент: id" + reqWrapper.getParam("componentToDel") + " удален");
+            reqWrapper.addAttribute(Const.ATTR_DEL_COMPONENT_MESSAGE, "Компонент удален");
+            log.info(Const.LOG_COMPONENT + Const.DIV_SPACE + reqWrapper.getParam(Const.PARAM_COMPONENT_TO_DEL) +
+                    Const.LOG_HAS_BEEN_DELETED);
         } else {
-            request.setAttribute("delComponentMessage", "Компонент не удален");
+            reqWrapper.addAttribute(Const.ATTR_DEL_COMPONENT_MESSAGE, "Компонент не удален");
         }
 
-        return new PageComponentManagerCommand().execute(request);
+        return new PageComponentManagerCommand().execute(reqWrapper);
     }
+
 }

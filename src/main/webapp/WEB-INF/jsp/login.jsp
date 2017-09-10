@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
@@ -60,7 +60,7 @@
 
             <p>
                 <fmt:message key="enterLogin" bundle="${ rb }"/><br/>
-                <input type="text" name="login" value="" required title=""/><br/>
+                <input name="login" value="" required title=""/><br/>
             </p>
 
             <p>

@@ -1,4 +1,3 @@
-<%@ page language="java" pageEncoding="UTF-8" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <form name="nameEn" method="post" action="${pageContext.request.contextPath}/jsp/controller">
@@ -20,8 +19,8 @@
 <c:if test="${empty user}">
     <form name="login" method="post" action="${pageContext.request.contextPath}/jsp/controller">
         <div style="float: right">
-            <input type="hidden" name="command" value="page">
-            <input type="hidden" name="chosen" value="login">
+            <input type="hidden" name="command" value="page_login">
+            <%--<input type="hidden" name="chosen" value="login">--%>
             <a href="#" onclick="document.login.submit();return(false)">
                 <fmt:message key="login" bundle="${ rb }"/>
             </a>

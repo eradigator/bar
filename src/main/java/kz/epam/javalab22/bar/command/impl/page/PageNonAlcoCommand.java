@@ -7,25 +7,30 @@ import kz.epam.javalab22.bar.dao.UITextDao;
 import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.entity.UIText;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
-import javax.servlet.http.HttpServletRequest;
+import java.sql.Connection;
 import java.util.List;
 
 public class PageNonAlcoCommand implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(ReqWrapper reqWrapper) {
 
-        ReqWrapper reqWrapper = new ReqWrapper(request);
+        Connection connection = ConnectionPool.getInstance().getConnection();
 
         List<Cocktail> cocktailList = new CocktailDao().getNonAlcoList();
-        UIText uiText = new UITextDao().get(Integer.parseInt(ConfigurationManager.getProperty("uiTextIdForNonalcoPage")));
+        int textId = Integer.parseInt(ConfigurationManager.getProperty(Const.PROP_UI_TEXT_FOR_NON_ALCO_PAGE));
+        UIText uiText = new UITextDao(connection).get(textId);
 
-        reqWrapper.addAttribute("cocktailList", cocktailList);
-        reqWrapper.addAttribute("uiText",uiText);
-        reqWrapper.addAttribute("content", "nonalcoholic");
+        ConnectionPool.getInstance().returnConnection(connection);
+
+        reqWrapper.addAttribute(Const.ATTR_COCKTAIL_LIST, cocktailList);
+        reqWrapper.addAttribute(Const.ATTR_UI_TEXT, uiText);
+        reqWrapper.addAttribute(Const.ATTR_CONTENT, Const.VAL_NON_ALCOHOLIC);
 
         return ConfigurationManager.getProperty(Const.PAGE_INDEX);
     }
+
 }

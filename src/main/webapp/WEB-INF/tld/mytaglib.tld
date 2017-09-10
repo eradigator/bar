@@ -6,7 +6,4 @@
     <tlib-version>1.0</tlib-version>
     <short-name>mytag</short-name>
     <uri>/WEB-INF/tld/mytaglib.tld</uri>
-
-
 </taglib>
-

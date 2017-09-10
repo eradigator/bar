@@ -6,6 +6,7 @@ import java.io.InputStream;
  * Created by vten on 31.08.2017.
  */
 public class Image {
+
     private int id;
     private InputStream inputStream;
     private long inputStreamLength;

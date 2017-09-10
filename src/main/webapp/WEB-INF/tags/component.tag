@@ -49,7 +49,12 @@
             <br/>
             <select name="componentType" title="">
                 <c:forEach items="${componentTypes}" var="componentType">
-                    <option value="${componentType.key}">${componentType.value}</option>
+                    <option value="${componentType.id}">
+                        <c:choose>
+                            <c:when test="${locale.toString() eq 'ru_RU'}">${componentType.nameRu}</c:when>
+                            <c:when test="${locale.toString() eq 'en_US'}">${componentType.nameEn}</c:when>
+                        </c:choose>
+                    </option>
                 </c:forEach>
             </select>
         </p>

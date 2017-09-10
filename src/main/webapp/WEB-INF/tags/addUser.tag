@@ -10,6 +10,7 @@
             <h5>${addUserResult}</h5>
         </div>
         <div style="color: crimson">
+            <h5>${error}</h5>
             <h5>${deleteUserResult}</h5>
         </div>
     </div>
@@ -32,7 +33,7 @@
 
         <p>
             <fmt:message key="enterLogin" bundle="${ rb }"/><br/>
-            <input type="text" name="login" value="" required/><br/>
+            <input name="login" value="" required/><br/>
         </p>
 
         <p>

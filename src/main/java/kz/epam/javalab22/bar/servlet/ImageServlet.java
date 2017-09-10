@@ -1,7 +1,7 @@
 package kz.epam.javalab22.bar.servlet;
 
 import kz.epam.javalab22.bar.dao.ImageDao;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

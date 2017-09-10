@@ -3,6 +3,8 @@ package kz.epam.javalab22.bar.filter;
 import kz.epam.javalab22.bar.constant.Const;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LocaleFilter implements Filter {
@@ -16,8 +18,11 @@ public class LocaleFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
 
-        if (servletRequest.getAttribute(Const.STR_LOCALE) == null) {
-            servletRequest.setAttribute(Const.STR_LOCALE, Const.STR_RU_RU);
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute(Const.ATTR_LOCALE) == null) {
+            session.setAttribute(Const.ATTR_LOCALE,Const.LOC_RU_RU);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

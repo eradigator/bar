@@ -7,11 +7,10 @@ import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 
 public class SignUpCommand implements ActionCommand {
@@ -19,11 +18,9 @@ public class SignUpCommand implements ActionCommand {
     private static final Logger log = Logger.getLogger(SignUpCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(ReqWrapper reqWrapper) {
 
-        String page;
-
-        ReqWrapper reqWrapper = new ReqWrapper(request);
+        String page = ConfigurationManager.getProperty(Const.PARAM_LOGIN);
 
         String login = reqWrapper.getParam(Const.PARAM_LOGIN);
         String password = reqWrapper.getParam(Const.PARAM_PASSWORD);
@@ -36,13 +33,15 @@ public class SignUpCommand implements ActionCommand {
         ConnectionPool.getInstance().returnConnection(connection);
 
         if (success) {
-            log.info("Пользователь: " + reqWrapper.getParam(Const.PARAM_LOGIN) + " добавлен");
-            page = new PageMainCommand().execute(request);
+            log.info(Const.LOG_USER + reqWrapper.getParam(Const.PARAM_LOGIN) +
+                    Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
+            page = new PageMainCommand().execute(reqWrapper);
         } else {
-            page = ConfigurationManager.getProperty(Const.PARAM_LOGIN);
-            request.setAttribute("error", MessageManager.getProperty("message.loginError"));
+            String message = MessageManager.getProperty("message.loginError");
+            reqWrapper.addAttribute(Const.ATTR_ERROR, message);
         }
 
         return page;
     }
+
 }

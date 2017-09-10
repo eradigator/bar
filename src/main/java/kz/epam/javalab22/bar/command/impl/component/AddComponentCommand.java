@@ -2,6 +2,8 @@ package kz.epam.javalab22.bar.command.impl.component;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageComponentManagerCommand;
+import kz.epam.javalab22.bar.constant.Const;
+import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.logic.ComponentLogic;
 import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
@@ -14,18 +16,18 @@ public class AddComponentCommand implements ActionCommand {
     private static final Logger log = Logger.getLogger(AddComponentCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
-
-        ReqWrapper reqWrapper = new ReqWrapper(request);
+    public String execute(ReqWrapper reqWrapper) {
 
         if (new ComponentLogic(reqWrapper).addComponent()) {
             String message = MessageManager.getProperty("message.componentAdded");
-            reqWrapper.addAttribute("result",message);
+            reqWrapper.addAttribute(Const.ATTR_RESULT,message);
             log.info(message);
         } else {
-            reqWrapper.addAttribute("error","error");
+            String message = "error";
+            reqWrapper.addAttribute(Const.ATTR_ERROR,message);
         }
 
-        return new PageComponentManagerCommand().execute(request);
+        return new PageComponentManagerCommand().execute(reqWrapper);
     }
+
 }

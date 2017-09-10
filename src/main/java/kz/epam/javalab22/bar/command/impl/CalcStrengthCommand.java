@@ -13,11 +13,11 @@ import java.util.Map;
 public class CalcStrengthCommand implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(ReqWrapper reqWrapper) {
 
-        String[] components = request.getParameterValues("ingredient");
-        String[] amounts = request.getParameterValues("amountOfIngredient");
-        String[] componentNames = request.getParameterValues("ingredientName");
+        String[] components = reqWrapper.getParams("ingredient");
+        String[] amounts = reqWrapper.getParams("amountOfIngredient");
+        String[] componentNames = reqWrapper.getParams("ingredientName");
 
         Map<Integer, Double> mix = new LinkedHashMap<>();
         for (int i = Const.N_0; i < components.length; i++) {
@@ -34,12 +34,12 @@ public class CalcStrengthCommand implements ActionCommand {
         int totalAmount = calcAlcohol.totalAmount(mix);
         int cost = (int) calcAlcohol.calcCost(mix);
 
-        ReqWrapper reqWrapper = new ReqWrapper(request);
         reqWrapper.addAttribute("strength",strength);
         reqWrapper.addAttribute("amount",totalAmount);
         reqWrapper.addAttribute("cost",cost);
         reqWrapper.addAttribute("outMap",outMap);
 
-        return new PageCalcCommand().execute(request);
+        return new PageCalcCommand().execute(reqWrapper);
     }
+
 }

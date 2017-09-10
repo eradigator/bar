@@ -4,31 +4,30 @@ import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
+import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 
 public class LangCommand implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(ReqWrapper reqWrapper) {
 
-        String lang = request.getParameter("chosen");
-        if (lang != null) {
+        String lang = reqWrapper.getParam(Const.PARAM_CHOSEN);
+        if (null != lang) {
             switch (lang) {
                 case Const.STR_EN:
-                    request.getSession().setAttribute("locale", "en_US");
+                    reqWrapper.getRequest().getSession().setAttribute(Const.ATTR_LOCALE, Const.LOC_EN_US);
                     break;
                 case Const.STR_RU:
-                    request.getSession().setAttribute("locale", "ru_RU");
+                    reqWrapper.getRequest().getSession().setAttribute(Const.ATTR_LOCALE, Const.LOC_RU_RU);
                     break;
             }
         }
 
-        //String page = request.getHeader("referer");             //откуда пришли
-        /*System.out.println(request.getRequestURL().toString());
-
-        System.out.println(request.getAttribute("javax.servlet.forward.query_string"));*/
-        return new PageMainCommand().execute(request);
+        return ConfigurationManager.getProperty(Const.PAGE_REFFERER);
     }
+
 }

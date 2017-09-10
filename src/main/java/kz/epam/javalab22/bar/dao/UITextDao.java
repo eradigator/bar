@@ -1,21 +1,26 @@
 package kz.epam.javalab22.bar.dao;
 
-import kz.epam.javalab22.bar.entity.Glass;
 import kz.epam.javalab22.bar.entity.UIText;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by admin on 24.08.2017.
  */
 
 public class UITextDao extends AbstractDao<UIText> {
+
+    private Connection connection;
+
+    public UITextDao() {
+    }
+
+    public UITextDao(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public UIText update(UIText entity) {
@@ -34,9 +39,6 @@ public class UITextDao extends AbstractDao<UIText> {
 
     public UIText get(int id) {
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-
         UIText uiText = new UIText();
 
         final String QUERY = "SELECT * FROM text WHERE id=" + id;
@@ -52,7 +54,6 @@ public class UITextDao extends AbstractDao<UIText> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return uiText;
     }
 }

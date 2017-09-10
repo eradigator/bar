@@ -1,15 +1,11 @@
 package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.entity.*;
-import kz.epam.javalab22.bar.entity.user.Role;
-import kz.epam.javalab22.bar.entity.user.User;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CocktailDao extends AbstractDao<Cocktail> {
 
@@ -38,9 +34,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         final String QUERY = "INSERT INTO cocktail(name,method,glass_id,image_id) " +
                 "VALUES(?,?,?,?)";
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-
         int methodId = entity.getMethodId();
         Boolean success = false;
 
@@ -55,7 +48,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return success;
     }
 
@@ -78,8 +70,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 "AND c.deleted IS NOT TRUE " +
                 "AND c.id=" + cocktailId;
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
         Cocktail cocktail = new Cocktail();
 
         try {
@@ -117,7 +107,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return cocktail;
     }
 
@@ -159,10 +148,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 "AND c.deleted IS NOT TRUE " +
                 "ORDER BY c.name";
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
         List<Cocktail> cocktailList = new ArrayList<>();
-
 
         try {
             Statement statement = connection.createStatement();
@@ -199,7 +185,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return cocktailList;
     }
 
