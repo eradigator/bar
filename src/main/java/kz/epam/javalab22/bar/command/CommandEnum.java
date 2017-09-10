@@ -28,9 +28,9 @@ public enum CommandEnum {
             this.command = new SignUpCommand();
         }
     },
-    PAGE {
+    PAGE_LOGIN {
         {
-            this.command = new PageCommand();
+            this.command = new PageLoginCommand();
         }
     },
     LANG {
@@ -71,11 +71,6 @@ public enum CommandEnum {
     CALCULATOR {
         {
             this.command = new CalcStrengthCommand();
-        }
-    },
-    IMAGE {
-        {
-            this.command = new ImageCommand();
         }
     },
     PAGE_MAIN {

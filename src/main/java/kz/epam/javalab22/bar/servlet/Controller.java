@@ -2,9 +2,7 @@ package kz.epam.javalab22.bar.servlet;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.factory.ActionFactory;
-import kz.epam.javalab22.bar.manager.ConfigurationManager;
-import kz.epam.javalab22.bar.manager.MessageManager;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,15 +38,13 @@ public class Controller extends HttpServlet {
         ActionFactory client = new ActionFactory();
         ActionCommand command = client.defineCommand(req);
 
-        String page = command.execute(req);
+        ReqWrapper reqWrapper = new ReqWrapper(req);
+        String page = command.execute(reqWrapper);
+        req = reqWrapper.getRequest();
 
-        if (page != null) {
+        if (null != page) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(req, resp);
-        } else {
-            page = ConfigurationManager.getProperty("path.page.index");
-            req.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullPage"));
-            resp.sendRedirect(req.getContextPath() + page);
         }
     }
 }

@@ -1,9 +1,8 @@
 <%@ tag body-content="empty" dynamic-attributes="dynattrs" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
-<c:set var="locale" value="${pageContext.request.session.getAttribute('locale')}" scope="page"/>
 
 <c:if test="${(not empty addCocktailResult) or (not empty removeCocktailResult)}">
     <div class="result_field">
@@ -53,8 +52,8 @@
                 <c:forEach items="${componentNames}" var="componentName">
                     <option value="${componentName.id}">
                         <c:choose>
-                            <c:when test="${locale.toString() eq 'ru_RU'}">${componentName.nameRu}</c:when>
-                            <c:when test="${locale.toString() eq 'en_US'}">${componentName.nameEn}</c:when>
+                            <c:when test="${sessionScope.locale eq 'ru_RU'}">${componentName.nameRu}</c:when>
+                            <c:when test="${sessionScope.locale eq 'en_US'}">${componentName.nameEn}</c:when>
                         </c:choose>
                     </option>
                 </c:forEach>
@@ -76,8 +75,8 @@
                 <c:forEach items="${methods}" var="method">
                     <option value="${method.id}">
                         <c:choose>
-                            <c:when test="${locale.toString() eq 'ru_RU'}">${method.nameRu}</c:when>
-                            <c:when test="${locale.toString() eq 'en_US'}">${method.nameEn}</c:when>
+                            <c:when test="${sessionScope.locale eq 'ru_RU'}">${method.nameRu}</c:when>
+                            <c:when test="${sessionScope.locale eq 'en_US'}">${method.nameEn}</c:when>
                         </c:choose>
                     </option>
                 </c:forEach>
@@ -91,8 +90,8 @@
                 <c:forEach items="${glasses}" var="glass">
                     <option value="${glass.id}">
                         <c:choose>
-                            <c:when test="${locale.toString() eq 'ru_RU'}">${glass.nameRu}</c:when>
-                            <c:when test="${locale.toString() eq 'en_US'}">${glass.nameEn}</c:when>
+                            <c:when test="${sessionScope.locale eq 'ru_RU'}">${glass.nameRu}</c:when>
+                            <c:when test="${sessionScope.locale eq 'en_US'}">${glass.nameEn}</c:when>
                         </c:choose>
                     </option>
                 </c:forEach>

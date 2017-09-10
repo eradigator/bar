@@ -12,6 +12,8 @@ public class Component {
     private double strength;
     private double price;
     private ComponentName componentName;
+    private ComponentType componentType;
+
 
     public Component() {
     }
@@ -71,5 +73,13 @@ public class Component {
 
     public void setComponentName(ComponentName componentName) {
         this.componentName = componentName;
+    }
+
+    public ComponentType getComponentType() {
+        return componentType;
+    }
+
+    public void setComponentType(ComponentType componentType) {
+        this.componentType = componentType;
     }
 }

@@ -3,12 +3,8 @@ package kz.epam.javalab22.bar.dao;
 import kz.epam.javalab22.bar.entity.Component;
 import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.entity.Mix;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

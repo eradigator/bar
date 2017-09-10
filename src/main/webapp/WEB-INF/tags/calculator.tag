@@ -1,9 +1,8 @@
 <%@ tag body-content="empty" dynamic-attributes="dynattrs" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="pagecontent" var="rb"/>
-<c:set var="locale" value="${pageContext.request.session.getAttribute('locale')}" scope="page"/>
 
 <form name="calculator" method="post" action='${pageContext.request.contextPath}/jsp/controller'>
     <input type="hidden" name="command" value="calculator">
@@ -15,8 +14,8 @@
             <c:forEach items="${componentNames}" var="componentName">
                 <option value="${componentName.id}">
                     <c:choose>
-                        <c:when test="${locale.toString() eq 'ru_RU'}">${componentName.nameRu}</c:when>
-                        <c:when test="${locale.toString() eq 'en_US'}">${componentName.nameEn}</c:when>
+                        <c:when test="${sessionScope.locale eq 'ru_RU'}">${componentName.nameRu}</c:when>
+                        <c:when test="${sessionScope.locale eq 'en_US'}">${componentName.nameEn}</c:when>
                     </c:choose>
                 </option>
             </c:forEach>

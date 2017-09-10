@@ -1,8 +1,6 @@
 package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.entity.CocktailName;
-import kz.epam.javalab22.bar.entity.ComponentName;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -50,13 +48,11 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
     }
 
      public List<CocktailName> getList() {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
 
         List<CocktailName> cocktailNames = new ArrayList<>();
 
         try {
-            final String QUERY = "SELECT c.id,cn.name_ru AS ru, cn.name_en AS en " +
+            final String QUERY = "SELECT c.id,cn.name_ru AS nameRu, cn.name_en AS nameEn " +
                     "FROM cocktail c " +
                     "INNER JOIN cocktail_name cn ON c.name_id = cn.id " +
                     "WHERE c.deleted IS NOT TRUE ";
@@ -65,15 +61,14 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String nameRu = resultSet.getString("ru");
-                String nameEn = resultSet.getString("en");
+                String nameRu = resultSet.getString("nameRu");
+                String nameEn = resultSet.getString("nameEn");
                 cocktailNames.add(new CocktailName(id,nameRu,nameEn));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return cocktailNames;
     }
 

@@ -1,6 +1,3 @@
-<%@ page language="java" pageEncoding="UTF-8" session="true" %>
-
-
 <div id="logo">
     <a href="${pageContext.request.contextPath}">
         <img src="${pageContext.request.contextPath}/images/logo.png" alt="logo"

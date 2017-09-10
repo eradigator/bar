@@ -1,7 +1,7 @@
 package kz.epam.javalab22.bar.logic;
 
 import kz.epam.javalab22.bar.dao.UserDao;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.Connection;

@@ -1,10 +1,11 @@
 package kz.epam.javalab22.bar.logic;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.ComponentDao;
 import kz.epam.javalab22.bar.dao.ComponentNameDao;
 import kz.epam.javalab22.bar.entity.Component;
 import kz.epam.javalab22.bar.entity.ComponentName;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import java.sql.Connection;
@@ -45,23 +46,17 @@ public class ComponentLogic {
         Connection connection = ConnectionPool.getInstance().getConnection();
         boolean success = false;
 
-        int componentId = Integer.parseInt(reqWrapper.getParam("componentToDel"));
+        int componentId = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COMPONENT_TO_DEL));
 
         ComponentName componentName = new ComponentName(componentId);
         ComponentNameDao componentNameDao = new ComponentNameDao(connection);
-
-        //autocommit false
 
         if (componentNameDao.delete(componentName)) {
             Component component = new Component(componentId);
             ComponentDao componentDao = new ComponentDao(connection);
             if (componentDao.delete(component)) {
                 success = true;
-                //commit
             }
-        } else {
-            //rollback
-            success = false;
         }
 
         ConnectionPool.getInstance().returnConnection(connection);

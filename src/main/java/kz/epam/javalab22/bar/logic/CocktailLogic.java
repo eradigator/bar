@@ -3,15 +3,13 @@ package kz.epam.javalab22.bar.logic;
 import kz.epam.javalab22.bar.dao.CocktailDao;
 import kz.epam.javalab22.bar.dao.MixDao;
 import kz.epam.javalab22.bar.entity.*;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Created by vten on 31.08.2017.
@@ -43,10 +41,8 @@ public class CocktailLogic {
         }
 
         Cocktail cocktail = new Cocktail(name, methodId, glass, image);
-        new CocktailDao().create(cocktail);
-
+        new CocktailDao(connection).create(cocktail);
         int cocktailId = new CocktailDao(connection).getId(name);
-
         new MixDao(connection).add(mix, cocktailId);
 
         //вычисляем и записываем крепость

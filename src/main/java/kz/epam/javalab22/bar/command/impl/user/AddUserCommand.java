@@ -15,18 +15,22 @@ public class AddUserCommand implements ActionCommand {
     private static final Logger log = Logger.getLogger(AddUserCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(ReqWrapper reqWrapper) {
 
-        ReqWrapper reqWrapper = new ReqWrapper(request);
         UserLogic userLogic = new UserLogic(reqWrapper);
 
         if (userLogic.addUser()) {
-            reqWrapper.addAttribute("addUserResult", "Пользователь добавлен");
-            log.info("Пользователь: " + reqWrapper.getParam(Const.PARAM_LOGIN) + " добавлен");
+            String message = "Пользователь добавлен";
+
+            reqWrapper.addAttribute(Const.ATTR_ADD_USER_RESULT, message);
+            log.info(Const.LOG_USER + Const.DIV_SPACE +
+                    reqWrapper.getParam(Const.PARAM_LOGIN) + Const.LOG_HAS_BEEN_ADDED);
         } else {
-            request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginError"));
+            String message = MessageManager.getProperty("XXXXXX");
+            reqWrapper.addAttribute(Const.ATTR_ERROR, message);
         }
 
-        return new PageUserManagerCommand().execute(request);
+        return new PageUserManagerCommand().execute(reqWrapper);
     }
+
 }

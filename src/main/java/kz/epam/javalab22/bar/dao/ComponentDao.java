@@ -1,13 +1,9 @@
 package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.entity.Component;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by vten on 25.08.2017.
@@ -15,9 +11,6 @@ import java.util.Map;
 public class ComponentDao extends AbstractDao<Component> {
 
     private Connection connection;
-
-    public ComponentDao() {
-    }
 
     public ComponentDao(Connection connection) {
         this.connection = connection;
@@ -57,13 +50,12 @@ public class ComponentDao extends AbstractDao<Component> {
 
     public boolean insert(Component entity) {
 
-        final String QUERY = "INSERT INTO public.component (type_id,name_id,strength,price) VALUES (?,?,?,?)";
+        final String QUERY = "INSERT INTO component (type_id,name_id,strength,price) VALUES (?,?,?,?)";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         Boolean success = false;
 
-        //autocommit - false
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
@@ -81,7 +73,6 @@ public class ComponentDao extends AbstractDao<Component> {
             e.printStackTrace();
         }
 
-        //commit
         try {
             connection.commit();
         } catch (SQLException e) {
@@ -90,62 +81,6 @@ public class ComponentDao extends AbstractDao<Component> {
 
         connectionPool.returnConnection(connection);
         return success;
-    }
-
-    public List<String> getList() {
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-        List<String> components = new ArrayList<>();
-        String name;
-        final String QUERY = "SELECT cn.ru AS ru, cn.en AS en\n" +
-                "FROM component c \n" +
-                "INNER JOIN component_name cn ON c.name_id = cn.id";
-
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
-            while (resultSet.next()) {
-                name = resultSet.getString("ru");
-                components.add(name);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        connectionPool.returnConnection(connection);
-        return components;
-    }
-
-    public Map<Integer, String> getComponents() {
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-
-        Map<Integer, String> components = new LinkedHashMap<>();
-        String name;
-        int id;
-
-        try {
-            final String QUERY = "SELECT c.id,cn.ru AS ru, cn.en AS en " +
-                    "FROM component c " +
-                    "INNER JOIN component_name cn ON c.name_id = cn.id " +
-                    "WHERE c.deleted IS NOT TRUE " +
-                    "ORDER BY cn.ru";
-
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
-            while (resultSet.next()) {
-                name = resultSet.getString("ru");
-                id = resultSet.getInt("id");
-                components.put(id, name);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        connectionPool.returnConnection(connection);
-        return components;
     }
 
     public Component getComponent(int id) {

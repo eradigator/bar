@@ -4,7 +4,7 @@ import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import java.sql.Connection;

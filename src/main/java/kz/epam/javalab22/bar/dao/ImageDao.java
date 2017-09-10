@@ -1,12 +1,8 @@
 package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.entity.*;
-import kz.epam.javalab22.bar.pool.ConnectionPool;
 
-import java.io.InputStream;
 import java.sql.*;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Created by vten on 24.08.2017.
@@ -39,8 +35,6 @@ public class ImageDao extends AbstractDao<Image> {
 
         final String QUERY = "INSERT INTO image (bytes) VALUES (?)";
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
         Boolean success = false;
 
         try {
@@ -69,7 +63,6 @@ public class ImageDao extends AbstractDao<Image> {
             e.printStackTrace();
         }
 
-        connectionPool.returnConnection(connection);
         return success;
     }
 
