@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.dao;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 
@@ -10,6 +11,8 @@ import java.util.List;
 public class CocktailDao extends AbstractDao<Cocktail> {
 
     private Connection connection;
+
+    private static final String SQL_DELETE = "UPDATE cocktail SET deleted = '1' WHERE id = ?";
 
     public CocktailDao() {
     }
@@ -28,22 +31,43 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         throw new UnsupportedOperationException();
     }
 
+    public boolean delete(int id) {
+        Boolean success = false;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, id);
+            if (preparedStatement.executeUpdate() > Const.N_0) {
+                success = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
     @Override
     public boolean create(Cocktail entity) {
 
-        final String QUERY = "INSERT INTO cocktail(name,method,glass_id,image_id) " +
+        final String QUERY = "INSERT INTO cocktail(name_id,method,glass_id,image_id) " +
                 "VALUES(?,?,?,?)";
 
-        int methodId = entity.getMethodId();
         Boolean success = false;
 
-        try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
-            ps.setString(1, entity.getName());
-            ps.setInt(2, methodId);
-            ps.setInt(3, entity.getGlass().getId());
-            ps.setInt(4, entity.getImage().getId());
-            ps.execute();
-            success = true;
+        try (PreparedStatement ps = connection.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(Const.SQL_PARAM_INDEX_1, entity.getCocktailName().getId());
+            ps.setInt(Const.SQL_PARAM_INDEX_2, entity.getMethodId());
+            ps.setInt(Const.SQL_PARAM_INDEX_3, entity.getGlass().getId());
+            ps.setInt(Const.SQL_PARAM_INDEX_4, entity.getImage().getId());
+
+            if (ps.executeUpdate() > 0) {
+                ResultSet resultSet = ps.getGeneratedKeys();
+                while (resultSet.next()) {
+                    entity.setId(resultSet.getInt("id"));
+                }
+                success = true;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,7 +77,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
     public Cocktail get(int cocktailId) {
 
-        final String QUERY = "SELECT c.id,c.glass,c.image_id," +
+        final String QUERY = "SELECT c.id,c.image_id," +
                 "cn.id AS cocktailNameId, " +
                 "cn.name_ru AS cocktailNameNameRu, " +
                 "cn.name_en AS cocktailNameNameEn, " +
@@ -130,7 +154,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
     public List<Cocktail> getCocktailsList() {
 
-        final String QUERY = "SELECT c.id,c.glass,c.image_id," +
+        final String QUERY = "SELECT c.id,c.image_id," +
                 "cn.id AS cocktailNameId, " +
                 "cn.name_ru AS cocktailNameNameRu, " +
                 "cn.name_en AS cocktailNameNameEn, " +
@@ -146,7 +170,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 "INNER JOIN glass g ON c.glass_id = g.id " +
                 "WHERE strength > 0 " +
                 "AND c.deleted IS NOT TRUE " +
-                "ORDER BY c.name";
+                "ORDER BY cocktailNameNameRu";
 
         List<Cocktail> cocktailList = new ArrayList<>();
 
@@ -190,7 +214,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
     public List<Cocktail> getNonAlcoList() {
 
-        final String QUERY = "SELECT c.id,/*c.name,*/c.glass,c.image_id," +
+        final String QUERY = "SELECT c.id,c.image_id," +
                 "cn.id AS cocktailNameId, " +
                 "cn.name_ru AS cocktailNameNameRu, " +
                 "cn.name_en AS cocktailNameNameEn, " +
@@ -206,7 +230,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 "INNER JOIN glass g ON c.glass_id = g.id " +
                 "WHERE strength = 0 " +
                 "AND c.deleted IS NOT TRUE " +
-                "ORDER BY c.name";
+                "ORDER BY cocktailNameNameRu";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
@@ -252,58 +276,17 @@ public class CocktailDao extends AbstractDao<Cocktail> {
         return cocktailList;
     }
 
-    public boolean deleteById(int cocktailId) {
-
-        String QUERY = "UPDATE cocktail " +
-                "SET deleted = '1' " +
-                "WHERE id ='" + cocktailId + "'";
-
-        Boolean success = false;
-
-        try {
-            Statement statement = connection.createStatement();
-            int rowsAffected = statement.executeUpdate(QUERY);
-
-            if (rowsAffected > 0) {
-                success = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return success;
-    }
-
-    public boolean update(String name) {
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-        Boolean success = false;
-
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeQuery("UPDATE cocktail SET img = '/bar/images/cocktails/name.jpg'" +
-                    "WHERE NAME= '" + name + "'");
-            success = true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        connectionPool.returnConnection(connection);
-        return success;
-    }
-
     public boolean setStrength(int cocktailId, Double strength) {
 
-        String QUERY = "UPDATE cocktail " +
+        String query = "UPDATE cocktail " +
                 "SET strength = " + strength +
                 " WHERE id=" + cocktailId;
+
         Boolean success = false;
 
         try {
             Statement statement = connection.createStatement();
-            int rowsAffected = statement.executeUpdate(QUERY);
-            if (rowsAffected > 0) {
+            if (statement.executeUpdate(query) > Const.N_0) {
                 success = true;
             }
         } catch (SQLException e) {

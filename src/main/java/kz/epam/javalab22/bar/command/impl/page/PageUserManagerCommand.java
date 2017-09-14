@@ -4,13 +4,12 @@ import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.user.User;
-import kz.epam.javalab22.bar.exception.MyException;
+import kz.epam.javalab22.bar.exception.ForbiddenPageException;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.UserCheck;
 import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class PageUserManagerCommand implements ActionCommand {
@@ -29,8 +28,8 @@ public class PageUserManagerCommand implements ActionCommand {
             page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
         } else {
             try {
-                throw new MyException("Что то пошло не так");
-            } catch (MyException e) {
+                throw new ForbiddenPageException();
+            } catch (ForbiddenPageException e) {
                 e.printStackTrace();
             }
             log.info(Const.LOG_FORBIDDEN_PAGE);

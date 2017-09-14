@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.dao;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Component;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 
@@ -11,6 +12,15 @@ import java.sql.*;
 public class ComponentDao extends AbstractDao<Component> {
 
     private Connection connection;
+    private static final String SQL_DELETE = "UPDATE component " +
+            "SET deleted = TRUE " +
+            "WHERE id = ?";
+
+    private static final String SQL_CREATE = "INSERT INTO component (type_id,name_id,strength,price) " +
+            "VALUES (?,?,?,?)";
+
+    private static final String SQL_GET = "SELECT id,strength,price FROM component WHERE id=?";
+
 
     public ComponentDao(Connection connection) {
         this.connection = connection;
@@ -23,19 +33,16 @@ public class ComponentDao extends AbstractDao<Component> {
 
     @Override
     public boolean delete(Component entity) {
-        String QUERY = "UPDATE component " +
-                "SET deleted = '1' " +
-                "WHERE id =" + entity.getId();
 
         Boolean success = false;
 
-        try {
-            Statement statement = connection.createStatement();
-            int rowsAffected = statement.executeUpdate(QUERY);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getId());
 
-            if (rowsAffected > 0) {
+            if (preparedStatement.executeUpdate() > 0) {
                 success = true;
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,58 +52,34 @@ public class ComponentDao extends AbstractDao<Component> {
 
     @Override
     public boolean create(Component entity) {
-        return false;
-    }
 
-    public boolean insert(Component entity) {
-
-        final String QUERY = "INSERT INTO component (type_id,name_id,strength,price) VALUES (?,?,?,?)";
-
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
         Boolean success = false;
 
-        try {
-            connection.setAutoCommit(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
-            ps.setInt(1, entity.getType());
-            ps.setInt(2, entity.getNameId());
-            ps.setDouble(3, entity.getStrength());
-            ps.setDouble(4, entity.getPrice());
-            ps.execute();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getType());
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_2, entity.getNameId());
+            preparedStatement.setDouble(Const.SQL_PARAM_INDEX_3, entity.getStrength());
+            preparedStatement.setDouble(Const.SQL_PARAM_INDEX_4, entity.getPrice());
+            preparedStatement.execute();
             success = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        try {
-            connection.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        connectionPool.returnConnection(connection);
         return success;
     }
 
     public Component getComponent(int id) {
 
-        final String QUERY = "SELECT id,strength,price FROM component WHERE id=" + id;
-
         double strength = 0;
         double price = 0;
 
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET)){
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 strength = resultSet.getDouble("strength");
                 price = resultSet.getDouble("price");
-
             }
         } catch (SQLException e) {
             e.printStackTrace();

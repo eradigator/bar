@@ -32,10 +32,10 @@ public class ComponentLogic {
         ComponentName componentName = new ComponentName(name_RU, name_EN);
 
         if (new ComponentNameDao(connection).create(componentName)) {
-            int nameId = new ComponentNameDao(connection).getId(componentName);
+            int nameId = componentName.getId();
             Component component = new Component(nameId, componentType, strength, price);
-
-            success = new ComponentDao(connection).insert(component);
+            new ComponentDao(connection).create(component);
+            success = true;
         }
 
         ConnectionPool.getInstance().returnConnection(connection);
@@ -43,6 +43,7 @@ public class ComponentLogic {
     }
 
     public boolean delComponent() {
+
         Connection connection = ConnectionPool.getInstance().getConnection();
         boolean success = false;
 

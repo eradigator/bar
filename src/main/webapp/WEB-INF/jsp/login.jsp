@@ -42,6 +42,7 @@
             </p>
 
             <input type="submit" value="<fmt:message key="login" bundle="${rb}" />"/>
+
             <div style="color: crimson">
                 ${errorLoginPassMessage}
                 <br/>

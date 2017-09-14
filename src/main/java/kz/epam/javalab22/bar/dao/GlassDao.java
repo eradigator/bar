@@ -2,10 +2,7 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.entity.Glass;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +13,7 @@ import java.util.List;
 public class GlassDao extends AbstractDao<Glass> {
 
     private Connection connection;
+    private static final String SQL_GET_LIST = "SELECT * FROM glass ORDER BY id";
 
     public GlassDao(Connection connection) {
         this.connection = connection;
@@ -40,10 +38,9 @@ public class GlassDao extends AbstractDao<Glass> {
 
         List<Glass> glasses = new ArrayList<>();
 
-        final String QUERY = "SELECT * FROM glass ORDER BY id";
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_LIST)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
                 int id = Integer.parseInt(resultSet.getString("id"));
                 String nameRu = resultSet.getString("name_ru");

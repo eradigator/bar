@@ -18,16 +18,14 @@ public class AddUserCommand implements ActionCommand {
     public String execute(ReqWrapper reqWrapper) {
 
         UserLogic userLogic = new UserLogic(reqWrapper);
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
         if (userLogic.addUser()) {
-            String message = "Пользователь добавлен";
-
-            reqWrapper.addAttribute(Const.ATTR_ADD_USER_RESULT, message);
+            reqWrapper.addAttribute(Const.ATTR_ADD_USER_RESULT, messageManager.getProperty("userAdded"));
             log.info(Const.LOG_USER + Const.DIV_SPACE +
                     reqWrapper.getParam(Const.PARAM_LOGIN) + Const.LOG_HAS_BEEN_ADDED);
         } else {
-            String message = MessageManager.getProperty("XXXXXX");
-            reqWrapper.addAttribute(Const.ATTR_ERROR, message);
+            reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty("error"));
         }
 
         return new PageUserManagerCommand().execute(reqWrapper);

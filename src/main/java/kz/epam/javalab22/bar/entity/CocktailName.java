@@ -8,6 +8,11 @@ public class CocktailName {
     private String nameRu;
     private String nameEn;
 
+    public CocktailName(String nameRu, String nameEn) {
+        this.nameRu = nameRu;
+        this.nameEn = nameEn;
+    }
+
     public CocktailName(int id, String nameRu, String nameEn) {
         this.id = id;
         this.nameRu = nameRu;

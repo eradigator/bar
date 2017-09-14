@@ -18,8 +18,19 @@ public class Cocktail {
     public Cocktail() {
     }
 
+    public Cocktail(int id) {
+        this.id = id;
+    }
+
     public Cocktail(String name, int methodId, Glass glass, Image image) {
         this.name = name;
+        this.methodId = methodId;
+        this.glass = glass;
+        this.image = image;
+    }
+
+    public Cocktail(CocktailName cocktailName, int methodId, Glass glass, Image image) {
+        this.cocktailName = cocktailName;
         this.methodId = methodId;
         this.glass = glass;
         this.image = image;

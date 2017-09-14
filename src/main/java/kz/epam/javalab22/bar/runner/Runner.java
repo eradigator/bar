@@ -1,7 +1,6 @@
 package kz.epam.javalab22.bar.runner;
 
-import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.manager.MessageManager;
+import org.apache.commons.lang.LocaleUtils;
 
 import java.io.*;
 import java.util.Locale;
@@ -14,12 +13,9 @@ import java.util.Locale;
 public class Runner {
 
     public static void main(String[] args) throws IOException {
-    /*    Locale.setDefault(new Locale("en", "US"));
-        String message = MessageManager.getProperty("message.loginError");
-        System.out.println(message);
 
-        Locale.setDefault(new Locale("ru","RU"));
-        System.out.println(MessageManager.getProperty("message.loginError"));*/
+ /*   Locale locale = LocaleUtils.toLocale("en_US");
+        System.out.println(locale);*/
 
     }
 }

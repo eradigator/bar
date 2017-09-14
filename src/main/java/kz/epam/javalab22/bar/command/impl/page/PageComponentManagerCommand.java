@@ -27,8 +27,7 @@ public class PageComponentManagerCommand implements ActionCommand {
         if (new UserCheck(reqWrapper).roleIsAdminCheck()) {
 
             Connection connection = ConnectionPool.getInstance().getConnection();
-
-            List<ComponentType> componentTypes = new ComponentTypeDao(connection).getComponentTypes();
+            List<ComponentType> componentTypes = new ComponentTypeDao(connection).getList();
             List<ComponentName> componentNames = new ComponentNameDao(connection).getList();
             ConnectionPool.getInstance().returnConnection(connection);
 

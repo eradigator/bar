@@ -2,10 +2,7 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.entity.ComponentType;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +13,8 @@ import java.util.List;
 public class ComponentTypeDao extends AbstractDao {
 
     private Connection connection;
+
+    private static final String SQL_GET_LIST = "SELECT * FROM component_type ORDER BY id";
 
     public ComponentTypeDao(Connection connection) {
         this.connection = connection;
@@ -36,14 +35,13 @@ public class ComponentTypeDao extends AbstractDao {
         throw new UnsupportedOperationException();
     }
 
-    public List<ComponentType> getComponentTypes() {
+    public List<ComponentType> getList() {
 
-        final String QUERY = "SELECT * FROM component_type ORDER BY id";
         List<ComponentType> componentTypes = new ArrayList<>();
 
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_LIST)){
+
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String nameEn = resultSet.getString("name_en");
