@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.dao;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Component;
 import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.entity.Mix;
@@ -14,6 +15,14 @@ import java.util.Map;
 public class MixDao extends AbstractDao<Mix> {
 
     private Connection connection;
+    private static final String SQL_ADD_MIX = "INSERT INTO mix (cocktail_id,component_id,amount) VALUES (?,?,?)";
+    private static final String SQL_GET_MIX = "SELECT m.amount, " +
+            "cn.ru AS nameRu," +
+            "cn.en AS nameEn " +
+            "FROM mix m " +
+            "INNER JOIN component c ON m.component_id = c.id " +
+            "INNER JOIN component_name cn ON c.name_id = cn.id " +
+            "WHERE cocktail_id = ?";
 
     public MixDao(Connection connection) {
         this.connection = connection;
@@ -21,12 +30,12 @@ public class MixDao extends AbstractDao<Mix> {
 
     @Override
     public Mix update(Mix entity) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean delete(Mix entity) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -36,15 +45,15 @@ public class MixDao extends AbstractDao<Mix> {
 
     public boolean add(Mix entity, int cocktailId) {
 
-        final String QUERY = "INSERT INTO mix (cocktail_id,component_id,amount) VALUES (?,?,?)";
         Boolean success = false;
 
-        try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_MIX)) {
+
             for (Map.Entry<Component, Integer> pair : entity.getMix().entrySet()) {
-                ps.setInt(1, cocktailId);
-                ps.setInt(2, pair.getKey().getId());
-                ps.setDouble(3, pair.getValue());
-                ps.execute();
+                preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, cocktailId);
+                preparedStatement.setInt(Const.SQL_PARAM_INDEX_2, pair.getKey().getId());
+                preparedStatement.setDouble(Const.SQL_PARAM_INDEX_3, pair.getValue());
+                preparedStatement.execute();
             }
 
             success = true;
@@ -59,25 +68,20 @@ public class MixDao extends AbstractDao<Mix> {
 
         Mix mix = new Mix();
 
-        String QUERY = "SELECT m.amount, " +
-                "cn.ru AS nameRu," +
-                "cn.en AS nameEn " +
-                "FROM mix m " +
-                "INNER JOIN component c ON m.component_id = c.id " +
-                "INNER JOIN component_name cn ON c.name_id = cn.id " +
-                "WHERE cocktail_id = "+ cocktailId;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_MIX)) {
 
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, cocktailId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
-                int amount = Integer.parseInt(resultSet.getString("amount"));
-                String nameRu = resultSet.getString("nameRu");
-                String nameEn = resultSet.getString("nameEn");
-                ComponentName componentName = new ComponentName(nameRu,nameEn);
+                int amount = Integer.parseInt(resultSet.getString(Const.COLUMN_LABEL_AMOUNT));
+                String nameRu = resultSet.getString(Const.COLUMN_LABEL_NAMERU);
+                String nameEn = resultSet.getString(Const.COLUMN_LABEL_NAMEEN);
+
                 Component component = new Component();
-                component.setComponentName(componentName);
-                mix.getMix().put(component,amount);
+                component.setComponentName(new ComponentName(nameRu, nameEn));
+
+                mix.getMix().put(component, amount);
             }
         } catch (SQLException e) {
             e.printStackTrace();

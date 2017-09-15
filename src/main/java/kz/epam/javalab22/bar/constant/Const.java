@@ -35,6 +35,10 @@ public final class Const {
     public static final String ATTR_LOCALE = "locale";
     public static final String ATTR_ERROR_LOGIN_PASS_MESSAGE = "errorLoginPassMessage";
 
+    /*Exceptions*/
+
+    public static final String EXC_NO_ID_OBTAINED = "failed, no ID obtained.";
+
 
 
     /*Log messages*/
@@ -68,6 +72,8 @@ public final class Const {
     public static final String PARAM_COCKTAIL_ID = "cocktailId";
     public static final String PARAM_COMPONENT_TO_DEL = "componentToDel";
     public static final String PARAM_CHOSEN = "chosen";
+    public static final String PARAM_CHECKED_NAME = "checkedName";
+    public static final String PARAM_IMAGE = "image";
 
 
     /*Property names*/
@@ -89,9 +95,9 @@ public final class Const {
     /*Strings*/
     public static final String STR_EN = "EN";
     public static final String STR_RU = "RU";
+    public static final String STR_EMPTY = "";
 
     /*Locales*/
-    public static final String LOCALE = "locale";
     public static final String LOC_RU_RU = "ru_RU";
     public static final String LOC_EN_US = "en_US";
 
@@ -101,6 +107,34 @@ public final class Const {
     public static final int SQL_PARAM_INDEX_2 = 2;
     public static final int SQL_PARAM_INDEX_3 = 3;
     public static final int SQL_PARAM_INDEX_4 = 4;
+    public static final String COLUMN_LABEL_PASSWORD = "password";
+    public static final String COLUMN_LABEL_ID = "id";
+    public static final String COLUMN_LABEL_ROLE = "role";
+    public static final String COLUMN_LABEL_EMAIL = "email";
+    public static final String COLUMN_LABEL_NAME = "name";
+    public static final String COLUMN_LABEL_TEXT_RU = "text_ru";
+    public static final String COLUMN_LABEL_TEXT_EN = "text_en";
+    public static final String COLUMN_LABEL_AMOUNT = "amount";
+    public static final String COLUMN_LABEL_NAMERU = "nameRu";
+    public static final String COLUMN_LABEL_NAMEEN = "nameEn";
+    public static final String COLUMN_LABEL_NAME_RU = "name_ru";
+    public static final String COLUMN_LABEL_NAME_EN = "name_en";
+    public static final String COLUMN_LABEL_BYTES = "bytes";
+    public static final String COLUMN_LABEL_RU = "ru";
+    public static final String COLUMN_LABEL_EN = "en";
+    public static final String COLUMN_LABEL_STRENGTH = "strength";
+    public static final String COLUMN_LABEL_PRICE = "price";
+    public static final String COLUMN_LABEL_COCKTAIL_NAME_ID = "cocktailNameId";
+    public static final String COLUMN_LABEL_COCKTAIL_NAME_NAME_RU = "cocktailNameNameRu";
+    public static final String COLUMN_LABEL_COCKTAIL_NAME_NAME_EN = "cocktailNameNameEn";
+    public static final String COLUMN_LABEL_METHOD_ID = "methodId";
+    public static final String COLUMN_LABEL_METHOD_NAME_RU = "methodNameRu";
+    public static final String COLUMN_LABEL_METHOD_NAME_EN = "methodNameEn";
+    public static final String COLUMN_LABEL_GLASS_ID = "glassId";
+    public static final String COLUMN_LABEL_GLASS_NAME_RU = "glassNameRu";
+    public static final String COLUMN_LABEL_GLASS_NAME_EN = "glassNameEn";
+    public static final String COLUMN_LABEL_IMAGE_ID = "image_id";
+
 
 
 }

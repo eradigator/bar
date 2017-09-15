@@ -14,6 +14,8 @@ public class Cocktail {
     private Image image;
     private int imageId;
     private Mix mix;
+    private double strength;
+
 
     public Cocktail() {
     }
@@ -36,12 +38,13 @@ public class Cocktail {
         this.image = image;
     }
 
-    public Cocktail(int id, CocktailName cocktailName, Mix mix, Method method, Glass glass, int imageId) {
+    public Cocktail(int id, CocktailName cocktailName, Mix mix, Method method, Glass glass, double strength, int imageId) {
         this.id=id;
         this.cocktailName = cocktailName;
         this.method = method;
         this.glass = glass;
         this.mix = mix;
+        this.strength = strength;
         this.imageId = imageId;
     }
 
@@ -117,4 +120,11 @@ public class Cocktail {
         this.imageId = imageId;
     }
 
+    public double getStrength() {
+        return strength;
+    }
+
+    public void setStrength(double strength) {
+        this.strength = strength;
+    }
 }

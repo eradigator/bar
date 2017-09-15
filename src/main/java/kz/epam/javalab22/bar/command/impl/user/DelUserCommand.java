@@ -24,7 +24,7 @@ public class DelUserCommand implements ActionCommand {
             log.info(Const.LOG_USER + Const.DIV_SPACE +
                     reqWrapper.getParam("checkedName") + Const.LOG_HAS_BEEN_DELETED);
         } else {
-            reqWrapper.addAttribute("error", messageManager.getProperty("error"));
+            reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty("error"));
         }
 
         return new PageUserManagerCommand().execute(reqWrapper);

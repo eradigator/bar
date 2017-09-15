@@ -10,6 +10,10 @@ public class User {
     public User() {
     }
 
+    public User(String name) {
+        this.name = name;
+    }
+
     public User(String name, String password, String email) {
         this.name = name;
         this.password = password;
@@ -36,6 +40,14 @@ public class User {
         this.password = password;
         this.email = email;
         this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

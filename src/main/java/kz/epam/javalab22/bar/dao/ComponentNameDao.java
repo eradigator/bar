@@ -30,7 +30,7 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
 
     @Override
     public ComponentName update(ComponentName entity) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getId());
 
-            if (preparedStatement.executeUpdate() > 0) {
+            if (preparedStatement.executeUpdate() > Const.N_0) {
                 success = true;
             }
         } catch (SQLException e) {
@@ -63,10 +63,10 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
             if (preparedStatement.executeUpdate() > Const.N_0) {
                 try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        entity.setId(generatedKeys.getInt("id"));
+                        entity.setId(generatedKeys.getInt(Const.COLUMN_LABEL_ID));
                         success = true;
                     } else {
-                        throw new SQLException("failed, no ID obtained.");
+                        throw new SQLException(Const.EXC_NO_ID_OBTAINED);
                     }
                 }
             }
@@ -86,9 +86,9 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String nameRu = resultSet.getString("ru");
-                String nameEn = resultSet.getString("en");
+                int id = resultSet.getInt(Const.COLUMN_LABEL_ID);
+                String nameRu = resultSet.getString(Const.COLUMN_LABEL_RU);
+                String nameEn = resultSet.getString(Const.COLUMN_LABEL_EN);
                 componentNames.add(new ComponentName(id, nameRu, nameEn));
             }
         } catch (SQLException e) {

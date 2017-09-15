@@ -112,8 +112,7 @@ public enum CommandEnum {
         {
             this.command = new ShowCocktailCommand();
         }
-    }
-    ;
+    };
 
     ActionCommand command;
 
