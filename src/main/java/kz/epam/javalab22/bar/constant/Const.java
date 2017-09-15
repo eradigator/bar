@@ -33,6 +33,8 @@ public final class Const {
     public static final String ATTR_ADD_USER_RESULT = "addUserResult";
     public static final String ATTR_DEL_USER_RESULT = "deleteUserResult";
     public static final String ATTR_LOCALE = "locale";
+    public static final String ATTR_ERROR_LOGIN_PASS_MESSAGE = "errorLoginPassMessage";
+
 
 
     /*Log messages*/
@@ -51,8 +53,6 @@ public final class Const {
 
 
 
-
-
     /*Numbers*/
     public static final int N_0 = 0;
     public static final int N_100 = 100;
@@ -64,7 +64,7 @@ public final class Const {
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_ROLE = "role";
     public static final String PARAM_NAME = "name";
-    public static final String PARAM_COCKTAIL_TO_DELETE = "cocktailToDelete";
+    public static final String PARAM_COCKTAIL_ID_TO_DELETE = "cocktailIdToDelete";
     public static final String PARAM_COCKTAIL_ID = "cocktailId";
     public static final String PARAM_COMPONENT_TO_DEL = "componentToDel";
     public static final String PARAM_CHOSEN = "chosen";
@@ -94,5 +94,13 @@ public final class Const {
     public static final String LOCALE = "locale";
     public static final String LOC_RU_RU = "ru_RU";
     public static final String LOC_EN_US = "en_US";
+
+
+    /*SQL*/
+    public static final int SQL_PARAM_INDEX_1 = 1;
+    public static final int SQL_PARAM_INDEX_2 = 2;
+    public static final int SQL_PARAM_INDEX_3 = 3;
+    public static final int SQL_PARAM_INDEX_4 = 4;
+
 
 }

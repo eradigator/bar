@@ -1,6 +1,8 @@
 package kz.epam.javalab22.bar.dao;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.*;
+import kz.epam.javalab22.bar.exception.AddImageException;
 
 import java.sql.*;
 
@@ -11,6 +13,9 @@ import java.sql.*;
 public class ImageDao extends AbstractDao<Image> {
 
     private Connection connection;
+
+    private static final String SQL_GET_IMAGE = "SELECT bytes FROM image WHERE id=?";
+    private static final String SQL_ADD_IMAGE = "INSERT INTO image (bytes) VALUES (?)";
 
     public ImageDao(Connection connection) {
         this.connection = connection;
@@ -33,26 +38,19 @@ public class ImageDao extends AbstractDao<Image> {
 
     public boolean add(Image image) {
 
-        final String QUERY = "INSERT INTO image (bytes) VALUES (?)";
-
         Boolean success = false;
 
         try {
+            PreparedStatement statement = connection.prepareStatement(SQL_ADD_IMAGE, Statement.RETURN_GENERATED_KEYS);
+            statement.setBinaryStream(Const.SQL_PARAM_INDEX_1, image.getInputStream(), image.getInputStreamLength());
 
-            PreparedStatement statement = connection.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS);
-            statement.setBinaryStream(1, image.getInputStream(), image.getInputStreamLength());
-
-            int affectedRows = statement.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException();
+            if (statement.executeUpdate() == 0) {
+                throw new AddImageException();
             }
 
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    image.setId(generatedKeys.getInt("id"));
-                } else {
-                    throw new SQLException("failed, no ID obtained.");
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                while (resultSet.next()) {
+                    image.setId(resultSet.getInt("id"));
                 }
             }
 
@@ -69,16 +67,16 @@ public class ImageDao extends AbstractDao<Image> {
     public byte[] getImage(int id) {
 
         byte[] bytes = null;
-        final String QUERY = "SELECT bytes FROM image WHERE id =" + id;
 
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_IMAGE)) {
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 bytes = resultSet.getBytes("bytes");
             }
             resultSet.close();
-            statement.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

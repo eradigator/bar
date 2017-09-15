@@ -2,13 +2,18 @@ package kz.epam.javalab22.bar.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import org.apache.commons.lang.LocaleUtils;
+
+
 
 public class ReqWrapper {
     private Map<String, Object> requestAttributes;
     private Map<String, String> nonArrayRequestParameters;
     private Map<String, String[]> requestParameters;
     private Map<String, Object> sessionAttributes;
+    private Locale locale;
 
     private HttpServletRequest request;
 
@@ -17,8 +22,21 @@ public class ReqWrapper {
 
     public ReqWrapper(HttpServletRequest request) {
         this.request = request;
+
+
+
+        locale = LocaleUtils.toLocale(request.getSession().getAttribute("locale").toString());
+
         requestParameters = this.request.getParameterMap();
         nonArrayRequestParameters = convertArrayValueToString(requestParameters);
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 
     public Map<String, String[]> getRequestParameters() {

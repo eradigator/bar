@@ -17,14 +17,14 @@ public class DelUserCommand implements ActionCommand {
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
+
         if (new UserLogic(reqWrapper).delUser()) {
-            String message = "Пользователь удален";
-            reqWrapper.addAttribute(Const.ATTR_DEL_USER_RESULT, message);
+            reqWrapper.addAttribute(Const.ATTR_DEL_USER_RESULT, messageManager.getProperty("userDeleted"));
             log.info(Const.LOG_USER + Const.DIV_SPACE +
                     reqWrapper.getParam("checkedName") + Const.LOG_HAS_BEEN_DELETED);
         } else {
-            String message = MessageManager.getProperty("message.deleteUserError");
-            reqWrapper.addAttribute("error", message);
+            reqWrapper.addAttribute("error", messageManager.getProperty("error"));
         }
 
         return new PageUserManagerCommand().execute(reqWrapper);

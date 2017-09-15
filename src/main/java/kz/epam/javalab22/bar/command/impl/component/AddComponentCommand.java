@@ -13,18 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 
 public class AddComponentCommand implements ActionCommand {
 
-    private static final Logger log = Logger.getLogger(AddComponentCommand.class);
-
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
+
         if (new ComponentLogic(reqWrapper).addComponent()) {
-            String message = MessageManager.getProperty("message.componentAdded");
-            reqWrapper.addAttribute(Const.ATTR_RESULT,message);
-            log.info(message);
+            reqWrapper.addAttribute(Const.ATTR_RESULT, messageManager.getProperty("componentAdded"));
         } else {
-            String message = "error";
-            reqWrapper.addAttribute(Const.ATTR_ERROR,message);
+            reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty("error"));
         }
 
         return new PageComponentManagerCommand().execute(reqWrapper);

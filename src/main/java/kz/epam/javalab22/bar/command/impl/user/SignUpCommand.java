@@ -21,6 +21,7 @@ public class SignUpCommand implements ActionCommand {
     public String execute(ReqWrapper reqWrapper) {
 
         String page = ConfigurationManager.getProperty(Const.PARAM_LOGIN);
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
         String login = reqWrapper.getParam(Const.PARAM_LOGIN);
         String password = reqWrapper.getParam(Const.PARAM_PASSWORD);
@@ -37,8 +38,7 @@ public class SignUpCommand implements ActionCommand {
                     Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
             page = new PageMainCommand().execute(reqWrapper);
         } else {
-            String message = MessageManager.getProperty("message.loginError");
-            reqWrapper.addAttribute(Const.ATTR_ERROR, message);
+            reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty("message.loginError"));
         }
 
         return page;

@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Locale;
 
 public class LocaleFilter implements Filter {
 
@@ -22,7 +23,8 @@ public class LocaleFilter implements Filter {
         HttpSession session = request.getSession();
 
         if (session.getAttribute(Const.ATTR_LOCALE) == null) {
-            session.setAttribute(Const.ATTR_LOCALE,Const.LOC_RU_RU);
+            session.setAttribute(Const.ATTR_LOCALE, Const.LOC_RU_RU);
+
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

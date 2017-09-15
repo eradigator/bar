@@ -18,15 +18,14 @@ public class AddCocktailCommand implements ActionCommand {
     public String execute(ReqWrapper reqWrapper) {
 
         CocktailLogic cocktailLogic = new CocktailLogic(reqWrapper);
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
         if (cocktailLogic.addCocktail()) {
+            reqWrapper.addAttribute(Const.ATTR_ADD_COCKTAIL_RESULT, messageManager.getProperty("cocktailAdded"));
             log.info(Const.LOG_COCKTAIL + Const.DIV_SPACE + reqWrapper.getParam(Const.PARAM_NAME) +
                     Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
-
-            reqWrapper.addAttribute(Const.ATTR_ADD_COCKTAIL_RESULT, "Коктейль добавлен");
         } else {
-            String message = MessageManager.getProperty("message.loginerror");
-            reqWrapper.addAttribute(Const.ATTR_ADD_COCKTAIL_RESULT, message);
+            reqWrapper.addAttribute(Const.ATTR_ADD_COCKTAIL_RESULT, messageManager.getProperty("error"));
         }
 
         return new PageCocktailManagerCommand().execute(reqWrapper);

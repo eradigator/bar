@@ -5,7 +5,6 @@ import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.user.User;
-import kz.epam.javalab22.bar.exception.MyException;
 import kz.epam.javalab22.bar.logic.LoginLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
@@ -14,7 +13,6 @@ import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
-import java.util.Locale;
 
 public class LoginCommand implements ActionCommand {
 
@@ -24,6 +22,7 @@ public class LoginCommand implements ActionCommand {
     public String execute(ReqWrapper reqWrapper) {
 
         String page = ConfigurationManager.getProperty(Const.PAGE_LOGIN);
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
         String login = reqWrapper.getParam(Const.PARAM_LOGIN);
         String pass = reqWrapper.getParam(Const.PARAM_PASSWORD);
@@ -36,11 +35,9 @@ public class LoginCommand implements ActionCommand {
             reqWrapper.addSessionAttribute(Const.ATTR_USER, user);
             page = new PageMainCommand().execute(reqWrapper);
             log.info(login + Const.DIV_SPACE + Const.LOG_LOGGED_IN);
-
         } else {
             log.info(login + Const.DIV_SPACE + Const.LOG_UNSUCCESSED_LOG_IN);
-            String message = MessageManager.getProperty("message.loginError");
-            reqWrapper.addAttribute("errorLoginPassMessage", message);
+            reqWrapper.addAttribute(Const.ATTR_ERROR_LOGIN_PASS_MESSAGE, messageManager.getProperty("loginError"));
         }
 
         return page;

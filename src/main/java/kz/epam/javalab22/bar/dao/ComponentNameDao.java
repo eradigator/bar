@@ -1,18 +1,28 @@
 package kz.epam.javalab22.bar.dao;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.ComponentName;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by vten on 24.08.2017.
- */
 
 public class ComponentNameDao extends AbstractDao<ComponentName> {
 
     private Connection connection;
+
+    private static final String SQL_DELETE = "UPDATE component_name " +
+            "SET deleted = TRUE WHERE id =" +
+            "(SELECT name_id FROM component WHERE id = ?)";
+
+    private static final String SQL_CREATE = "INSERT INTO component_name (en,ru) VALUES (?,?)";
+
+    private static final String SQL_GET_LIST = "SELECT c.id,cn.ru AS ru, cn.en AS en " +
+            "FROM component c " +
+            "INNER JOIN component_name cn ON c.name_id = cn.id " +
+            "WHERE c.deleted IS NOT TRUE " +
+            "ORDER BY cn.ru";
 
     public ComponentNameDao(Connection connection) {
         this.connection = connection;
@@ -26,19 +36,12 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
     @Override
     public boolean delete(ComponentName entity) {
 
-        String QUERY = "UPDATE component_name " +
-                "SET deleted = '1' WHERE id =" +
-                "(SELECT name_id " +
-                "FROM component " +
-                "WHERE id =" + entity.getId() + ")";
-
         Boolean success = false;
 
-        try {
-            Statement statement = connection.createStatement();
-            int rowsAffected = statement.executeUpdate(QUERY);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getId());
 
-            if (rowsAffected > 0) {
+            if (preparedStatement.executeUpdate() > 0) {
                 success = true;
             }
         } catch (SQLException e) {
@@ -51,15 +54,23 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
     @Override
     public boolean create(ComponentName entity) {
 
-        final String QUERY = "INSERT INTO component_name (en,ru) VALUES (?,?)";
-
         Boolean success = false;
 
-        try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
-            ps.setString(1, entity.getNameEn());
-            ps.setString(2, entity.getNameRu());
-            ps.execute();
-            success = true;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(Const.SQL_PARAM_INDEX_1, entity.getNameEn());
+            preparedStatement.setString(Const.SQL_PARAM_INDEX_2, entity.getNameRu());
+
+            if (preparedStatement.executeUpdate() > Const.N_0) {
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        entity.setId(generatedKeys.getInt("id"));
+                        success = true;
+                    } else {
+                        throw new SQLException("failed, no ID obtained.");
+                    }
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,36 +78,13 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
         return success;
     }
 
-    public int getId(ComponentName entity) {
-
-        final String QUERY = String.format("SELECT id FROM component_name WHERE en = '%s'", entity.getNameEn());
-        int id = 0;
-
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
-            while (resultSet.next()) {
-                id = resultSet.getInt("id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return id;
-    }
-
     public List<ComponentName> getList() {
 
-        final String QUERY = "SELECT c.id,cn.ru AS ru, cn.en AS en " +
-                "FROM component c " +
-                "INNER JOIN component_name cn ON c.name_id = cn.id " +
-                "WHERE c.deleted IS NOT TRUE " +
-                "ORDER BY cn.ru";
         List<ComponentName> componentNames = new ArrayList<>();
 
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_LIST)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String nameRu = resultSet.getString("ru");

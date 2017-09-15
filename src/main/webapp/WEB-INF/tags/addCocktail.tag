@@ -8,9 +8,10 @@
     <div class="result_field">
         <div style="color:#02834b">
             <h5>${addCocktailResult}</h5>
+            <h5>${removeCocktailResult}</h5>
         </div>
         <div style="color: crimson">
-            <h5>${removeCocktailResult}</h5>
+            <h5>${error}</h5>
         </div>
     </div>
     <br/>
@@ -34,7 +35,7 @@
         <p>
             <fmt:message key="name_ru" bundle="${rb}"/>
             <br/>
-            <input name='name' value='' required title="">
+            <input name='name_ru' value='' required title="">
             <br/>
         </p>
 
