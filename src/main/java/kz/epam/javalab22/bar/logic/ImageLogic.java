@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.logic;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.ImageDao;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
@@ -25,12 +26,12 @@ public class ImageLogic {
     public Image addImage() {
 
         InputStream inputStream = null;
-        long length=0;
+        long length= Const.N_0;
 
         try {
-            Part filePart = reqWrapper.getRequest().getPart("image");
+            Part filePart = reqWrapper.getRequest().getPart(Const.PARAM_IMAGE);
 
-            if (filePart != null) {
+            if (null != filePart) {
                 length = filePart.getSize();
                 inputStream = filePart.getInputStream();
             }
@@ -42,11 +43,11 @@ public class ImageLogic {
         Image image = new Image(inputStream,length);
 
         Connection connection = ConnectionPool.getInstance().getConnection();
-        new ImageDao(connection).add(image);
+        new ImageDao(connection).create(image);
         ConnectionPool.getInstance().returnConnection(connection);
 
         try {
-            assert inputStream != null;
+            assert null != inputStream;
             inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();

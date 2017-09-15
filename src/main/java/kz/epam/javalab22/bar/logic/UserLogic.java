@@ -37,9 +37,11 @@ public class UserLogic {
 
     public boolean delUser() {
 
-        String login = reqWrapper.getParam("checkedName");
+        String login = reqWrapper.getParam(Const.PARAM_CHECKED_NAME);
+        User user = new User(login);
+
         Connection connection = ConnectionPool.getInstance().getConnection();
-        Boolean result = new UserDao(connection).deleteByLogin(login);
+        Boolean result = new UserDao(connection).delete(user);
         ConnectionPool.getInstance().returnConnection(connection);
 
         return result;

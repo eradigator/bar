@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.dao;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Glass;
 
 import java.sql.*;
@@ -26,12 +27,12 @@ public class GlassDao extends AbstractDao<Glass> {
 
     @Override
     public boolean delete(Glass entity) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean create(Glass entity) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     public List<Glass> getList() {
@@ -42,9 +43,9 @@ public class GlassDao extends AbstractDao<Glass> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int id = Integer.parseInt(resultSet.getString("id"));
-                String nameRu = resultSet.getString("name_ru");
-                String nameEn = resultSet.getString("name_en");
+                int id = Integer.parseInt(resultSet.getString(Const.COLUMN_LABEL_ID));
+                String nameRu = resultSet.getString(Const.COLUMN_LABEL_NAME_RU);
+                String nameEn = resultSet.getString(Const.COLUMN_LABEL_NAME_EN);
                 glasses.add(new Glass(id, nameRu, nameEn));
             }
         } catch (SQLException e) {

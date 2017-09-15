@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.dao;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.ComponentType;
 
 import java.sql.*;
@@ -43,9 +44,9 @@ public class ComponentTypeDao extends AbstractDao {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String nameEn = resultSet.getString("name_en");
-                String nameRu = resultSet.getString("name_ru");
+                int id = resultSet.getInt(Const.COLUMN_LABEL_ID);
+                String nameEn = resultSet.getString(Const.COLUMN_LABEL_NAME_EN);
+                String nameRu = resultSet.getString(Const.COLUMN_LABEL_NAME_RU);
                 componentTypes.add(new ComponentType(id,nameRu,nameEn));
             }
         } catch (SQLException e) {

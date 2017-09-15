@@ -1,6 +1,4 @@
 /* 1. General */
-/*@import url(https://fonts.googleapis.com/css?family=Tinos&subset=latin,cyrillic);*/
-
 html, body {
     height: 100%;
 }
@@ -124,6 +122,23 @@ td, th {
 #login {
     margin: 120px auto;
     width: 280px;
+}
+
+.filter_sort {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    height: 130px;
+    background-color: #FACFAA;
+}
+
+.nav_menu {
+    height: 160px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #ddd;
+    padding: 10px;
+    border: 1px solid #ddd;
 }
 
 /* Cocktail Images */

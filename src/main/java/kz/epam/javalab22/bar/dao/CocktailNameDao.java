@@ -34,7 +34,7 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
 
     @Override
     public boolean delete(CocktailName entity) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     public boolean delete(int cocktailId) {
@@ -60,13 +60,13 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
         Boolean success = false;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, entity.getNameEn());
-            preparedStatement.setString(2, entity.getNameRu());
+            preparedStatement.setString(Const.SQL_PARAM_INDEX_1, entity.getNameEn());
+            preparedStatement.setString(Const.SQL_PARAM_INDEX_2, entity.getNameRu());
 
-            if (preparedStatement.executeUpdate() > 0) {
+            if (preparedStatement.executeUpdate() > Const.N_0) {
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
                 while (resultSet.next()) {
-                    entity.setId(resultSet.getInt("id"));
+                    entity.setId(resultSet.getInt(Const.COLUMN_LABEL_ID));
                 }
                 success = true;
             }
@@ -86,9 +86,9 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_GET_LIST);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String nameRu = resultSet.getString("nameRu");
-                String nameEn = resultSet.getString("nameEn");
+                int id = resultSet.getInt(Const.COLUMN_LABEL_ID);
+                String nameRu = resultSet.getString(Const.COLUMN_LABEL_NAMERU);
+                String nameEn = resultSet.getString(Const.COLUMN_LABEL_NAMEEN);
                 cocktailNames.add(new CocktailName(id, nameRu, nameEn));
             }
         } catch (SQLException e) {

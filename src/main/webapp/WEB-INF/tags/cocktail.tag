@@ -35,6 +35,10 @@
 </c:choose>
 
 <br/>
+<fmt:message key="strength" bundle="${rb}"/>
+${cocktail.strength}&deg;
+
+<br/>
 <br/>
 <fmt:message key="components" bundle="${rb}"/>
 <br/>

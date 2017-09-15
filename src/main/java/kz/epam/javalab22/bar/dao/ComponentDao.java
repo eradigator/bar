@@ -28,7 +28,7 @@ public class ComponentDao extends AbstractDao<Component> {
 
     @Override
     public Component update(Component entity) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ComponentDao extends AbstractDao<Component> {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getId());
 
-            if (preparedStatement.executeUpdate() > 0) {
+            if (preparedStatement.executeUpdate() > Const.N_0) {
                 success = true;
             }
 
@@ -71,15 +71,15 @@ public class ComponentDao extends AbstractDao<Component> {
 
     public Component getComponent(int id) {
 
-        double strength = 0;
-        double price = 0;
+        double strength = Const.N_0;
+        double price = Const.N_0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET)){
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                strength = resultSet.getDouble("strength");
-                price = resultSet.getDouble("price");
+                strength = resultSet.getDouble(Const.COLUMN_LABEL_STRENGTH);
+                price = resultSet.getDouble(Const.COLUMN_LABEL_PRICE);
             }
         } catch (SQLException e) {
             e.printStackTrace();

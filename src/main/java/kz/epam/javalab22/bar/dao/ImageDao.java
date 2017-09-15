@@ -33,24 +33,19 @@ public class ImageDao extends AbstractDao<Image> {
 
     @Override
     public boolean create(Image entity) {
-        return false;
-    }
-
-    public boolean add(Image image) {
-
         Boolean success = false;
 
         try {
             PreparedStatement statement = connection.prepareStatement(SQL_ADD_IMAGE, Statement.RETURN_GENERATED_KEYS);
-            statement.setBinaryStream(Const.SQL_PARAM_INDEX_1, image.getInputStream(), image.getInputStreamLength());
+            statement.setBinaryStream(Const.SQL_PARAM_INDEX_1, entity.getInputStream(), entity.getInputStreamLength());
 
-            if (statement.executeUpdate() == 0) {
+            if (statement.executeUpdate() == Const.N_0) {
                 throw new AddImageException();
             }
 
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 while (resultSet.next()) {
-                    image.setId(resultSet.getInt("id"));
+                    entity.setId(resultSet.getInt(Const.COLUMN_LABEL_ID));
                 }
             }
 
@@ -73,7 +68,7 @@ public class ImageDao extends AbstractDao<Image> {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                bytes = resultSet.getBytes("bytes");
+                bytes = resultSet.getBytes(Const.COLUMN_LABEL_BYTES);
             }
             resultSet.close();
             preparedStatement.close();
