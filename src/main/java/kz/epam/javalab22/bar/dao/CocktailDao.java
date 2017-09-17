@@ -49,8 +49,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             "INNER JOIN cocktail_name cn ON c.name_id = cn.id " +
             "INNER JOIN build_method b ON c.method = b.id " +
             "INNER JOIN glass g ON c.glass_id = g.id " +
-            "AND c.deleted IS NOT TRUE " +
-            "ORDER BY cocktailNameNameRu";
+            "AND c.deleted IS NOT TRUE";
 
     private static final String SQL_SET_STRENGTH = "UPDATE cocktail SET strength=? WHERE id=?";
 

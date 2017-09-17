@@ -10,8 +10,12 @@ import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.FilterCocktailList;
+import kz.epam.javalab22.bar.util.SortCocktailListByNameEn;
+import kz.epam.javalab22.bar.util.SortCocktailListByNameRu;
+import kz.epam.javalab22.bar.util.SortCocktailListByStrength;
 
 import java.sql.Connection;
+import java.util.Collections;
 import java.util.List;
 
 public class PageAlcoholicCommand implements ActionCommand {
@@ -48,23 +52,23 @@ public class PageAlcoholicCommand implements ActionCommand {
             }
         }
 
-        if (null == reqWrapper.getParam("sort")) {
-            reqWrapper.addAttribute("sort_checked_index", 0);
-        } else {
-            switch (reqWrapper.getParam("sort")) {
-                case "by_name":
-                    reqWrapper.addAttribute("sort_checked_index", 0);
-                    //компаратор
-                    break;
-                case "by_strength":
-                    reqWrapper.addAttribute("sort_checked_index", 1);
-                    //компаратор
-                    break;
-                default:
-                    reqWrapper.addAttribute("sort_checked_index", 0);
-                    break;
+        String paramSort = reqWrapper.getParam("sort");
 
+        if (null == paramSort || paramSort.equals("by_name")) {
+            reqWrapper.addAttribute("sort_checked_index", 0);
+
+            switch (reqWrapper.getLocale().toString()) {
+                case "ru_RU":
+                    filteredCocktailList.sort(new SortCocktailListByNameRu());
+                    break;
+                case "en_US":
+                    filteredCocktailList.sort(new SortCocktailListByNameEn());
+                    break;
             }
+
+        } else if (paramSort.equals("by_strength")) {
+            filteredCocktailList.sort(new SortCocktailListByStrength());
+            reqWrapper.addAttribute("sort_checked_index", 1);
         }
 
         int textId = Integer.parseInt(ConfigurationManager.getProperty(Const.PROP_UI_TEXT_FOR_ALCOHOLIC_PAGE));
