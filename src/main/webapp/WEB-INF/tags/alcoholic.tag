@@ -42,38 +42,66 @@
 
 <br style="clear:both;"/>
 
-<c:forEach items="${cocktailList}" var="cocktail">
-    <div class="cocktail" style="cursor: pointer;" onclick="showCocktail(${cocktail.id})">
-        <img class="cocktail_image" src="${pageContext.request.contextPath}/image?id=${cocktail.imageId}">
-        <b>
-            <c:choose>
-                <c:when test="${locale.toString() eq 'ru_RU'}">${cocktail.cocktailName.nameRu}</c:when>
-                <c:when test="${locale.toString() eq 'en_US'}">${cocktail.cocktailName.nameEn}</c:when>
-            </c:choose>
-        </b>
-        <br/>
+<c:forEach begin="${beginValue}" end="${endValue}" var="i">
+    <c:set var="cocktail" value="${cocktailList[i]}"/>
+    <%--<c:forEach items="${cocktailList}" var="cocktail" begin="${beginValue}" end="${endValue}">--%>
+    <c:if test="${not empty cocktail}">
+        <div class="cocktail" style="cursor: pointer;" onclick="showCocktail(${cocktail.id})">
+            <img class="cocktail_image" src="${pageContext.request.contextPath}/image?id=${cocktail.imageId}">
+            <div style="text-align: right; float: right">
+                <c:choose>
+                    <c:when test="${cocktail.isFavorite eq false}">
+                        <a href="${pageContext.request.contextPath}/jsp/controller?command=add_to_favorites&id=${cocktail.id}">
+                            <img style="width: 20px; height: 20px"
+                                 src="${pageContext.request.contextPath}/images/fav_blank.png"
+                                 title="<fmt:message key="add_to_favorites" bundle="${rb}"/>">
+                        </a>
+                    </c:when>
+                    <c:when test="${cocktail.isFavorite eq true}">
+                        <a href="${pageContext.request.contextPath}/jsp/controller?command=del_from_favorites&id=${cocktail.id}">
+                            <img style="width: 20px; height: 20px"
+                                 src="${pageContext.request.contextPath}/images/fav_active.png"
+                                 title="<fmt:message key="del_from_favorites" bundle="${rb}"/>">
+                        </a>
+                    </c:when>
+                </c:choose>
+            </div>
+            <div style="text-align: left; float: left">
+                <b>
+                    <c:choose>
+                        <c:when test="${locale.toString() eq 'ru_RU'}">${cocktail.cocktailName.nameRu}</c:when>
+                        <c:when test="${locale.toString() eq 'en_US'}">${cocktail.cocktailName.nameEn}</c:when>
+                    </c:choose>
+                </b>
+                <br/>
 
-        <fmt:message key="strength" bundle="${rb}"/>
-            ${cocktail.strength}&deg;
+                <fmt:message key="strength" bundle="${rb}"/>
+                    ${cocktail.strength}&deg;
 
-        <br/>
-        <br/>
-        <fmt:message key="components" bundle="${rb}"/>
-        <br/>
+                <br/>
+                <br/>
+                <fmt:message key="components" bundle="${rb}"/>
+                <br/>
 
-        <c:forEach items="${cocktail.mix.mix}" var="currentComponent">
-            <c:choose>
-                <c:when test="${locale.toString() eq 'ru_RU'}">${currentComponent.key.componentName.nameRu}</c:when>
-                <c:when test="${locale.toString() eq 'en_US'}">${currentComponent.key.componentName.nameEn}</c:when>
-            </c:choose>
-            ${currentComponent.value}
-            <fmt:message key="ml" bundle="${rb}"/>
-            <br/>
-        </c:forEach>
-
-    </div>
-    <br/>
+                <c:forEach items="${cocktail.mix.mix}" var="currentComponent">
+                    <c:choose>
+                        <c:when test="${locale.toString() eq 'ru_RU'}">${currentComponent.key.componentName.nameRu}</c:when>
+                        <c:when test="${locale.toString() eq 'en_US'}">${currentComponent.key.componentName.nameEn}</c:when>
+                    </c:choose>
+                    ${currentComponent.value}
+                    <fmt:message key="ml" bundle="${rb}"/>
+                    <br/>
+                </c:forEach>
+            </div>
+        </div>
+        <br/>
+    </c:if>
 </c:forEach>
+
+
+<%--<c:if test="${cocktailList.size < endValue/4}">--%>
+<a href="#" onclick=nextPage()> nextPage </a>
+<%--</c:if>--%>
 
 <c:choose>
     <c:when test="${locale.toString() eq 'ru_RU'}">${uiText.textRu}</c:when>
@@ -94,4 +122,30 @@
     select.options[${sort_checked_index}].selected = true;
 </script>
 
+<script>
+    function nextPage() {
+        var form = document.createElement("form");
+        var element0 = document.createElement("input");
+        var element2 = document.createElement("input");
+
+
+        form.method = "POST";
+        form.action = "${pageContext.request.contextPath}/jsp/controller";
+
+        element0.value = "page_alcoholic";
+        element0.name = "command";
+        form.appendChild(element0);
+
+        element2.value =${endValue};
+        element2.name = "endValue";
+        form.appendChild(element2);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+
+<script>
+
+</script>
 

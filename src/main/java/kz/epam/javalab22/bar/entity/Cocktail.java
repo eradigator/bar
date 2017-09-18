@@ -15,7 +15,7 @@ public class Cocktail {
     private int imageId;
     private Mix mix;
     private double strength;
-
+    private boolean isFavorite;
 
     public Cocktail() {
     }
@@ -126,5 +126,13 @@ public class Cocktail {
 
     public void setStrength(double strength) {
         this.strength = strength;
+    }
+
+    public boolean getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }
