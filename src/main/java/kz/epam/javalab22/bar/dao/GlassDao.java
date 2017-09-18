@@ -43,7 +43,7 @@ public class GlassDao extends AbstractDao<Glass> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int id = Integer.parseInt(resultSet.getString(Const.COLUMN_LABEL_ID));
+                int id = resultSet.getInt(Const.COLUMN_LABEL_ID);
                 String nameRu = resultSet.getString(Const.COLUMN_LABEL_NAME_RU);
                 String nameEn = resultSet.getString(Const.COLUMN_LABEL_NAME_EN);
                 glasses.add(new Glass(id, nameRu, nameEn));

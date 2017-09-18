@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import kz.epam.javalab22.bar.entity.user.User;
 import org.apache.commons.lang.LocaleUtils;
 
 
@@ -37,6 +39,10 @@ public class ReqWrapper {
 
     public void setLocale(Locale locale) {
         this.locale = locale;
+    }
+
+    public User getUser() {
+        return (User) request.getSession().getAttribute("user");
     }
 
     public Map<String, String[]> getRequestParameters() {

@@ -93,6 +93,11 @@ public enum CommandEnum {
             this.command = new PageCalcCommand();
         }
     },
+    PAGE_FAVORITE {
+        {
+            this.command = new PageFavoriteCommand();
+        }
+    },
     PAGE_USER_MANAGER {
         {
             this.command = new PageUserManagerCommand();
@@ -112,7 +117,18 @@ public enum CommandEnum {
         {
             this.command = new ShowCocktailCommand();
         }
-    };
+    },
+    ADD_TO_FAVORITES {
+        {
+            this.command = new AddToFavoritesCommand();
+        }
+    },
+    DEL_FROM_FAVORITES {
+        {
+            this.command = new DelFromFavoritesCommand();
+        }
+    }
+    ;
 
     ActionCommand command;
 
