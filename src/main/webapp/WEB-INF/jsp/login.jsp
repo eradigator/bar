@@ -18,6 +18,12 @@
             <fmt:message key="bar" bundle="${rb}"/>
         </h3>
     </div>
+    <div style="color: crimson; text-align: center">
+        ${errorLoginPassMessage}
+        <br/>
+        ${error}
+        <br/>
+    </div>
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'loginTab')" id="defaultOpen" style="width:50%">
             <fmt:message key="login" bundle="${rb}"/>
@@ -42,15 +48,6 @@
             </p>
 
             <input type="submit" value="<fmt:message key="login" bundle="${rb}" />"/>
-
-            <div style="color: crimson">
-                ${errorLoginPassMessage}
-                <br/>
-                ${wrongAction}
-                <br/>
-                ${nullPage}
-                <br/>
-            </div>
         </form>
     </div>
 

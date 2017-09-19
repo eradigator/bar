@@ -7,7 +7,8 @@
 
 <div id="remove" class="tabcontent">
 
-    <form name="removeCocktail" method="post" action="${pageContext.request.contextPath}/jsp/controller">
+    <form onsubmit="return confirm('<fmt:message key="areYouShure" bundle="${rb}"/>');"
+          name="removeCocktail" method="post" action="${pageContext.request.contextPath}/jsp/controller">
         <input type="hidden" name="command" value="remove_cocktail">
 
         <p>

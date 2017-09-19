@@ -78,14 +78,9 @@ public enum CommandEnum {
             this.command = new PageMainCommand();
         }
     },
-    PAGE_ALCOHOLIC {
+    PAGE_COCKTAILS {
         {
-            this.command = new PageAlcoholicCommand();
-        }
-    },
-    PAGE_NONALCO {
-        {
-            this.command = new PageNonAlcoCommand();
+            this.command = new PageCocktailsCommand();
         }
     },
     PAGE_CALC {

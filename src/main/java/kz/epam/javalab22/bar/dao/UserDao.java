@@ -16,7 +16,7 @@ public class UserDao extends AbstractDao<User> {
 
     private static final String SQL_GET_USER = "SELECT * FROM users WHERE NAME=? AND deleted IS NOT TRUE";
     private static final String SQL_CREATE = "INSERT INTO users (name,password,email,role) VALUES(?,?,?,?)";
-    private static final String SQL_GET_PASS = "SELECT * FROM users WHERE NAME=?";
+    private static final String SQL_GET_PASS = "SELECT * FROM users WHERE NAME=? AND deleted IS NOT TRUE";
     private static final String SQL_DELETE = "UPDATE users SET deleted = TRUE WHERE name=?";
     private static final String SQL_GET_LIST = "SELECT * FROM users WHERE deleted IS NOT TRUE";
 
@@ -79,8 +79,10 @@ public class UserDao extends AbstractDao<User> {
             preparedStatement.setString(Const.SQL_PARAM_INDEX_2, DigestUtils.md5Hex(entity.getPassword()));
             preparedStatement.setString(Const.SQL_PARAM_INDEX_3, entity.getEmail());
             preparedStatement.setString(Const.SQL_PARAM_INDEX_4, entity.getRole().toString());
-            preparedStatement.execute();
-            success = true;
+
+            if (preparedStatement.executeUpdate() > 0) {
+                success = true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

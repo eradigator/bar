@@ -6,16 +6,18 @@
 <c:set var="locale" value="${pageContext.request.session.getAttribute('locale')}" scope="page"/>
 
 <div class="nav_menu">
-    <form name="nav_menu">
+    <form id="navigation_form" name="nav_menu">
         <div style="width: 50%; float:left">
             <fmt:message key="filter" bundle="${rb}"/>
             <br/>
 
-            <input type="hidden" name="command" value="page_alcoholic"/>
+            <input type="hidden" name="command" value="page_cocktails"/>
             <input id="all" type="radio" name="filter" value="all" title="">
             <fmt:message key="all" bundle="${rb}"/><br/>
+            <input id="nonalco" type="radio" name="filter" value="nonalco" title="">
+            <fmt:message key="nonAlco" bundle="${rb}"/><br/>
             <input id="low" type="radio" name="filter" value="low" title="">
-            <fmt:message key="lowAlco" bundle="${rb}"/> 5-10&deg;<br/>
+            <fmt:message key="lowAlco" bundle="${rb}"/> 1-10&deg;<br/>
             <input id="middle" type="radio" name="filter" value="middle" title="">
             <fmt:message key="middleAlco" bundle="${rb}"/> 10-20&deg;<br/>
             <input id="strong" type="radio" name="filter" value="strong" title="">
@@ -42,9 +44,8 @@
 
 <br style="clear:both;"/>
 
-<c:forEach begin="${beginValue}" end="${endValue}" var="i">
-    <c:set var="cocktail" value="${cocktailList[i]}"/>
-    <%--<c:forEach items="${cocktailList}" var="cocktail" begin="${beginValue}" end="${endValue}">--%>
+<c:forEach begin="${cocktailListIndex}" end="${cocktailListIndex + 2}" var="i">
+    <c:set var="cocktail" value="${cocktailList.cocktailList[i]}"/>
     <c:if test="${not empty cocktail}">
         <div class="cocktail" style="cursor: pointer;" onclick="showCocktail(${cocktail.id})">
             <img class="cocktail_image" src="${pageContext.request.contextPath}/image?id=${cocktail.imageId}">
@@ -52,15 +53,13 @@
                 <c:choose>
                     <c:when test="${cocktail.isFavorite eq false}">
                         <a href="${pageContext.request.contextPath}/jsp/controller?command=add_to_favorites&id=${cocktail.id}">
-                            <img style="width: 20px; height: 20px"
-                                 src="${pageContext.request.contextPath}/images/fav_blank.png"
+                            <img class="favicon" src="${pageContext.request.contextPath}/images/fav_blank.png"
                                  title="<fmt:message key="add_to_favorites" bundle="${rb}"/>">
                         </a>
                     </c:when>
                     <c:when test="${cocktail.isFavorite eq true}">
                         <a href="${pageContext.request.contextPath}/jsp/controller?command=del_from_favorites&id=${cocktail.id}">
-                            <img style="width: 20px; height: 20px"
-                                 src="${pageContext.request.contextPath}/images/fav_active.png"
+                            <img class="favicon" src="${pageContext.request.contextPath}/images/fav_active.png"
                                  title="<fmt:message key="del_from_favorites" bundle="${rb}"/>">
                         </a>
                     </c:when>
@@ -98,10 +97,21 @@
     </c:if>
 </c:forEach>
 
+<div align="center">
+    <h5>
+        <fmt:message key="found" bundle="${rb}"/>
+        <c:out value="${cocktailList.size}"/>
+        <br/>
 
-<%--<c:if test="${cocktailList.size < endValue/4}">--%>
-<a href="#" onclick=nextPage()> nextPage </a>
-<%--</c:if>--%>
+        <c:if test="${cocktailListIndex > 2}">
+            <a href="#" onclick=prevPage()> << </a>
+        </c:if>
+
+        <c:if test="${cocktailList.size > cocktailListIndex + 3}">
+            <a href="#" onclick=nextPage()> >> </a>
+        </c:if>
+    </h5>
+</div>
 
 <c:choose>
     <c:when test="${locale.toString() eq 'ru_RU'}">${uiText.textRu}</c:when>
@@ -126,26 +136,60 @@
     function nextPage() {
         var form = document.createElement("form");
         var element0 = document.createElement("input");
+        var element1 = document.createElement("input");
         var element2 = document.createElement("input");
-
 
         form.method = "POST";
         form.action = "${pageContext.request.contextPath}/jsp/controller";
 
-        element0.value = "page_alcoholic";
+        element0.value = "page_cocktails";
         element0.name = "command";
         form.appendChild(element0);
 
-        element2.value =${endValue};
-        element2.name = "endValue";
+        element2.value =${cocktailListIndex+3};
+        element2.name = "cocktailListIndex";
         form.appendChild(element2);
 
+        element1.value = document.querySelector('input[name="filter"]:checked').value;
+        element1.name = "filter";
+        form.appendChild(element1);
+
+        var sort = document.getElementById("sort");
+
         document.body.appendChild(form);
+        form.appendChild(sort);
+
         form.submit();
     }
-</script>
 
-<script>
+    function prevPage() {
+        var form = document.createElement("form");
+        var element0 = document.createElement("input");
+        var element1 = document.createElement("input");
+        var element2 = document.createElement("input");
+
+        form.method = "POST";
+        form.action = "${pageContext.request.contextPath}/jsp/controller";
+
+        element0.value = "page_cocktails";
+        element0.name = "command";
+        form.appendChild(element0);
+
+        element2.value =${cocktailListIndex-3};
+        element2.name = "cocktailListIndex";
+        form.appendChild(element2);
+
+        element1.value = document.querySelector('input[name="filter"]:checked').value;
+        element1.name = "filter";
+        form.appendChild(element1);
+
+        var sort = document.getElementById("sort");
+
+        document.body.appendChild(form);
+        form.appendChild(sort);
+
+        form.submit();
+    }
 
 </script>
 

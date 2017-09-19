@@ -8,43 +8,40 @@ import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class UserLogic {
 
     private ReqWrapper reqWrapper;
+    private Connection connection;
 
-    public UserLogic(ReqWrapper reqWrapper) {
+    public UserLogic(ReqWrapper reqWrapper, Connection connection) {
         this.reqWrapper = reqWrapper;
+        this.connection = connection;
     }
 
-    public boolean addUser() {
-
-        boolean success;
-
-        String login = reqWrapper.getParam(Const.PARAM_LOGIN);
-        String password = reqWrapper.getParam(Const.PARAM_PASSWORD);
-        String email = reqWrapper.getParam(Const.PARAM_EMAIL);
-        Role role = Role.valueOf(reqWrapper.getParam(Const.PARAM_ROLE).toUpperCase());
-
-        User user = new User(login,password,email,role);
-
-        Connection connection = ConnectionPool.getInstance().getConnection();
-        success = new UserDao(connection).create(user);
-        ConnectionPool.getInstance().returnConnection(connection);
-
-        return success;
+    public boolean addUser(User user) {
+        return new UserDao(connection).create(user);
     }
 
     public boolean delUser() {
-
         String login = reqWrapper.getParam(Const.PARAM_CHECKED_NAME);
         User user = new User(login);
+        return new UserDao(connection).delete(user);
+    }
 
-        Connection connection = ConnectionPool.getInstance().getConnection();
-        Boolean result = new UserDao(connection).delete(user);
-        ConnectionPool.getInstance().returnConnection(connection);
+    public boolean checkForExistence(User user) {
 
-        return result;
+        boolean isUserExist = false;
+
+        List<User> userList = new UserDao(connection).getList();
+        for (User entity : userList) {
+            if (entity.getName().equals(user.getName()) || entity.getEmail().equals(user.getEmail())) {
+                isUserExist = true;
+            }
+        }
+
+        return isUserExist;
     }
 
 }

@@ -1,21 +1,14 @@
 package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageAlcoholicCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageCocktailsCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageLoginCommand;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
-import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.dao.CocktailDao;
 import kz.epam.javalab22.bar.dao.FavoriteDao;
-import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.entity.Favorite;
-import kz.epam.javalab22.bar.entity.user.User;
-import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,7 +30,7 @@ public class AddToFavoritesCommand implements ActionCommand {
             ConnectionPool.getInstance().returnConnection(connection);
         }
 
-        return new PageAlcoholicCommand().execute(reqWrapper);
+        return new PageCocktailsCommand().execute(reqWrapper);
     }
 
 }
