@@ -22,9 +22,10 @@ public class LogoutCommand implements ActionCommand {
 
             User user = (User) reqWrapper.getSessionAttribute(Const.ATTR_USER);
             log.info(user.getName() + Const.DIV_SPACE + Const.LOG_LOGGED_OUT);
-            reqWrapper.getRequest().getSession().invalidate();
+            reqWrapper.getRequest().getSession().removeAttribute(Const.ATTR_USER);
         }
-        return ConfigurationManager.getProperty(Const.PAGE_REFFERER);
+
+        return new PageMainCommand().execute(reqWrapper);
     }
 
 }

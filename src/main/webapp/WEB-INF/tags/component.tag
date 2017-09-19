@@ -5,13 +5,14 @@
 <fmt:setBundle basename="pagecontent" var="rb"/>
 <c:set var="locale" value="${pageContext.request.session.getAttribute('locale')}" scope="page"/>
 
-<c:if test="${(not empty result) or (not empty delComponentMessage)}">
+<c:if test="${(not empty result) or (not empty delComponentMessage) or (not empty error)}">
     <div class="result_field">
-        <div style="color:#02834b">
+        <div>
             <h5>${result}</h5>
-        </div>
-        <div style="color: crimson">
             <h5>${delComponentMessage}</h5>
+        </div>
+        <div class="error_message">
+            <h5>${error}</h5>
         </div>
     </div>
     <br/>
@@ -78,7 +79,8 @@
 
 <div id="remove" class="tabcontent">
 
-    <form name="delComponent" method="post" action="${pageContext.request.contextPath}/jsp/controller">
+    <form name="delComponent" onsubmit="return confirm('<fmt:message key="areYouShure" bundle="${rb}"/>');"
+          method="post" action="${pageContext.request.contextPath}/jsp/controller">
         <input type="hidden" name="command" value="del_component">
 
         <p>

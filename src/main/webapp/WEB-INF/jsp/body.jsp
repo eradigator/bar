@@ -3,12 +3,8 @@
     <c:when test="${content == 'main'}">
         <my:main/>
     </c:when>
-    <c:when test="${content == 'alcoholic'}">
-        <my:alcoholic/>
-    </c:when>
-
-    <c:when test="${content == 'nonalcoholic'}">
-        <my:nonalco />
+    <c:when test="${content == 'cocktails'}">
+        <my:cocktails/>
     </c:when>
 
     <c:when test="${content == 'favorite'}">
@@ -25,8 +21,7 @@
         <my:component />
     </c:when>
     <c:when test="${content == 'userManager'}">
-        <my:addUser/>
-        <my:removeUser/>
+        <my:UserManager/>
     </c:when>
     <c:when test="${content == 'cocktailManager'}">
         <my:addCocktail/>

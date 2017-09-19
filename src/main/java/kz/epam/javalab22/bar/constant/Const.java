@@ -34,12 +34,15 @@ public final class Const {
     public static final String ATTR_DEL_USER_RESULT = "deleteUserResult";
     public static final String ATTR_LOCALE = "locale";
     public static final String ATTR_ERROR_LOGIN_PASS_MESSAGE = "errorLoginPassMessage";
+    public static final String ATTR_COCKTAIL_LIST_INDEX = "cocktailListIndex";
+    public static final String ATTR_STRENGTH = "strength";
+    public static final String ATTR_AMOUNT = "amount";
+    public static final String ATTR_COST = "cost";
+    public static final String ATTR_CALC_RESULT = "calcResult";
 
     /*Exceptions*/
 
     public static final String EXC_NO_ID_OBTAINED = "failed, no ID obtained.";
-
-
 
     /*Log messages*/
     public static final String LOG_FORBIDDEN_PAGE = "Attempt to load a forbidden page";
@@ -53,8 +56,6 @@ public final class Const {
     public static final String LOG_LOGGED_OUT = "has logged out";
     public static final String LOG_LOGGED_IN = "has logged in";
     public static final String LOG_UNSUCCESSED_LOG_IN = "unsuccessed log in";
-
-
 
 
     /*Numbers*/
@@ -74,19 +75,34 @@ public final class Const {
     public static final String PARAM_CHOSEN = "chosen";
     public static final String PARAM_CHECKED_NAME = "checkedName";
     public static final String PARAM_IMAGE = "image";
+    public static final String PARAM_INGREDIENT = "ingredient";
+    public static final String PARAM_AMOUNT_OF_INGREDIENT = "amountOfIngredient";
+    public static final String PARAM_INGREDIENT_NAME = "ingredientName";
+    public static final String PARAM_NAME_RU = "name_RU";
+    public static final String PARAM_NAME_EN = "name_EN";
+    public static final String PARAM_COMPONENT_TYPE = "componentType";
+    public static final String PARAM_STRENGTH = "strength";
+    public static final String PARAM_PRICE = "price";
+
 
 
     /*Property names*/
     public static final String PROP_UI_TEXT_FOR_ALCOHOLIC_PAGE = "uiTextIdForAlcoholicPage";
     public static final String PROP_UI_TEXT_FOR_MAIN_PAGE = "uiTextIdForMainPage";
-    public static final String PROP_UI_TEXT_FOR_NON_ALCO_PAGE = "uiTextIdForNonalcoPage";
+    public static final String PROP_LOGIN_ERROR = "loginError";
+    public static final String PROP_USER_EXIST = "userExist";
+    public static final String PROP_USER_ADDED = "userAdded";
+    public static final String PROP_ERROR = "error";
+    public static final String PROP_USER_DELETED = "userDeleted";
+    public static final String PROP_NO_COMPONENT_SELECTED = "noComponentSelected";
+    public static final String PROP_COMPONENT_ADDED = "componentAdded";
+    public static final String PROP_COMPONENT_EXIST = "componentExist";
 
 
     /*Values*/
     public static final String VAL_MAIN = "main";
     public static final String VAL_COCKTAIL = "cocktail";
-    public static final String VAL_ALCOHOLIC = "alcoholic";
-    public static final String VAL_NON_ALCOHOLIC = "nonalcoholic";
+    public static final String VAL_COCKTAILS = "cocktails";
     public static final String VAL_CALCULATOR = "calculator";
     public static final String VAL_COCKTAIL_MANAGER = "cocktailManager";
     public static final String VAL_COMPONENT_MANAGER = "componentManager";

@@ -24,9 +24,6 @@ public class ReqWrapper {
 
     public ReqWrapper(HttpServletRequest request) {
         this.request = request;
-
-
-
         locale = LocaleUtils.toLocale(request.getSession().getAttribute("locale").toString());
 
         requestParameters = this.request.getParameterMap();

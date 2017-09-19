@@ -7,12 +7,8 @@ public class MessageManager {
 
     private ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 
-
-    private MessageManager() {
-    }
-
     public MessageManager(Locale locale) {
-        resourceBundle = ResourceBundle.getBundle("message",locale);
+        resourceBundle = ResourceBundle.getBundle("message", locale);
     }
 
     public String getProperty(String key) {

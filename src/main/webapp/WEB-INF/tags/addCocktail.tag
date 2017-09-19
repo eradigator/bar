@@ -6,11 +6,11 @@
 
 <c:if test="${(not empty addCocktailResult) or (not empty removeCocktailResult)}">
     <div class="result_field">
-        <div style="color:#02834b">
+        <div>
             <h5>${addCocktailResult}</h5>
             <h5>${removeCocktailResult}</h5>
         </div>
-        <div style="color: crimson">
+        <div class="error_message">
             <h5>${error}</h5>
         </div>
     </div>

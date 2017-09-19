@@ -1,8 +1,7 @@
 package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageAlcoholicCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageLoginCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageCocktailsCommand;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.dao.FavoriteDao;
 import kz.epam.javalab22.bar.entity.Favorite;
@@ -26,7 +25,7 @@ public class DelFromFavoritesCommand implements ActionCommand {
         new FavoriteDao(connection).delete(favorite);
         ConnectionPool.getInstance().returnConnection(connection);
 
-        return new PageAlcoholicCommand().execute(reqWrapper);
+        return new PageCocktailsCommand().execute(reqWrapper);
     }
 
 }

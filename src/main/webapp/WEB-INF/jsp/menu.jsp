@@ -1,11 +1,8 @@
 <a href="${pageContext.request.contextPath}/jsp/controller?command=page_main">
     <fmt:message key="main" bundle="${rb}"/><br>
 </a>
-<a href="${pageContext.request.contextPath}/jsp/controller?command=page_alcoholic">
-    <fmt:message key="alcoholic" bundle="${rb}"/><br>
-</a>
-<a href="${pageContext.request.contextPath}/jsp/controller?command=page_nonalco">
-    <fmt:message key="nonalcoholic" bundle="${rb}"/><br>
+<a href="${pageContext.request.contextPath}/jsp/controller?command=page_cocktails">
+    <fmt:message key="cocktails" bundle="${rb}"/><br>
 </a>
 <a href="${pageContext.request.contextPath}/jsp/controller?command=page_calc">
     <fmt:message key="calculator" bundle="${rb}"/><br>

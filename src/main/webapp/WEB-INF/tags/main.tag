@@ -10,9 +10,6 @@
     <c:when test="${locale.toString() eq 'en_US'}">${uiText.textEn}</c:when>
 </c:choose>
 
-<a href="${pageContext.request.contextPath}/jsp/controller?command=page_alcoholic">
-    <fmt:message key="alcoholic" bundle="${ rb }"/><br>
-</a>
-<a href="${pageContext.request.contextPath}/jsp/controller?command=page_nonalco">
-    <fmt:message key="nonalcoholic" bundle="${ rb }"/><br>
+<a href="${pageContext.request.contextPath}/jsp/controller?command=page_cocktails">
+    <fmt:message key="cocktails" bundle="${ rb }"/><br>
 </a>

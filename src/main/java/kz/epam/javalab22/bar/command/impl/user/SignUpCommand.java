@@ -1,10 +1,12 @@
 package kz.epam.javalab22.bar.command.impl.user;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.impl.page.PageLoginCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.user.User;
+import kz.epam.javalab22.bar.logic.UserLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
@@ -20,7 +22,7 @@ public class SignUpCommand implements ActionCommand {
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
-        String page = ConfigurationManager.getProperty(Const.PARAM_LOGIN);
+        String page = ConfigurationManager.getProperty(Const.PAGE_LOGIN);
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
         String login = reqWrapper.getParam(Const.PARAM_LOGIN);
@@ -30,16 +32,22 @@ public class SignUpCommand implements ActionCommand {
         User user = new User(login, password, email);
 
         Connection connection = ConnectionPool.getInstance().getConnection();
-        boolean success = new UserDao(connection).create(user);
-        ConnectionPool.getInstance().returnConnection(connection);
 
-        if (success) {
-            log.info(Const.LOG_USER + reqWrapper.getParam(Const.PARAM_LOGIN) +
-                    Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
-            page = new PageMainCommand().execute(reqWrapper);
+        if (!(new UserLogic(reqWrapper,connection).checkForExistence(user))) {
+            if (new UserDao(connection).create(user)) {
+                log.info(Const.LOG_USER + reqWrapper.getParam(Const.PARAM_LOGIN) +
+                        Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
+
+                reqWrapper.addSessionAttribute(Const.ATTR_USER, user);
+                page = new PageMainCommand().execute(reqWrapper);
+            } else {
+                reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty(Const.PROP_LOGIN_ERROR));
+            }
         } else {
-            reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty("message.loginError"));
+            reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty(Const.PROP_USER_EXIST));
         }
+
+        ConnectionPool.getInstance().returnConnection(connection);
 
         return page;
     }
