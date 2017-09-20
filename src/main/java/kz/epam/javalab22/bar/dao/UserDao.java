@@ -3,7 +3,6 @@ package kz.epam.javalab22.bar.dao;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.*;

@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Created by vten on 29.08.2017.
+ * @author vten
  */
 public class Mix {
 

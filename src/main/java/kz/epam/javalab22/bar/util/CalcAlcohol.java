@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.Map;
 
 /**
- * Created by erad on 10.07.2017.
+ * @author vten
  */
 
 public class CalcAlcohol {
@@ -65,7 +65,7 @@ public class CalcAlcohol {
 
     public int totalAmount(Map<Integer, Double> mix) {
 
-        double totalAmount = 0;
+        double totalAmount = Const.N_0;
         for (Map.Entry<Integer, Double> pair : mix.entrySet()) {
             double amount = pair.getValue();
             totalAmount += amount;

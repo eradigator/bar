@@ -1,7 +1,7 @@
 package kz.epam.javalab22.bar.entity;
 
 /**
- * Created by vten on 25.08.2017.
+ * @author vten
  */
 public class ComponentName {
     private int id;

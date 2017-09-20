@@ -7,7 +7,6 @@ import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
-
 import java.sql.Connection;
 
 public class ShowCocktailCommand implements ActionCommand {

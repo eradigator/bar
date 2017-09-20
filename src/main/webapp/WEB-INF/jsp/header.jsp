@@ -1,7 +1,6 @@
 <div id="logo">
     <a href="${pageContext.request.contextPath}">
-        <img src="${pageContext.request.contextPath}/images/logo.png" alt="logo"
-             style="width:150px;height:150px;">
+        <img class="logo" src="${pageContext.request.contextPath}/images/logo.png" alt="logo">
     </a>
 </div>
 <div id="name">

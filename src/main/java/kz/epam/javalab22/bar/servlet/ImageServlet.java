@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.servlet;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.ImageDao;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 
@@ -12,7 +13,7 @@ import java.io.OutputStream;
 import java.sql.Connection;
 
 /**
- * Created by vten on 31.08.2017.
+ * @author vten
  */
 public class ImageServlet extends HttpServlet {
 
@@ -30,7 +31,7 @@ public class ImageServlet extends HttpServlet {
 
         Connection connection = ConnectionPool.getInstance().getConnection();
         ImageDao imageDao = new ImageDao(connection);
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter(Const.PARAM_ID));
         byte[] bytes = imageDao.getImage(id);
         ConnectionPool.getInstance().returnConnection(connection);
 

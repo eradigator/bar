@@ -3,24 +3,13 @@ package kz.epam.javalab22.bar.util;
 import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.entity.CocktailList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by vten on 15.09.2017.
+ * @author vten
  */
 public class FilterCocktailList {
 
     public CocktailList getNonAlco(CocktailList cocktailList) {
-        CocktailList filteredCocktailList = new CocktailList();
-
-        for (Cocktail cocktail : cocktailList.getCocktailList()) {
-            if (cocktail.getStrength() == 0) {
-                filteredCocktailList.getCocktailList().add(cocktail);
-            }
-        }
-
-        return filteredCocktailList;
+        return getList(cocktailList,0,0);
     }
 
     public CocktailList getAllAlco(CocktailList cocktailList) {

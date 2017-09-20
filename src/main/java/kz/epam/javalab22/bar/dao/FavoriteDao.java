@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by admin on 24.08.2017.
+ * @author vten
  */
 
 public class FavoriteDao extends AbstractDao<Favorite> {

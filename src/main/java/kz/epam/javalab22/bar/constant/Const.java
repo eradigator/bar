@@ -1,7 +1,7 @@
 package kz.epam.javalab22.bar.constant;
 
 /**
- * Created by admin on 22.08.2017.
+ * @author vten
  */
 public final class Const {
 
@@ -22,6 +22,7 @@ public final class Const {
     public static final String ATTR_ERROR = "error";
     public static final String ATTR_COCKTAIL_LIST = "cocktailList";
     public static final String ATTR_UI_TEXT = "uiText";
+    public static final String ATTR_COMPONENTS = "components";
     public static final String ATTR_COMPONENT_NAMES = "componentNames";
     public static final String ATTR_DEL_COMPONENT_MESSAGE = "delComponentMessage";
     public static final String ATTR_USER = "user";
@@ -63,12 +64,14 @@ public final class Const {
     public static final int N_100 = 100;
 
     /*Parameters*/
+    public static final String PARAM_REQUEST_ENCODING = "requestEncoding";
     public static final String PARAM_COMMAND = "command";
     public static final String PARAM_LOGIN = "login";
     public static final String PARAM_PASSWORD = "password";
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_ROLE = "role";
     public static final String PARAM_NAME = "name";
+    public static final String PARAM_ID = "id";
     public static final String PARAM_COCKTAIL_ID_TO_DELETE = "cocktailIdToDelete";
     public static final String PARAM_COCKTAIL_ID = "cocktailId";
     public static final String PARAM_COMPONENT_TO_DEL = "componentToDel";
@@ -83,8 +86,9 @@ public final class Const {
     public static final String PARAM_COMPONENT_TYPE = "componentType";
     public static final String PARAM_STRENGTH = "strength";
     public static final String PARAM_PRICE = "price";
-
-
+    public static final String PARAM_METHOD = "method";
+    public static final String PARAM_GLASS = "glass";
+    public static final String PARAM_COCKTAIL_LIST_INDEX = "cocktailListIndex";
 
     /*Property names*/
     public static final String PROP_UI_TEXT_FOR_ALCOHOLIC_PAGE = "uiTextIdForAlcoholicPage";
@@ -96,8 +100,11 @@ public final class Const {
     public static final String PROP_USER_DELETED = "userDeleted";
     public static final String PROP_NO_COMPONENT_SELECTED = "noComponentSelected";
     public static final String PROP_COMPONENT_ADDED = "componentAdded";
+    public static final String PROP_COMPONENT_DELETED = "componentDeleted";
     public static final String PROP_COMPONENT_EXIST = "componentExist";
-
+    public static final String PROP_COCKTAIL_ADDED = "cocktailAdded";
+    public static final String PROP_COCKTAIL_DELETED = "cocktailDeleted";
+    public static final String PROP_COCKTAIL_EXIST = "cocktailExist";
 
     /*Values*/
     public static final String VAL_MAIN = "main";
@@ -107,13 +114,15 @@ public final class Const {
     public static final String VAL_COCKTAIL_MANAGER = "cocktailManager";
     public static final String VAL_COMPONENT_MANAGER = "componentManager";
     public static final String VAL_USER_MANAGER = "userManager";
+    public static final String VAL_FAVORITE = "favorite";
 
     /*Strings*/
     public static final String STR_EN = "EN";
     public static final String STR_RU = "RU";
     public static final String STR_EMPTY = "";
 
-    /*Locales*/
+    /*Locales & Encoding*/
+    public static final String LOC_UTF8 = "UTF-8";
     public static final String LOC_RU_RU = "ru_RU";
     public static final String LOC_EN_US = "en_US";
 
@@ -150,7 +159,5 @@ public final class Const {
     public static final String COLUMN_LABEL_GLASS_NAME_RU = "glassNameRu";
     public static final String COLUMN_LABEL_GLASS_NAME_EN = "glassNameEn";
     public static final String COLUMN_LABEL_IMAGE_ID = "image_id";
-
-
 
 }

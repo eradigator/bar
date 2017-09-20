@@ -2,13 +2,17 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Component;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
+import kz.epam.javalab22.bar.entity.ComponentName;
+import kz.epam.javalab22.bar.entity.ComponentType;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by vten on 25.08.2017.
+ * @author vten
  */
+
 public class ComponentDao extends AbstractDao<Component> {
 
     private Connection connection;
@@ -20,6 +24,14 @@ public class ComponentDao extends AbstractDao<Component> {
             "VALUES (?,?,?,?)";
 
     private static final String SQL_GET = "SELECT id,strength,price FROM component WHERE id=?";
+
+    private static final String SQL_GET_LIST = "SELECT c.id,c.type_id,cn.ru AS ru, cn.en AS en," +
+            "ct.name_ru AS typeNameRu, ct.name_en AS typeNameEn " +
+            "FROM component c " +
+            "INNER JOIN component_name cn ON c.name_id = cn.id " +
+            "INNER JOIN component_type ct ON c.type_id = ct.id " +
+            "WHERE c.deleted IS NOT TRUE " +
+            "ORDER BY cn.ru";
 
 
     public ComponentDao(Connection connection) {
@@ -74,8 +86,8 @@ public class ComponentDao extends AbstractDao<Component> {
         double strength = Const.N_0;
         double price = Const.N_0;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET)){
-            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1,id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET)) {
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 strength = resultSet.getDouble(Const.COLUMN_LABEL_STRENGTH);
@@ -86,5 +98,32 @@ public class ComponentDao extends AbstractDao<Component> {
         }
 
         return new Component(id, strength, price);
+    }
+
+    public List<Component> getList() {
+
+        List<Component> componentList = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_LIST)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt(Const.COLUMN_LABEL_ID);
+                String nameRu = resultSet.getString(Const.COLUMN_LABEL_RU);
+                String nameEn = resultSet.getString(Const.COLUMN_LABEL_EN);
+                ComponentName componentName = new ComponentName(nameRu,nameEn);
+
+                int typeId = resultSet.getInt("type_id");
+                String typeNameRu = resultSet.getString("typeNameRu");
+                String typeNameEn = resultSet.getString("typeNameEn");
+                ComponentType componentType = new ComponentType(typeId, typeNameRu, typeNameEn);
+
+                componentList.add(new Component(id, componentName, componentType));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return componentList;
     }
 }

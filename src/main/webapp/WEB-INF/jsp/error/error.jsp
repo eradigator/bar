@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <h1 align="center">
-    Упс. Что-то пошло не так
+    Error.
 </h1>
 <hr/>
 Request from ${pageContext.errorData.requestURI} is failed

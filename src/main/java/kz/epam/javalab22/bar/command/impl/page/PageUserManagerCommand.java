@@ -23,7 +23,7 @@ public class PageUserManagerCommand implements ActionCommand {
 
         String page = new PageMainCommand().execute(reqWrapper);
 
-        if (new UserCheck(reqWrapper).roleIsAdminCheck()) {
+        if (new UserCheck(reqWrapper).checkForAdmin()) {
 
             Connection connection = ConnectionPool.getInstance().getConnection();
             List<User> users = new UserDao(connection).getList();

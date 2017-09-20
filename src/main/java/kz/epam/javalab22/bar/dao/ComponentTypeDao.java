@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by vten on 24.08.2017.
+ * @author vten
  */
 
 public class ComponentTypeDao extends AbstractDao {

@@ -1,8 +1,6 @@
 package kz.epam.javalab22.bar.filter;
 
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.entity.user.Role;
-import kz.epam.javalab22.bar.entity.user.User;
 
 import javax.servlet.*;
 import java.io.IOException;

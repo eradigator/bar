@@ -5,7 +5,6 @@ import kz.epam.javalab22.bar.dao.ComponentDao;
 import kz.epam.javalab22.bar.dao.ComponentNameDao;
 import kz.epam.javalab22.bar.entity.Component;
 import kz.epam.javalab22.bar.entity.ComponentName;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import java.sql.Connection;

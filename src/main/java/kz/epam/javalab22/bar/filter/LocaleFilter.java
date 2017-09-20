@@ -24,7 +24,6 @@ public class LocaleFilter implements Filter {
 
         if (session.getAttribute(Const.ATTR_LOCALE) == null) {
             session.setAttribute(Const.ATTR_LOCALE, Const.LOC_RU_RU);
-
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

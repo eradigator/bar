@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.Map;
 
 /**
- * Created by vten on 24.08.2017.
+ * @author vten
  */
 
 public class MixDao extends AbstractDao<Mix> {

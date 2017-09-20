@@ -86,10 +86,10 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt(Const.COLUMN_LABEL_ID);
+                int componentId = resultSet.getInt(Const.COLUMN_LABEL_ID);
                 String nameRu = resultSet.getString(Const.COLUMN_LABEL_RU);
                 String nameEn = resultSet.getString(Const.COLUMN_LABEL_EN);
-                componentNames.add(new ComponentName(id, nameRu, nameEn));
+                componentNames.add(new ComponentName(componentId, nameRu, nameEn));
             }
         } catch (SQLException e) {
             e.printStackTrace();

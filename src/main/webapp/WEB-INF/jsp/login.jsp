@@ -18,7 +18,7 @@
             <fmt:message key="bar" bundle="${rb}"/>
         </h3>
     </div>
-    <div style="color: crimson; text-align: center">
+    <div class="error_message" style="text-align: center">
         ${errorLoginPassMessage}
         <br/>
         ${error}

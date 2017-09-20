@@ -114,9 +114,9 @@ public class PageCocktailsCommand implements ActionCommand {
 
     private int getCocktailListIndex(ReqWrapper reqWrapper) {
 
-        int cocktailListIndex = 0;
-        if (null != reqWrapper.getParam("cocktailListIndex")) {
-            cocktailListIndex = Integer.parseInt(reqWrapper.getParam("cocktailListIndex"));
+        int cocktailListIndex = Const.N_0;
+        if (null != reqWrapper.getParam(Const.PARAM_COCKTAIL_LIST_INDEX)) {
+            cocktailListIndex = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COCKTAIL_LIST_INDEX));
         }
 
         return cocktailListIndex;

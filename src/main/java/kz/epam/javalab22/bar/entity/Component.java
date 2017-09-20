@@ -1,7 +1,7 @@
 package kz.epam.javalab22.bar.entity;
 
 /**
- * Created by erad on 11.07.2017.
+ * @author vten
  */
 
 public class Component {
@@ -33,6 +33,12 @@ public class Component {
         this.type = type;
         this.strength = strength;
         this.price = price;
+    }
+
+    public Component(int id, ComponentName componentName, ComponentType componentType) {
+        this.id = id;
+        this.componentName = componentName;
+        this.componentType = componentType;
     }
 
     public int getId() {

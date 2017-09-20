@@ -7,7 +7,7 @@ import kz.epam.javalab22.bar.exception.AddImageException;
 import java.sql.*;
 
 /**
- * Created by vten on 24.08.2017.
+ * @author vten
  */
 
 public class ImageDao extends AbstractDao<Image> {

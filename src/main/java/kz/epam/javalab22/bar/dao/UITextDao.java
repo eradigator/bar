@@ -6,7 +6,7 @@ import kz.epam.javalab22.bar.entity.UIText;
 import java.sql.*;
 
 /**
- * Created by admin on 24.08.2017.
+ * @author vten
  */
 
 public class UITextDao extends AbstractDao<UIText> {

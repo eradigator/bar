@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by vten on 19.09.2017.
+ * @author vten
  */
 public class CocktailList {
 

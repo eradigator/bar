@@ -18,9 +18,9 @@ public class LogoutCommand implements ActionCommand {
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
-        if (null != reqWrapper.getSessionAttribute(Const.ATTR_USER)) {
+        if (null != reqWrapper.getUser()) {
 
-            User user = (User) reqWrapper.getSessionAttribute(Const.ATTR_USER);
+            User user = reqWrapper.getUser();
             log.info(user.getName() + Const.DIV_SPACE + Const.LOG_LOGGED_OUT);
             reqWrapper.getRequest().getSession().removeAttribute(Const.ATTR_USER);
         }

@@ -2,7 +2,6 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.*;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
