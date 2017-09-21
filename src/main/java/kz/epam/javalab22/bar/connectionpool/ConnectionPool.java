@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.connectionpool;
 
+import kz.epam.javalab22.bar.constant.Const;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +20,7 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         initialize();
-        log.info("Connection Pool has been initialized");
+        log.info(Const.LOG_CONN_POOL_INITIALIZED);
     }
 
     public static ConnectionPool getInstance() {
@@ -45,6 +46,7 @@ public class ConnectionPool {
             return connection;
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_CREATE_NEW_CONNECTION);
         }
         return null;
     }
@@ -77,6 +79,7 @@ public class ConnectionPool {
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
+                log.info(Const.LOG_EXC_CLOSE_CONNECTION);
             }
         }
         connections.clear();

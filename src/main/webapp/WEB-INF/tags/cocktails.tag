@@ -44,10 +44,10 @@
 
 <br style="clear:both;"/>
 
-<c:forEach begin="${cocktailListIndex}" end="${cocktailListIndex + 2}" var="i">
+<c:forEach begin="${cocktailListIndex}" end="${cocktailListIndex + 9}" var="i">
     <c:set var="cocktail" value="${cocktailList.cocktailList[i]}"/>
     <c:if test="${not empty cocktail}">
-        <div class="cocktail" style="cursor: pointer;" onclick="showCocktail(${cocktail.id})">
+        <div class="cocktail" style="cursor: pointer; overflow: auto"  onclick="showCocktail(${cocktail.id})">
             <img class="cocktail_image" src="${pageContext.request.contextPath}/image?id=${cocktail.imageId}">
             <div style="text-align: right; float: right">
                 <c:choose>
@@ -103,11 +103,11 @@
         <c:out value="${cocktailList.size}"/>
         <br/>
 
-        <c:if test="${cocktailListIndex > 2}">
+        <c:if test="${cocktailListIndex > 9}">
             <a href="#" onclick=prevPage()> << </a>
         </c:if>
 
-        <c:if test="${cocktailList.size > cocktailListIndex + 3}">
+        <c:if test="${cocktailList.size > cocktailListIndex + 10}">
             <a href="#" onclick=nextPage()> >> </a>
         </c:if>
     </h5>
@@ -146,7 +146,7 @@
         element0.name = "command";
         form.appendChild(element0);
 
-        element2.value =${cocktailListIndex+3};
+        element2.value =${cocktailListIndex+10};
         element2.name = "cocktailListIndex";
         form.appendChild(element2);
 
@@ -175,7 +175,7 @@
         element0.name = "command";
         form.appendChild(element0);
 
-        element2.value =${cocktailListIndex-3};
+        element2.value =${cocktailListIndex-10};
         element2.name = "cocktailListIndex";
         form.appendChild(element2);
 

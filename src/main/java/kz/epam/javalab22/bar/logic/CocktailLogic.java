@@ -1,14 +1,13 @@
 package kz.epam.javalab22.bar.logic;
 
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.dao.CocktailDao;
-import kz.epam.javalab22.bar.dao.CocktailNameDao;
-import kz.epam.javalab22.bar.dao.ImageDao;
-import kz.epam.javalab22.bar.dao.MixDao;
+import kz.epam.javalab22.bar.dao.*;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
+import org.apache.log4j.Logger;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -19,6 +18,8 @@ import java.util.List;
  * @author vten
  */
 public class CocktailLogic {
+
+    private static final Logger log = Logger.getLogger(CocktailLogic.class);
 
     private ReqWrapper reqWrapper;
     private Connection connection;
@@ -77,8 +78,17 @@ public class CocktailLogic {
 
             connection.setAutoCommit(true);
 
+            try {
+                assert null != image.getInputStream();
+                image.getInputStream().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                log.info(Const.LOG_EXC_IMG_CLOSE_INPUTSTREAM);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return true;
@@ -105,6 +115,7 @@ public class CocktailLogic {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return result;

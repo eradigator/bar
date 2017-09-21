@@ -11,7 +11,6 @@ import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
-
 import java.sql.Connection;
 
 public class LoginCommand implements ActionCommand {
@@ -37,7 +36,8 @@ public class LoginCommand implements ActionCommand {
             log.info(login + Const.DIV_SPACE + Const.LOG_LOGGED_IN);
         } else {
             log.info(login + Const.DIV_SPACE + Const.LOG_UNSUCCESSED_LOG_IN);
-            reqWrapper.addAttribute(Const.ATTR_ERROR_LOGIN_PASS_MESSAGE, messageManager.getProperty("loginError"));
+            String message = messageManager.getProperty(Const.PROP_LOGIN_ERROR);
+            reqWrapper.addAttribute(Const.ATTR_ERROR_LOGIN_PASS_MESSAGE, message);
         }
 
         return page;

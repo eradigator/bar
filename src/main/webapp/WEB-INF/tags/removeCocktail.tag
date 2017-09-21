@@ -15,7 +15,7 @@
             <fmt:message key="cocktailName" bundle="${rb}"/>
             <br/>
 
-            <select name="cocktailIdToDelete" title="">
+            <select name="cocktailIdToDelete" title="" size="10">
                 <c:forEach items="${cocktailNames}" var="cocktailName">
                     <option value="${cocktailName.id}">
                         <c:choose>

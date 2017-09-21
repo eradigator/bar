@@ -85,7 +85,7 @@
                     <td>${user.email}</td>
                     <td>${user.role}</td>
                     <td>
-                        <input type="checkbox" name="checkedName" value="${user.name}" title="">
+                        <input type="radio" name="checkedName" value="${user.name}" title="">
                     </td>
                 </tr>
             </c:forEach>

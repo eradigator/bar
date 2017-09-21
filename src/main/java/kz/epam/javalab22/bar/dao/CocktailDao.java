@@ -2,12 +2,15 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.*;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CocktailDao extends AbstractDao<Cocktail> {
+
+    private static final Logger log = Logger.getLogger(CocktailDao.class);
 
     private Connection connection;
 
@@ -77,6 +80,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -103,6 +107,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -149,6 +154,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return cocktail;
@@ -196,6 +202,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return cocktailList;
@@ -214,6 +221,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;

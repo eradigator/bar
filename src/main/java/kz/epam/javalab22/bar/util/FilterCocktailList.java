@@ -1,5 +1,6 @@
 package kz.epam.javalab22.bar.util;
 
+import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.entity.CocktailList;
 
@@ -9,23 +10,23 @@ import kz.epam.javalab22.bar.entity.CocktailList;
 public class FilterCocktailList {
 
     public CocktailList getNonAlco(CocktailList cocktailList) {
-        return getList(cocktailList,0,0);
+        return getList(cocktailList, Const.ALC_AMOUNT_0,Const.ALC_AMOUNT_0);
     }
 
-    public CocktailList getAllAlco(CocktailList cocktailList) {
-        return getList(cocktailList,0,100);
+    public CocktailList getAll(CocktailList cocktailList) {
+        return getList(cocktailList,Const.ALC_AMOUNT_0,Const.ALC_AMOUNT_100);
     }
 
     public CocktailList getLowAlco(CocktailList cocktailList) {
-        return getList(cocktailList, 0.1, 10);
+        return getList(cocktailList, Const.ALC_AMOUNT_0_1, Const.ALC_AMOUNT_10);
     }
 
     public CocktailList getMiddleAlco(CocktailList cocktailList) {
-        return getList(cocktailList, 10, 20);
+        return getList(cocktailList, Const.ALC_AMOUNT_10, Const.ALC_AMOUNT_20);
     }
 
     public CocktailList getStrongAlco(CocktailList cocktailList) {
-        return getList(cocktailList, 20, 100);
+        return getList(cocktailList, Const.ALC_AMOUNT_20, Const.ALC_AMOUNT_100);
     }
 
     private CocktailList getList(CocktailList cocktailList, double lowRage, double highRange) {

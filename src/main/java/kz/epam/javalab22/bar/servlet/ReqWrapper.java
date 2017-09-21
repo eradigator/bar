@@ -2,7 +2,6 @@ package kz.epam.javalab22.bar.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
-
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.user.User;
 import org.apache.commons.lang.LocaleUtils;

@@ -3,6 +3,7 @@ package kz.epam.javalab22.bar.dao;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Favorite;
 import kz.epam.javalab22.bar.entity.Glass;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,8 @@ import java.util.List;
  */
 
 public class FavoriteDao extends AbstractDao<Favorite> {
+
+    private static final Logger log = Logger.getLogger(CocktailNameDao.class);
 
     private Connection connection;
     private static final String SQL_GET_LIST = "SELECT cocktail_id FROM favorite WHERE user_id=?";
@@ -41,11 +44,12 @@ public class FavoriteDao extends AbstractDao<Favorite> {
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getUserId());
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_2, entity.getCocktailIds().get(0));
 
-            if (preparedStatement.executeUpdate() > 0) {
+            if (preparedStatement.executeUpdate() > Const.N_0) {
                 success = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -60,11 +64,12 @@ public class FavoriteDao extends AbstractDao<Favorite> {
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getUserId());
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_2, entity.getCocktailIds().get(0));
 
-            if (preparedStatement.executeUpdate() > 0) {
+            if (preparedStatement.executeUpdate() > Const.N_0) {
                 success = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -79,11 +84,12 @@ public class FavoriteDao extends AbstractDao<Favorite> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int cocktailId = resultSet.getInt("cocktail_id");
+                int cocktailId = resultSet.getInt(Const.COLUMN_LABEL_COCKTAIL_ID);
                 favorite.getCocktailIds().add(cocktailId);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return favorite;

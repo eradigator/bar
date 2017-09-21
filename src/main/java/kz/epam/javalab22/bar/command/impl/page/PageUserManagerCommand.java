@@ -10,7 +10,6 @@ import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.UserCheck;
 import org.apache.log4j.Logger;
-
 import java.sql.Connection;
 import java.util.List;
 

@@ -11,28 +11,55 @@
 <form name="calculator" method="post" action='${pageContext.request.contextPath}/jsp/controller'>
     <input type="hidden" name="command" value="calculator">
 
-    <p>
-        <fmt:message key="component" bundle="${rb}"/>
-        <br/>
-        <select name="component" title="">
-            <c:forEach items="${componentNames}" var="componentName">
-                <option value="${componentName.id}">
+    <div class="component_add">
+
+        <fmt:message key="type" bundle="${rb}"/>
+        <select name="componentType" onchange="showSelected(this.value)" title="">
+            <c:forEach items="${componentTypes}" var="componentType">
+                <option value="${componentType.id}">
                     <c:choose>
-                        <c:when test="${sessionScope.locale eq 'ru_RU'}">${componentName.nameRu}</c:when>
-                        <c:when test="${sessionScope.locale eq 'en_US'}">${componentName.nameEn}</c:when>
+                        <c:when test="${locale.toString() eq 'ru_RU'}">${componentType.nameRu}</c:when>
+                        <c:when test="${locale.toString() eq 'en_US'}">${componentType.nameEn}</c:when>
                     </c:choose>
                 </option>
             </c:forEach>
         </select>
+        <br/>
+        <br/>
+
+
+        <fmt:message key="component" bundle="${rb}"/>
+        <br/>
+
+        <select name="component" title="" style="width: 200px" size="10">
+            <c:forEach items="${components}" var="component">
+                <option value="${component.id}" class="${component.componentType.id}">
+                    <c:choose>
+                        <c:when test="${sessionScope.locale eq 'ru_RU'}">
+                            ${component.componentName.nameRu}
+                        </c:when>
+                        <c:when test="${sessionScope.locale eq 'en_US'}">
+                            ${component.componentName.nameEn}
+                        </c:when>
+                    </c:choose>
+                </option>
+            </c:forEach>
+        </select>
+        <br/>
+        <br/>
 
         <fmt:message key="amount" bundle="${rb}"/>
-        <input type="number" id="amount" name="amount" title="" min="0" max="500" step="1" value="0"/>
+        <input type="number" id="amount" name="amount" min="0" max="500" step="1" title="" value="0"/>
+        <br/>
+        <br/>
         <button type="button" onclick="addComponent()">
             <fmt:message key="addComponent" bundle="${rb}"/>
         </button>
-    </p>
 
-    <div id="outputPlace"></div>
+        <hr/>
+
+        <div id="outputPlace"></div>
+    </div>
 
     <p>
         <input type='submit' value='<fmt:message key="calculate" bundle="${rb}"/>'/>
@@ -70,6 +97,79 @@
     </div>
 </c:if>
 
+<script>
+    function addComponent() {
 
-<script src="${pageContext.request.contextPath}/js/addComponent.js"></script>
+        var form = document.forms.calculator;
+        var select = form.elements.component;
+        var br = document.createElement('br');
+        var amount = document.getElementById("amount");
+        var div = document.getElementById("outputPlace");
+
+        for (var i = 0; i < select.options.length; i++) {
+            var option = select.options[i];
+            if (option.selected) {
+                var selectedComponentId = option.value;
+                var selectedComponentText = select.options[select.options.selectedIndex].text;
+            }
+        }
+
+        var selectedComponentAmount = amount.value;
+
+        if (selectedComponentId == null) {
+            alert('<fmt:message key="chooseComponent" bundle="${rb}"/>');
+        } else {
+            if (selectedComponentAmount > 0) {
+
+                var output = document.createElement("output");
+                output.value = selectedComponentText + ":" + selectedComponentAmount;
+                div.appendChild(output);
+                div.appendChild(br);
+
+                var ingredientInput = document.createElement("input");
+                ingredientInput.setAttribute("type", "hidden");
+                ingredientInput.setAttribute("name", "ingredient");
+                ingredientInput.setAttribute("value", selectedComponentId);
+                form.appendChild(ingredientInput);
+
+                var amountInput = document.createElement("input");
+                amountInput.setAttribute("type", "hidden");
+                amountInput.setAttribute("name", "amountOfIngredient");
+                amountInput.setAttribute("value", selectedComponentAmount);
+                form.appendChild(amountInput);
+
+                var ingredientNameInput = document.createElement("input");
+                ingredientNameInput.setAttribute("type", "hidden");
+                ingredientNameInput.setAttribute("name", "ingredientName");
+                ingredientNameInput.setAttribute("value", selectedComponentText);
+                form.appendChild(ingredientNameInput);
+
+                select.remove(select.selectedIndex);
+                amount.value = "0";
+            } else {
+                alert('<fmt:message key="enterAmount" bundle="${rb}"/>');
+            }
+        }
+    }
+</script>
+
+<script>
+    function showSelected(typeId) {
+
+        var form = document.forms.calculator;
+        var options = form.elements.component.options;
+
+        for (var i = 0; i < options.length; i++) {
+            options[i].style.display = 'none';
+        }
+
+        options = document.getElementsByClassName(typeId);
+        for (i = 0; i < options.length; i++) {
+            options[0].selected = 'selected';
+            options[i].style.display = 'block';
+        }
+    }
+
+    showSelected(1);
+</script>
 

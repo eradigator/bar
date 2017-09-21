@@ -8,6 +8,14 @@ public final class Const {
     /*Dividers*/
     public static final String DIV_SPACE=" ";
 
+    /*Alcohol Amount*/
+    public static final double ALC_AMOUNT_0 = 0;
+    public static final double ALC_AMOUNT_0_1 = 0.1;
+    public static final double ALC_AMOUNT_10 = 10;
+    public static final double ALC_AMOUNT_20 = 20;
+    public static final double ALC_AMOUNT_100 = 100;
+
+
     /*Pages*/
     public static final String PAGE_INDEX = "path.page.index";
     public static final String PAGE_LOGIN = "path.page.login";
@@ -40,10 +48,16 @@ public final class Const {
     public static final String ATTR_AMOUNT = "amount";
     public static final String ATTR_COST = "cost";
     public static final String ATTR_CALC_RESULT = "calcResult";
+    public static final String ATTR_FILTER_CHECKED_ID = "filter_checked_id";
+    public static final String ATTR_SORT_CHECKED_INDEX = "sort_checked_index";
 
     /*Exceptions*/
 
     public static final String EXC_NO_ID_OBTAINED = "failed, no ID obtained.";
+
+    /*Indexes*/
+    public static final int INDEX_0 = 0;
+    public static final int INDEX_1 = 1;
 
     /*Log messages*/
     public static final String LOG_FORBIDDEN_PAGE = "Attempt to load a forbidden page";
@@ -57,6 +71,13 @@ public final class Const {
     public static final String LOG_LOGGED_OUT = "has logged out";
     public static final String LOG_LOGGED_IN = "has logged in";
     public static final String LOG_UNSUCCESSED_LOG_IN = "unsuccessed log in";
+    public static final String LOG_CONN_POOL_INITIALIZED = "Connection Pool has been initialized";
+    public static final String LOG_EXC_CREATE_NEW_CONNECTION = "create new connection method exception";
+    public static final String LOG_EXC_CLOSE_CONNECTION = "close connection method exception";
+    public static final String LOG_EXC_SQL = "SQL exception";
+    public static final String LOG_EXC_IMG = "add image exception";
+    public static final String LOG_EXC_IMG_CLOSE_INPUTSTREAM = "close image inputstream exception";
+    public static final String LOG_EXC_GET_FILE_PART = "image get file part exception";
 
 
     /*Numbers*/
@@ -89,6 +110,10 @@ public final class Const {
     public static final String PARAM_METHOD = "method";
     public static final String PARAM_GLASS = "glass";
     public static final String PARAM_COCKTAIL_LIST_INDEX = "cocktailListIndex";
+    public static final String PARAM_FILTER = "filter";
+    public static final String PARAM_SORT = "sort";
+
+
 
     /*Property names*/
     public static final String PROP_UI_TEXT_FOR_ALCOHOLIC_PAGE = "uiTextIdForAlcoholicPage";
@@ -106,7 +131,7 @@ public final class Const {
     public static final String PROP_COCKTAIL_DELETED = "cocktailDeleted";
     public static final String PROP_COCKTAIL_EXIST = "cocktailExist";
 
-    /*Values*/
+    /*Parameter Values*/
     public static final String VAL_MAIN = "main";
     public static final String VAL_COCKTAIL = "cocktail";
     public static final String VAL_COCKTAILS = "cocktails";
@@ -115,6 +140,16 @@ public final class Const {
     public static final String VAL_COMPONENT_MANAGER = "componentManager";
     public static final String VAL_USER_MANAGER = "userManager";
     public static final String VAL_FAVORITE = "favorite";
+    public static final String VAL_ALL = "all";
+    public static final String VAL_NON_ALCO = "nonalco";
+    public static final String VAL_LOW = "low";
+    public static final String VAL_MIDDLE = "middle";
+    public static final String VAL_STRONG = "strong";
+    public static final String VAL_BY_NAME = "by_name";
+    public static final String VAL_BY_STRENGTH = "by_strength";
+
+    /*Servlet Parameters*/
+    public static final String RESPONSE_CONTENT_TYPE_IMAGE = "image/jpeg";
 
     /*Strings*/
     public static final String STR_EN = "EN";
@@ -159,5 +194,9 @@ public final class Const {
     public static final String COLUMN_LABEL_GLASS_NAME_RU = "glassNameRu";
     public static final String COLUMN_LABEL_GLASS_NAME_EN = "glassNameEn";
     public static final String COLUMN_LABEL_IMAGE_ID = "image_id";
+    public static final String COLUMN_LABEL_TYPE_ID = "type_id";
+    public static final String COLUMN_LABEL_TYPE_NAME_RU = "typeNameRu";
+    public static final String COLUMN_LABEL_TYPE_NAME_EN = "typeNameEn";
+    public static final String COLUMN_LABEL_COCKTAIL_ID = "cocktail_id";
 
 }

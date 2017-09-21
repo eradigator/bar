@@ -3,6 +3,7 @@ package kz.epam.javalab22.bar.logic;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Part;
@@ -13,6 +14,8 @@ import java.io.InputStream;
  * @author vten
  */
 public class ImageLogic {
+
+    private static final Logger log = Logger.getLogger(ImageLogic.class);
 
     private ReqWrapper reqWrapper;
 
@@ -35,18 +38,10 @@ public class ImageLogic {
 
         } catch (IOException | ServletException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_GET_FILE_PART);
         }
 
-        Image image = new Image(inputStream,length);
-
-        try {
-            assert null != inputStream;
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return image;
+        return new Image(inputStream,length);
     }
 
 }

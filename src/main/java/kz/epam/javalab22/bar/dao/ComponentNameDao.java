@@ -2,6 +2,7 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.ComponentName;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,11 +11,13 @@ import java.util.List;
 
 public class ComponentNameDao extends AbstractDao<ComponentName> {
 
+    private static final Logger log = Logger.getLogger(ComponentNameDao.class);
+
     private Connection connection;
 
     private static final String SQL_DELETE = "UPDATE component_name " +
             "SET deleted = TRUE WHERE id =" +
-            "(SELECT name_id FROM component WHERE id = ?)";
+            "(SELECT name_id FROM component WHERE id=?)";
 
     private static final String SQL_CREATE = "INSERT INTO component_name (en,ru) VALUES (?,?)";
 
@@ -40,12 +43,12 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getId());
-
             if (preparedStatement.executeUpdate() > Const.N_0) {
                 success = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -73,6 +76,7 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -93,6 +97,7 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return componentNames;

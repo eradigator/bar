@@ -1,7 +1,6 @@
 package kz.epam.javalab22.bar.util;
 
 import kz.epam.javalab22.bar.entity.Cocktail;
-
 import java.util.Comparator;
 
 public class SortCocktailListByStrength implements Comparator<Cocktail> {

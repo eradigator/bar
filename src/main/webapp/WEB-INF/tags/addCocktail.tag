@@ -40,7 +40,7 @@
         </p>
 
         <p>
-            <fmt:message key="name_ru" bundle="${rb}"/>
+            <fmt:message key="name_en" bundle="${rb}"/>
             <br/>
             <input name="name_EN" value="" required title="">
             <br/>
@@ -66,7 +66,7 @@
             <fmt:message key="component" bundle="${rb}"/>
             <br/>
 
-            <select name="component" title="" style="width: 200px" size="5">
+            <select name="component" title="" style="width: 200px" size="10">
                 <c:forEach items="${components}" var="component">
                     <option value="${component.id}" class="${component.componentType.id}">
                         <c:choose>

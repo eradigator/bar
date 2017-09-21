@@ -2,6 +2,8 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Method;
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.List;
  */
 
 public class MethodDao extends AbstractDao<Method> {
+
+    private static final Logger log = Logger.getLogger(MethodDao.class);
 
     private Connection connection;
 
@@ -50,6 +54,7 @@ public class MethodDao extends AbstractDao<Method> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return methods;

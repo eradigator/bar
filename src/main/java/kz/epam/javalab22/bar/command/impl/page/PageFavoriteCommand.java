@@ -39,7 +39,6 @@ public class PageFavoriteCommand implements ActionCommand {
     }
 
 
-
     private void fillFavorite(ReqWrapper reqWrapper, Connection connection, CocktailList cocktailList) {
         User user = reqWrapper.getUser();
         if (null != user) {

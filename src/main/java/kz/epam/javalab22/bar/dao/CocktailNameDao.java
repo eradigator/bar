@@ -2,12 +2,15 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.CocktailName;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CocktailNameDao extends AbstractDao<CocktailName> {
+
+    private static final Logger log = Logger.getLogger(CocktailNameDao.class);
 
     private Connection connection;
     private static final String SQL_DELETE_BY_ID = "UPDATE cocktail_name AS cn " +
@@ -49,6 +52,7 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -73,6 +77,7 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -93,6 +98,7 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return cocktailNames;
