@@ -2,14 +2,17 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.UIText;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 
 /**
- * Created by admin on 24.08.2017.
+ * @author vten
  */
 
 public class UITextDao extends AbstractDao<UIText> {
+
+    private static final Logger log = Logger.getLogger(UITextDao.class);
 
     private Connection connection;
     private static final String SQL_GET_UI_TEXT = "SELECT * FROM text WHERE id=?";
@@ -47,6 +50,7 @@ public class UITextDao extends AbstractDao<UIText> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return uiText;

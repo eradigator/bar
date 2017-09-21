@@ -3,14 +3,17 @@ package kz.epam.javalab22.bar.dao;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.exception.AddImageException;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 
 /**
- * Created by vten on 24.08.2017.
+ * @author vten
  */
 
 public class ImageDao extends AbstractDao<Image> {
+
+    private static final Logger log = Logger.getLogger(ImageDao.class);
 
     private Connection connection;
 
@@ -40,20 +43,22 @@ public class ImageDao extends AbstractDao<Image> {
             statement.setBinaryStream(Const.SQL_PARAM_INDEX_1, entity.getInputStream(), entity.getInputStreamLength());
 
             if (statement.executeUpdate() == Const.N_0) {
+                log.info(Const.LOG_EXC_IMG);
                 throw new AddImageException();
             }
 
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 while (resultSet.next()) {
                     entity.setId(resultSet.getInt(Const.COLUMN_LABEL_ID));
+                    success = true;
                 }
             }
 
             statement.close();
-            success = true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -74,6 +79,7 @@ public class ImageDao extends AbstractDao<Image> {
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return bytes;

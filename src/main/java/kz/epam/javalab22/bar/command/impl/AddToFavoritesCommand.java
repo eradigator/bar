@@ -7,7 +7,6 @@ import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.dao.FavoriteDao;
 import kz.epam.javalab22.bar.entity.Favorite;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
-
 import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;

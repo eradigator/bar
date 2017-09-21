@@ -3,14 +3,16 @@ package kz.epam.javalab22.bar.dao;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao extends AbstractDao<User> {
+
+    private static final Logger log = Logger.getLogger(UserDao.class);
 
     private Connection connection;
 
@@ -43,6 +45,7 @@ public class UserDao extends AbstractDao<User> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -64,6 +67,7 @@ public class UserDao extends AbstractDao<User> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return user;
@@ -80,11 +84,12 @@ public class UserDao extends AbstractDao<User> {
             preparedStatement.setString(Const.SQL_PARAM_INDEX_3, entity.getEmail());
             preparedStatement.setString(Const.SQL_PARAM_INDEX_4, entity.getRole().toString());
 
-            if (preparedStatement.executeUpdate() > 0) {
+            if (preparedStatement.executeUpdate() > Const.N_0) {
                 success = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -102,6 +107,7 @@ public class UserDao extends AbstractDao<User> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return password;
@@ -122,6 +128,7 @@ public class UserDao extends AbstractDao<User> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return userList;

@@ -20,7 +20,6 @@
     <form name="login" method="post" action="${pageContext.request.contextPath}/jsp/controller">
         <div style="float: right">
             <input type="hidden" name="command" value="page_login">
-            <%--<input type="hidden" name="chosen" value="login">--%>
             <a href="#" onclick="document.login.submit();return(false)">
                 <fmt:message key="login" bundle="${ rb }"/>
             </a>
@@ -30,34 +29,16 @@
 
 <c:if test="${not empty user}">
     <form name="logout" method="post" action="${pageContext.request.contextPath}/jsp/controller">
-    <input type="hidden" name="command" value="logout">
-    <div style="float: right">
-        <a href="#" onclick="document.logout.submit();return(false)">
-            <fmt:message key="logout" bundle="${ rb }"/>
-        </a>
-    </div>
-    <div style="text-align: center">
-        userName: <b>${user.name}</b>&nbsp;
-        role: <b>${user.role}</b>&nbsp;
-        locale: <b>${pageContext.request.session.getAttribute('locale')}&nbsp;</b>
-    </div>
+        <input type="hidden" name="command" value="logout">
+        <div style="float: right">
+            <a href="#" onclick="document.logout.submit();return(false)">
+                <fmt:message key="logout" bundle="${ rb }"/>
+            </a>
+        </div>
+        <div style="text-align: center">
+            <b>
+                <fmt:message key="hello" bundle="${ rb }"/>&nbsp;${user.name}
+            </b>
+        </div>
     </form>
 </c:if>
-
-<%--Текущий путь к странице--%>
-<%--<div style="text-align: center">
-    <c:set var="params" value="${requestScope['javax.servlet.forward.query_string']}"/>
-    <c:set var="requestPath" value="${requestScope['javax.servlet.forward.request_uri']}"/>
-    ${requestPath}
-    ${params}
-    ${content}
-</div>--%>
-
-<%--${pageContext.request.getHeader("referer")}--%>
-<%--
-<script>
-    function reloadPageEN() {
-        ${pageContext.request.session.setAttribute("locale", "en_US")}
-        location.reload();
-    }
-</script>--%>

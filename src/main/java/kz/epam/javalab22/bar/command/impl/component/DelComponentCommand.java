@@ -8,8 +8,6 @@ import kz.epam.javalab22.bar.logic.ComponentLogic;
 import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
-
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 
 public class DelComponentCommand implements ActionCommand {
@@ -23,12 +21,15 @@ public class DelComponentCommand implements ActionCommand {
 
         Connection connection = ConnectionPool.getInstance().getConnection();
 
-        if (new ComponentLogic(reqWrapper,connection).delComponent()) {
-            reqWrapper.addAttribute(Const.ATTR_DEL_COMPONENT_MESSAGE, messageManager.getProperty("componentDeleted"));
-            log.info(Const.LOG_COMPONENT + Const.DIV_SPACE + reqWrapper.getParam(Const.PARAM_COMPONENT_TO_DEL) +
+        if (new ComponentLogic(reqWrapper, connection).delComponent()) {
+            String message = messageManager.getProperty(Const.PROP_COMPONENT_DELETED);
+            reqWrapper.addAttribute(Const.ATTR_DEL_COMPONENT_MESSAGE, message);
+            log.info(Const.LOG_COMPONENT + Const.DIV_SPACE +
+                    reqWrapper.getParam(Const.PARAM_COMPONENT_TO_DEL) +
                     Const.LOG_HAS_BEEN_DELETED);
         } else {
-            reqWrapper.addAttribute(Const.ATTR_DEL_COMPONENT_MESSAGE, messageManager.getProperty("error"));
+            String message = messageManager.getProperty(Const.PROP_ERROR);
+            reqWrapper.addAttribute(Const.ATTR_DEL_COMPONENT_MESSAGE, message);
         }
 
         ConnectionPool.getInstance().returnConnection(connection);

@@ -2,17 +2,19 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.ComponentType;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by vten on 24.08.2017.
+ * @author vten
  */
 
 public class ComponentTypeDao extends AbstractDao {
 
+    private static final Logger log = Logger.getLogger(ComponentTypeDao.class);
     private Connection connection;
 
     private static final String SQL_GET_LIST = "SELECT * FROM component_type ORDER BY id";
@@ -51,6 +53,7 @@ public class ComponentTypeDao extends AbstractDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return componentTypes;

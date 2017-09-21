@@ -4,14 +4,9 @@ import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageComponentManagerCommand;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.entity.Cocktail;
-import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.logic.ComponentLogic;
 import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
-import org.apache.log4j.Logger;
-
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 
 public class AddComponentCommand implements ActionCommand {

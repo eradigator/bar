@@ -1,6 +1,5 @@
 package kz.epam.javalab22.bar.util;
 
-import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
@@ -12,12 +11,12 @@ public class UserCheck {
         this.reqWrapper = reqWrapper;
     }
 
-    public boolean roleIsAdminCheck() {
+    public boolean checkForAdmin() {
 
         boolean isAdmin = false;
 
-        if (null != reqWrapper.getSessionAttribute(Const.ATTR_USER)) {
-            User user = (User) reqWrapper.getSessionAttribute(Const.ATTR_USER);
+        if (null != reqWrapper.getUser()) {
+            User user = reqWrapper.getUser();
 
             switch (user.getRole()) {
                 case ADMIN:

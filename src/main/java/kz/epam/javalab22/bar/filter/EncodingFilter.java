@@ -1,20 +1,18 @@
 package kz.epam.javalab22.bar.filter;
 
+import kz.epam.javalab22.bar.constant.Const;
 import javax.servlet.*;
 import java.io.IOException;
 
 public class EncodingFilter implements Filter {
 
-    private static final String STR_UTF8 = "UTF-8";
-    private static final String STR_REQUEST_ENCODING = "requestEncoding";
-
     private String encoding;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        encoding = filterConfig.getInitParameter(STR_REQUEST_ENCODING);
+        encoding = filterConfig.getInitParameter(Const.PARAM_REQUEST_ENCODING);
         if (null == encoding) {
-            encoding = STR_UTF8;
+            encoding = Const.LOC_UTF8;
         }
     }
 

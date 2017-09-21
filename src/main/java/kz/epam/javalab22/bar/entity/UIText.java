@@ -1,7 +1,7 @@
 package kz.epam.javalab22.bar.entity;
 
 /**
- * Created by vten on 08.09.2017.
+ * @author vten
  */
 public class UIText {
     private int id;

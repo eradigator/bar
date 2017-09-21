@@ -147,6 +147,11 @@ td, th {
     height: 20px;
 }
 
+.logo {
+    width:150px;
+    height:150px;
+}
+
 /* Cocktail Images */
 
 .cocktail {
@@ -180,6 +185,12 @@ td, th {
 /* Error message */
 .error_message {
     color: red;
+}
+
+/* ComponentAdd */
+.component_add {
+    border: 1px solid #ccc;
+    padding: 10px;
 }
 
 /* Tab */

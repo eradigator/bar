@@ -5,14 +5,16 @@ import kz.epam.javalab22.bar.dao.ComponentDao;
 import kz.epam.javalab22.bar.dao.ComponentNameDao;
 import kz.epam.javalab22.bar.entity.Component;
 import kz.epam.javalab22.bar.entity.ComponentName;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public class ComponentLogic {
+
+    private static final Logger log = Logger.getLogger(ComponentLogic.class);
 
     private ReqWrapper reqWrapper;
     private Connection connection;
@@ -69,6 +71,7 @@ public class ComponentLogic {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;

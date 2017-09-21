@@ -87,7 +87,7 @@
             <fmt:message key="componentName" bundle="${rb}"/>
             <br/>
 
-            <select name="componentToDel" title="">
+            <select name="componentToDel" title="" size="10">
                 <c:forEach items="${componentNames}" var="componentName">
                     <option value="${componentName.id}">
                         <c:choose>

@@ -2,16 +2,19 @@ package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Glass;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by admin on 24.08.2017.
+ * @author vten
  */
 
 public class GlassDao extends AbstractDao<Glass> {
+
+    private static final Logger log = Logger.getLogger(GlassDao.class);
 
     private Connection connection;
     private static final String SQL_GET_LIST = "SELECT * FROM glass ORDER BY id";
@@ -50,6 +53,7 @@ public class GlassDao extends AbstractDao<Glass> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return glasses;

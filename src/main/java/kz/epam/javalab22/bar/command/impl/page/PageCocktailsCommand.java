@@ -47,30 +47,30 @@ public class PageCocktailsCommand implements ActionCommand {
 
         CocktailList filteredCocktailList;
 
-        if (null == reqWrapper.getParam("filter")) {
-            reqWrapper.addAttribute("filter_checked_id", "all");
-            filteredCocktailList = new FilterCocktailList().getAllAlco(cocktailList);
+        if (null == reqWrapper.getParam(Const.PARAM_FILTER)) {
+            reqWrapper.addAttribute(Const.ATTR_FILTER_CHECKED_ID, Const.VAL_ALL);
+            filteredCocktailList = new FilterCocktailList().getAll(cocktailList);
         } else {
-            switch (reqWrapper.getParam("filter")) {
-                case "nonalco":
-                    reqWrapper.addAttribute("filter_checked_id", "nonalco");
+            switch (reqWrapper.getParam(Const.PARAM_FILTER)) {
+                case Const.VAL_NON_ALCO:
+                    reqWrapper.addAttribute(Const.ATTR_FILTER_CHECKED_ID, Const.VAL_NON_ALCO);
                     filteredCocktailList = new FilterCocktailList().getNonAlco(cocktailList);
                     break;
-                case "low":
-                    reqWrapper.addAttribute("filter_checked_id", "low");
+                case Const.VAL_LOW:
+                    reqWrapper.addAttribute(Const.ATTR_FILTER_CHECKED_ID, Const.VAL_LOW);
                     filteredCocktailList = new FilterCocktailList().getLowAlco(cocktailList);
                     break;
-                case "middle":
-                    reqWrapper.addAttribute("filter_checked_id", "middle");
+                case Const.VAL_MIDDLE:
+                    reqWrapper.addAttribute(Const.ATTR_FILTER_CHECKED_ID, Const.VAL_MIDDLE);
                     filteredCocktailList = new FilterCocktailList().getMiddleAlco(cocktailList);
                     break;
-                case "strong":
-                    reqWrapper.addAttribute("filter_checked_id", "strong");
+                case Const.VAL_STRONG:
+                    reqWrapper.addAttribute(Const.ATTR_FILTER_CHECKED_ID, Const.VAL_STRONG);
                     filteredCocktailList = new FilterCocktailList().getStrongAlco(cocktailList);
                     break;
                 default:
-                    reqWrapper.addAttribute("filter_checked_id", "all");
-                    filteredCocktailList = new FilterCocktailList().getAllAlco(cocktailList);
+                    reqWrapper.addAttribute(Const.ATTR_FILTER_CHECKED_ID, Const.VAL_ALL);
+                    filteredCocktailList = new FilterCocktailList().getAll(cocktailList);
                     break;
             }
         }
@@ -79,23 +79,23 @@ public class PageCocktailsCommand implements ActionCommand {
     }
 
     private void sortCocktailList(ReqWrapper reqWrapper, CocktailList cocktailList) {
-        String paramSort = reqWrapper.getParam("sort");
+        String paramSort = reqWrapper.getParam(Const.PARAM_SORT);
 
-        if (null == paramSort || paramSort.equals("by_name")) {
-            reqWrapper.addAttribute("sort_checked_index", 0);
+        if (null == paramSort || paramSort.equals(Const.VAL_BY_NAME)) {
+            reqWrapper.addAttribute(Const.ATTR_SORT_CHECKED_INDEX, Const.INDEX_0);
 
             switch (reqWrapper.getLocale().toString()) {
-                case "ru_RU":
+                case Const.LOC_RU_RU:
                     cocktailList.getCocktailList().sort(new SortCocktailListByNameRu());
                     break;
-                case "en_US":
+                case Const.LOC_EN_US:
                     cocktailList.getCocktailList().sort(new SortCocktailListByNameEn());
                     break;
             }
 
-        } else if (paramSort.equals("by_strength")) {
+        } else if (paramSort.equals(Const.VAL_BY_STRENGTH)) {
             cocktailList.getCocktailList().sort(new SortCocktailListByStrength());
-            reqWrapper.addAttribute("sort_checked_index", 1);
+            reqWrapper.addAttribute(Const.ATTR_SORT_CHECKED_INDEX, Const.INDEX_1);
         }
     }
 
@@ -114,9 +114,9 @@ public class PageCocktailsCommand implements ActionCommand {
 
     private int getCocktailListIndex(ReqWrapper reqWrapper) {
 
-        int cocktailListIndex = 0;
-        if (null != reqWrapper.getParam("cocktailListIndex")) {
-            cocktailListIndex = Integer.parseInt(reqWrapper.getParam("cocktailListIndex"));
+        int cocktailListIndex = Const.N_0;
+        if (null != reqWrapper.getParam(Const.PARAM_COCKTAIL_LIST_INDEX)) {
+            cocktailListIndex = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COCKTAIL_LIST_INDEX));
         }
 
         return cocktailListIndex;

@@ -3,7 +3,7 @@ package kz.epam.javalab22.bar.entity;
 import java.io.InputStream;
 
 /**
- * Created by vten on 31.08.2017.
+ * @author vten
  */
 public class Image {
 

@@ -4,15 +4,18 @@ import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Component;
 import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.entity.Mix;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.Map;
 
 /**
- * Created by vten on 24.08.2017.
+ * @author vten
  */
 
 public class MixDao extends AbstractDao<Mix> {
+
+    private static final Logger log = Logger.getLogger(MixDao.class);
 
     private Connection connection;
     private static final String SQL_ADD_MIX = "INSERT INTO mix (cocktail_id,component_id,amount) VALUES (?,?,?)";
@@ -59,6 +62,7 @@ public class MixDao extends AbstractDao<Mix> {
             success = true;
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -85,6 +89,7 @@ public class MixDao extends AbstractDao<Mix> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
         return mix;

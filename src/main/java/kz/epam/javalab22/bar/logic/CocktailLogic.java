@@ -1,72 +1,76 @@
 package kz.epam.javalab22.bar.logic;
 
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.dao.CocktailDao;
-import kz.epam.javalab22.bar.dao.CocktailNameDao;
-import kz.epam.javalab22.bar.dao.MixDao;
+import kz.epam.javalab22.bar.dao.*;
 import kz.epam.javalab22.bar.entity.*;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
+import org.apache.log4j.Logger;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
-import java.sql.NClob;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
- * Created by vten on 31.08.2017.
+ * @author vten
  */
 public class CocktailLogic {
 
-    private ReqWrapper reqWrapper;
+    private static final Logger log = Logger.getLogger(CocktailLogic.class);
 
-    public CocktailLogic(ReqWrapper reqWrapper) {
+    private ReqWrapper reqWrapper;
+    private Connection connection;
+
+    public CocktailLogic(ReqWrapper reqWrapper, Connection connection) {
         this.reqWrapper = reqWrapper;
+        this.connection = connection;
     }
 
     public boolean addCocktail() {
 
-        String nameRu = reqWrapper.getParam("name_ru");
-        String nameEn = reqWrapper.getParam("name_en");
+        String nameRu = reqWrapper.getParam(Const.PARAM_NAME_RU);
+        String nameEn = reqWrapper.getParam(Const.PARAM_NAME_EN);
 
-        int methodId = Integer.parseInt(reqWrapper.getParam("method"));
-        Glass glass = new Glass(Integer.parseInt(reqWrapper.getParam("glass")));
-        String[] components = reqWrapper.getRequest().getParameterValues("ingredient");
-        String[] amounts = reqWrapper.getRequest().getParameterValues("amountOfIngredient");
+        int methodId = Integer.parseInt(reqWrapper.getParam(Const.PARAM_METHOD));
+        Glass glass = new Glass(Integer.parseInt(reqWrapper.getParam(Const.PARAM_GLASS)));
+        String[] components = reqWrapper.getParams(Const.PARAM_INGREDIENT);
+        String[] amounts = reqWrapper.getParams(Const.PARAM_AMOUNT_OF_INGREDIENT);
 
-        ImageLogic imageLogic = new ImageLogic(reqWrapper);
-        Image image = imageLogic.addImage();
 
         Mix mix = new Mix();
-        for (int i = 0; i < components.length; i++) {
+        for (int i = Const.N_0; i < components.length; i++) {
             mix.getMix().put(new Component(Integer.parseInt(components[i])), Integer.parseInt(amounts[i]));
         }
 
-        Connection connection = ConnectionPool.getInstance().getConnection();
-
         try {
-
             connection.setAutoCommit(false);
 
-            //Cocktail Name
+            //Write Image
+            ImageLogic imageLogic = new ImageLogic(reqWrapper);
+            Image image = imageLogic.getImage();
+            boolean isImageWritten = new ImageDao(connection).create(image);
+
+            //Write Cocktail Name
             CocktailName cocktailName = new CocktailName(nameRu, nameEn);
             boolean isCocktailNameWritten = new CocktailNameDao(connection).create(cocktailName);
 
-            //Cocktail
+            //Write Cocktail
             Cocktail cocktail = new Cocktail(cocktailName, methodId, glass, image);
             boolean isCocktailWritten = new CocktailDao(connection).create(cocktail);
 
-            //Mix
+            //Write Mix
             boolean isMixWritten = new MixDao(connection).add(mix, cocktail.getId());
 
-            //вычисляем и записываем крепость
+            //Write Strength
             double tempStrength = new CalcAlcohol().calcStrength(mix);
             double strength = new BigDecimal(tempStrength).setScale(3, RoundingMode.UP).doubleValue();
             boolean isStrengthWritten = new CocktailDao(connection).setStrength(cocktail.getId(), strength);
 
-            if (isCocktailNameWritten && isCocktailWritten && isMixWritten && isStrengthWritten) {
+            if (isImageWritten && isCocktailNameWritten && isCocktailWritten
+                    && isMixWritten && isStrengthWritten) {
                 connection.commit();
             } else {
                 connection.rollback();
@@ -74,11 +78,18 @@ public class CocktailLogic {
 
             connection.setAutoCommit(true);
 
+            try {
+                assert null != image.getInputStream();
+                image.getInputStream().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                log.info(Const.LOG_EXC_IMG_CLOSE_INPUTSTREAM);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
-
-        ConnectionPool.getInstance().returnConnection(connection);
 
         return true;
     }
@@ -89,15 +100,13 @@ public class CocktailLogic {
         boolean result = false;
         int cocktailId = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COCKTAIL_ID_TO_DELETE));
 
-        Connection connection = ConnectionPool.getInstance().getConnection();
-
         try {
             connection.setAutoCommit(false);
 
             if (new CocktailNameDao(connection).delete(cocktailId) &&
                     new CocktailDao(connection).delete(cocktailId)) {
-                result = true;
                 connection.commit();
+                result = true;
             } else {
                 connection.rollback();
             }
@@ -106,11 +115,44 @@ public class CocktailLogic {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            log.info(Const.LOG_EXC_SQL);
         }
 
-        ConnectionPool.getInstance().returnConnection(connection);
-
         return result;
+    }
+
+    public boolean checkForExistence() {
+
+        boolean isCocktailNameExist = false;
+
+        String nameRu = reqWrapper.getParam(Const.PARAM_NAME_RU);
+        String nameEn = reqWrapper.getParam(Const.PARAM_NAME_EN);
+
+        CocktailName cocktailName = new CocktailName(nameRu, nameEn);
+        List<CocktailName> cocktailNameList = new CocktailNameDao(connection).getList();
+
+        for (CocktailName entity : cocktailNameList) {
+            if (entity.getNameRu().equals(cocktailName.getNameRu()) ||
+                    entity.getNameEn().equals(cocktailName.getNameEn())) {
+                isCocktailNameExist = true;
+            }
+        }
+
+        return isCocktailNameExist;
+    }
+
+    public boolean checkSelectedComponent() {
+
+        boolean isSelectedComponentExist = true;
+
+        String[] components = reqWrapper.getParams(Const.PARAM_INGREDIENT);
+        String[] amounts = reqWrapper.getParams(Const.PARAM_AMOUNT_OF_INGREDIENT);
+
+        if (null == components || null == amounts) {
+            isSelectedComponentExist = false;
+        }
+
+        return isSelectedComponentExist;
     }
 
 
