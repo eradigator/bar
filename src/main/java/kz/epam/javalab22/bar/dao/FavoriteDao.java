@@ -21,7 +21,11 @@ public class FavoriteDao extends AbstractDao<Favorite> {
     private static final Logger log = Logger.getLogger(CocktailNameDao.class);
 
     private Connection connection;
-    private static final String SQL_GET_LIST = "SELECT cocktail_id FROM favorite WHERE user_id=?";
+
+    private static final String SQL_GET_LIST = "SELECT cocktail_id FROM favorite f " +
+            "INNER JOIN cocktail c ON c.id = f.cocktail_id " +
+            "WHERE user_id=? AND c.deleted IS NOT TRUE";
+
     private static final String SQL_CREATE = "INSERT INTO favorite (user_id,cocktail_id) VALUES (?,?)";
     private static final String SQL_DELETE = "DELETE FROM favorite WHERE user_id=? AND cocktail_id=?";
 
