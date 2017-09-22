@@ -7,6 +7,7 @@
 <head>
     <title>BAR - Login</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>

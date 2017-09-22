@@ -1,4 +1,4 @@
-package kz.epam.javalab22.bar.command.impl.page;
+package kz.epam.javalab22.bar.command.impl.cocktail;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.constant.Const;

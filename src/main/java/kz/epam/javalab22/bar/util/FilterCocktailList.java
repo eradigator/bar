@@ -18,15 +18,15 @@ public class FilterCocktailList {
     }
 
     public CocktailList getLowAlco(CocktailList cocktailList) {
-        return getList(cocktailList, Const.ALC_AMOUNT_0_1, Const.ALC_AMOUNT_10);
+        return getList(cocktailList, Const.ALC_AMOUNT_0_1, Const.ALC_AMOUNT_15);
     }
 
     public CocktailList getMiddleAlco(CocktailList cocktailList) {
-        return getList(cocktailList, Const.ALC_AMOUNT_10, Const.ALC_AMOUNT_20);
+        return getList(cocktailList, Const.ALC_AMOUNT_15, Const.ALC_AMOUNT_30);
     }
 
     public CocktailList getStrongAlco(CocktailList cocktailList) {
-        return getList(cocktailList, Const.ALC_AMOUNT_20, Const.ALC_AMOUNT_100);
+        return getList(cocktailList, Const.ALC_AMOUNT_30, Const.ALC_AMOUNT_100);
     }
 
     private CocktailList getList(CocktailList cocktailList, double lowRage, double highRange) {

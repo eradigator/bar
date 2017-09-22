@@ -1,4 +1,3 @@
-<%@ taglib uri="/WEB-INF/tld/mytaglib.tld" prefix="mytag" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${pageContext.request.session.getAttribute('locale')}"/>
@@ -11,6 +10,7 @@
     <meta charset="UTF-8">
     <title>BAR</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>

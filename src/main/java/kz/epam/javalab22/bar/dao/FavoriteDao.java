@@ -42,7 +42,7 @@ public class FavoriteDao extends AbstractDao<Favorite> {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getUserId());
-            preparedStatement.setInt(Const.SQL_PARAM_INDEX_2, entity.getCocktailIds().get(0));
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_2, entity.getCocktailIds().get(Const.INDEX_0));
 
             if (preparedStatement.executeUpdate() > Const.N_0) {
                 success = true;
@@ -62,7 +62,7 @@ public class FavoriteDao extends AbstractDao<Favorite> {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
             preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, entity.getUserId());
-            preparedStatement.setInt(Const.SQL_PARAM_INDEX_2, entity.getCocktailIds().get(0));
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_2, entity.getCocktailIds().get(Const.INDEX_0));
 
             if (preparedStatement.executeUpdate() > Const.N_0) {
                 success = true;

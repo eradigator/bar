@@ -68,7 +68,7 @@
 
         <p>
             <fmt:message key="price" bundle="${rb}"/>,
-            <fmt:message key="ml" bundle="${rb}"/>
+            <fmt:message key="mlg" bundle="${rb}"/>
             <br/>
             <input type="number" name='price' min="0" max="100000" step="0.01" value="" title="" required>
             <br/>

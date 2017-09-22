@@ -1,4 +1,4 @@
-package kz.epam.javalab22.bar.command.impl;
+package kz.epam.javalab22.bar.command.impl.favorite;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
