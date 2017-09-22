@@ -11,8 +11,8 @@ public final class Const {
     /*Alcohol Amount*/
     public static final double ALC_AMOUNT_0 = 0;
     public static final double ALC_AMOUNT_0_1 = 0.1;
-    public static final double ALC_AMOUNT_10 = 10;
-    public static final double ALC_AMOUNT_20 = 20;
+    public static final double ALC_AMOUNT_15 = 15;
+    public static final double ALC_AMOUNT_30 = 30;
     public static final double ALC_AMOUNT_100 = 100;
 
 
@@ -84,6 +84,9 @@ public final class Const {
     public static final int N_0 = 0;
     public static final int N_100 = 100;
 
+    /*Math*/
+    public static final int MATH_ROUND_SCALE_3 = 3;
+
     /*Parameters*/
     public static final String PARAM_REQUEST_ENCODING = "requestEncoding";
     public static final String PARAM_COMMAND = "command";
@@ -130,6 +133,7 @@ public final class Const {
     public static final String PROP_COCKTAIL_ADDED = "cocktailAdded";
     public static final String PROP_COCKTAIL_DELETED = "cocktailDeleted";
     public static final String PROP_COCKTAIL_EXIST = "cocktailExist";
+    public static final String PROP_REGISTRATION_NEEDED = "registrationNeeded";
 
     /*Parameter Values*/
     public static final String VAL_MAIN = "main";

@@ -49,7 +49,7 @@ ${cocktail.strength}&deg;
         <c:when test="${locale.toString() eq 'en_US'}">${currentComponent.key.componentName.nameEn}</c:when>
     </c:choose>
     ${currentComponent.value}
-    <fmt:message key="ml" bundle="${rb}"/>
+    <fmt:message key="mlg" bundle="${rb}"/>
     <br/>
 </c:forEach>
 

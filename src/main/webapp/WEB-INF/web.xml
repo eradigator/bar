@@ -12,13 +12,6 @@
         <location>/WEB-INF/jsp/error/error.jsp</location>
     </error-page>
 
-    <jsp-config>
-        <taglib>
-            <taglib-uri>mytaglib</taglib-uri>
-            <taglib-location>/WEB-INF/tld/mytaglib.tld</taglib-location>
-        </taglib>
-    </jsp-config>
-
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>kz.epam.javalab22.bar.servlet.Controller</servlet-class>

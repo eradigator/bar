@@ -85,7 +85,7 @@
         <c:if test="${not empty amount}">
             <fmt:message key="drinkAmount" bundle="${rb}"/>
             ${amount}
-            <fmt:message key="ml" bundle="${rb}"/>
+            <fmt:message key="mlg" bundle="${rb}"/>
             <br/>
         </c:if>
         <c:if test="${not empty cost}">

@@ -17,11 +17,11 @@
             <input id="nonalco" type="radio" name="filter" value="nonalco" title="">
             <fmt:message key="nonAlco" bundle="${rb}"/><br/>
             <input id="low" type="radio" name="filter" value="low" title="">
-            <fmt:message key="lowAlco" bundle="${rb}"/> 1-10&deg;<br/>
+            <fmt:message key="lowAlco" bundle="${rb}"/> +0-15&deg;<br/>
             <input id="middle" type="radio" name="filter" value="middle" title="">
-            <fmt:message key="middleAlco" bundle="${rb}"/> 10-20&deg;<br/>
+            <fmt:message key="middleAlco" bundle="${rb}"/> 15-30&deg;<br/>
             <input id="strong" type="radio" name="filter" value="strong" title="">
-            <fmt:message key="strongAlco" bundle="${rb}"/> 20&deg;+<br/>
+            <fmt:message key="strongAlco" bundle="${rb}"/> 30&deg;+<br/>
             <br/>
             <input type="hidden" name="cocktailList" value="${cocktailList}">
             <input type="submit" value="<fmt:message key="search" bundle="${rb}"/>">
@@ -88,7 +88,7 @@
                         <c:when test="${locale.toString() eq 'en_US'}">${currentComponent.key.componentName.nameEn}</c:when>
                     </c:choose>
                     ${currentComponent.value}
-                    <fmt:message key="ml" bundle="${rb}"/>
+                    <fmt:message key="mlg" bundle="${rb}"/>
                     <br/>
                 </c:forEach>
             </div>

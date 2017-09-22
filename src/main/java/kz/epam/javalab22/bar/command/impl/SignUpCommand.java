@@ -1,7 +1,6 @@
-package kz.epam.javalab22.bar.command.impl.user;
+package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
-import kz.epam.javalab22.bar.command.impl.page.PageLoginCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.UserDao;
@@ -37,6 +36,9 @@ public class SignUpCommand implements ActionCommand {
             if (new UserDao(connection).create(user)) {
                 log.info(Const.LOG_USER + reqWrapper.getParam(Const.PARAM_LOGIN) +
                         Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
+
+                //get user with id
+                user = new UserDao(connection).getUser(user.getName());
 
                 reqWrapper.addSessionAttribute(Const.ATTR_USER, user);
                 page = new PageMainCommand().execute(reqWrapper);

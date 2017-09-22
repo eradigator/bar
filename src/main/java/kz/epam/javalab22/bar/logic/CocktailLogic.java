@@ -42,7 +42,8 @@ public class CocktailLogic {
 
         Mix mix = new Mix();
         for (int i = Const.N_0; i < components.length; i++) {
-            mix.getMix().put(new Component(Integer.parseInt(components[i])), Integer.parseInt(amounts[i]));
+            Component component = new Component(Integer.parseInt(components[i]));
+            mix.getMix().put(component, Integer.parseInt(amounts[i]));
         }
 
         try {
@@ -65,8 +66,8 @@ public class CocktailLogic {
             boolean isMixWritten = new MixDao(connection).add(mix, cocktail.getId());
 
             //Write Strength
-            double tempStrength = new CalcAlcohol().calcStrength(mix);
-            double strength = new BigDecimal(tempStrength).setScale(3, RoundingMode.UP).doubleValue();
+            double nonRoundedStrength = new CalcAlcohol().calcStrength(mix);
+            double strength = new BigDecimal(nonRoundedStrength).setScale(Const.MATH_ROUND_SCALE_3, RoundingMode.UP).doubleValue();
             boolean isStrengthWritten = new CocktailDao(connection).setStrength(cocktail.getId(), strength);
 
             if (isImageWritten && isCocktailNameWritten && isCocktailWritten
