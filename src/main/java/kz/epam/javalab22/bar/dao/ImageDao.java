@@ -1,7 +1,7 @@
 package kz.epam.javalab22.bar.dao;
 
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.entity.*;
+import kz.epam.javalab22.bar.entity.Image;
 import kz.epam.javalab22.bar.exception.AddImageException;
 import org.apache.log4j.Logger;
 
@@ -14,9 +14,7 @@ import java.sql.*;
 public class ImageDao extends AbstractDao<Image> {
 
     private static final Logger log = Logger.getLogger(ImageDao.class);
-
     private Connection connection;
-
     private static final String SQL_GET_IMAGE = "SELECT bytes FROM image WHERE id=?";
     private static final String SQL_ADD_IMAGE = "INSERT INTO image (bytes) VALUES (?)";
 
@@ -31,34 +29,35 @@ public class ImageDao extends AbstractDao<Image> {
 
     @Override
     public boolean delete(Image entity) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean create(Image entity) {
+
         Boolean success = false;
 
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_ADD_IMAGE, Statement.RETURN_GENERATED_KEYS);
-            statement.setBinaryStream(Const.SQL_PARAM_INDEX_1, entity.getInputStream(), entity.getInputStreamLength());
+        if (entity.getInputStreamLength() < Const.N_1MB) {
+            try {
+                PreparedStatement statement = connection.prepareStatement(SQL_ADD_IMAGE, Statement.RETURN_GENERATED_KEYS);
+                statement.setBinaryStream(Const.SQL_PARAM_INDEX_1, entity.getInputStream(), entity.getInputStreamLength());
 
-            if (statement.executeUpdate() == Const.N_0) {
-                log.info(Const.LOG_EXC_IMG);
-                throw new AddImageException();
-            }
-
-            try (ResultSet resultSet = statement.getGeneratedKeys()) {
-                while (resultSet.next()) {
-                    entity.setId(resultSet.getInt(Const.COLUMN_LABEL_ID));
-                    success = true;
+                if (statement.executeUpdate() == Const.N_0) {
+                    log.info(Const.LOG_EXC_IMG);
+                    throw new AddImageException();
                 }
+
+                try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                    while (resultSet.next()) {
+                        entity.setId(resultSet.getInt(Const.COLUMN_LABEL_ID));
+                        success = true;
+                    }
+                }
+                statement.close();
+
+            } catch (SQLException e) {
+                log.info(Const.LOG_EXC_SQL);
             }
-
-            statement.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            log.info(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -78,7 +77,6 @@ public class ImageDao extends AbstractDao<Image> {
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 

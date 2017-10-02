@@ -11,7 +11,6 @@ import java.util.List;
 public class CocktailNameDao extends AbstractDao<CocktailName> {
 
     private static final Logger log = Logger.getLogger(CocktailNameDao.class);
-
     private Connection connection;
     private static final String SQL_DELETE_BY_ID = "UPDATE cocktail_name AS cn " +
             "SET deleted = TRUE " +
@@ -51,7 +50,6 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -76,7 +74,6 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -97,7 +94,6 @@ public class CocktailNameDao extends AbstractDao<CocktailName> {
                 cocktailNames.add(new CocktailName(id, nameRu, nameEn));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 

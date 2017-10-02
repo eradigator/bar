@@ -12,15 +12,12 @@ import java.util.List;
 public class ComponentNameDao extends AbstractDao<ComponentName> {
 
     private static final Logger log = Logger.getLogger(ComponentNameDao.class);
-
     private Connection connection;
 
     private static final String SQL_DELETE = "UPDATE component_name " +
             "SET deleted = TRUE WHERE id =" +
             "(SELECT name_id FROM component WHERE id=?)";
-
     private static final String SQL_CREATE = "INSERT INTO component_name (en,ru) VALUES (?,?)";
-
     private static final String SQL_GET_LIST = "SELECT c.id,cn.ru AS ru, cn.en AS en " +
             "FROM component c " +
             "INNER JOIN component_name cn ON c.name_id = cn.id " +
@@ -47,7 +44,6 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
                 success = true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -75,7 +71,6 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -96,7 +91,6 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
                 componentNames.add(new ComponentName(componentId, nameRu, nameEn));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 

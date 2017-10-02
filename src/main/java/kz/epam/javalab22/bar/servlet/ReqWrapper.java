@@ -1,12 +1,11 @@
 package kz.epam.javalab22.bar.servlet;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.user.User;
 import org.apache.commons.lang.LocaleUtils;
 
-
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 public class ReqWrapper {
     private Locale locale;
@@ -38,11 +37,11 @@ public class ReqWrapper {
     }
 
     public void addAttribute(String name, Object entity) {
-        request.setAttribute(name,entity);
+        request.setAttribute(name, entity);
     }
 
     public void addSessionAttribute(String name, Object entity) {
-        request.getSession().setAttribute(name,entity);
+        request.getSession().setAttribute(name, entity);
     }
 
     public HttpServletRequest getRequest() {

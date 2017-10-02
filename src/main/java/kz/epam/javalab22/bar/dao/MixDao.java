@@ -16,7 +16,6 @@ import java.util.Map;
 public class MixDao extends AbstractDao<Mix> {
 
     private static final Logger log = Logger.getLogger(MixDao.class);
-
     private Connection connection;
     private static final String SQL_ADD_MIX = "INSERT INTO mix (cocktail_id,component_id,amount) VALUES (?,?,?)";
     private static final String SQL_GET_MIX = "SELECT m.amount, " +
@@ -61,7 +60,6 @@ public class MixDao extends AbstractDao<Mix> {
 
             success = true;
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -88,7 +86,6 @@ public class MixDao extends AbstractDao<Mix> {
                 mix.getMix().put(component, amount);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 

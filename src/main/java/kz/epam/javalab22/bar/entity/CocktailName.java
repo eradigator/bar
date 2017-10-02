@@ -31,15 +31,7 @@ public class CocktailName {
         return nameRu;
     }
 
-    public void setNameRu(String nameRu) {
-        this.nameRu = nameRu;
-    }
-
     public String getNameEn() {
         return nameEn;
-    }
-
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn;
     }
 }

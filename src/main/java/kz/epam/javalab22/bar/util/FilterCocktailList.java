@@ -10,11 +10,11 @@ import kz.epam.javalab22.bar.entity.CocktailList;
 public class FilterCocktailList {
 
     public CocktailList getNonAlco(CocktailList cocktailList) {
-        return getList(cocktailList, Const.ALC_AMOUNT_0,Const.ALC_AMOUNT_0);
+        return getList(cocktailList, Const.ALC_AMOUNT_0, Const.ALC_AMOUNT_0);
     }
 
     public CocktailList getAll(CocktailList cocktailList) {
-        return getList(cocktailList,Const.ALC_AMOUNT_0,Const.ALC_AMOUNT_100);
+        return getList(cocktailList, Const.ALC_AMOUNT_0, Const.ALC_AMOUNT_100);
     }
 
     public CocktailList getLowAlco(CocktailList cocktailList) {

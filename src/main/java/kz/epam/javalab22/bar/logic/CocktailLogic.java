@@ -1,7 +1,10 @@
 package kz.epam.javalab22.bar.logic;
 
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.dao.*;
+import kz.epam.javalab22.bar.dao.CocktailDao;
+import kz.epam.javalab22.bar.dao.CocktailNameDao;
+import kz.epam.javalab22.bar.dao.ImageDao;
+import kz.epam.javalab22.bar.dao.MixDao;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
@@ -30,6 +33,8 @@ public class CocktailLogic {
     }
 
     public boolean addCocktail() {
+
+        boolean success = false;
 
         String nameRu = reqWrapper.getParam(Const.PARAM_NAME_RU);
         String nameEn = reqWrapper.getParam(Const.PARAM_NAME_EN);
@@ -73,6 +78,7 @@ public class CocktailLogic {
             if (isImageWritten && isCocktailNameWritten && isCocktailWritten
                     && isMixWritten && isStrengthWritten) {
                 connection.commit();
+                success = true;
             } else {
                 connection.rollback();
             }
@@ -83,16 +89,14 @@ public class CocktailLogic {
                 assert null != image.getInputStream();
                 image.getInputStream().close();
             } catch (IOException e) {
-                e.printStackTrace();
                 log.info(Const.LOG_EXC_IMG_CLOSE_INPUTSTREAM);
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
-        return true;
+        return success;
     }
 
 
@@ -115,7 +119,6 @@ public class CocktailLogic {
             connection.setAutoCommit(true);
 
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -155,6 +158,5 @@ public class CocktailLogic {
 
         return isSelectedComponentExist;
     }
-
 
 }

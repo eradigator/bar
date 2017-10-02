@@ -8,6 +8,7 @@ import kz.epam.javalab22.bar.logic.CocktailLogic;
 import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 
 public class AddCocktailCommand implements ActionCommand {
@@ -22,6 +23,7 @@ public class AddCocktailCommand implements ActionCommand {
         Connection connection = ConnectionPool.getInstance().getConnection();
 
         CocktailLogic cocktailLogic = new CocktailLogic(reqWrapper, connection);
+        String errorMessage = null;
 
         if (!cocktailLogic.checkForExistence()) {
             if (cocktailLogic.checkSelectedComponent()) {
@@ -31,16 +33,17 @@ public class AddCocktailCommand implements ActionCommand {
                     log.info(Const.LOG_COCKTAIL + Const.DIV_SPACE + reqWrapper.getParam(Const.PARAM_NAME) +
                             Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
                 } else {
-                    String message = messageManager.getProperty(Const.PROP_ERROR);
-                    reqWrapper.addAttribute(Const.ATTR_ERROR, message);
+                    errorMessage = messageManager.getProperty(Const.PROP_ERROR);
                 }
             } else {
-                String message = messageManager.getProperty(Const.PROP_NO_COMPONENT_SELECTED);
-                reqWrapper.addAttribute(Const.ATTR_ERROR, message);
+                errorMessage = messageManager.getProperty(Const.PROP_NO_COMPONENT_SELECTED);
             }
         } else {
-            String message = messageManager.getProperty(Const.PROP_COCKTAIL_EXIST);
-            reqWrapper.addAttribute(Const.ATTR_ERROR, message);
+            errorMessage = messageManager.getProperty(Const.PROP_COCKTAIL_EXIST);
+        }
+
+        if (null != errorMessage) {
+            reqWrapper.addAttribute(Const.ATTR_ERROR, errorMessage);
         }
 
         ConnectionPool.getInstance().returnConnection(connection);

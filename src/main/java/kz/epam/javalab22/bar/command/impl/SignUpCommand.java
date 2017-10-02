@@ -32,12 +32,11 @@ public class SignUpCommand implements ActionCommand {
 
         Connection connection = ConnectionPool.getInstance().getConnection();
 
-        if (!(new UserLogic(reqWrapper,connection).checkForExistence(user))) {
+        if (!(new UserLogic(reqWrapper, connection).checkForExistence(user))) {
             if (new UserDao(connection).create(user)) {
                 log.info(Const.LOG_USER + reqWrapper.getParam(Const.PARAM_LOGIN) +
                         Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
 
-                //get user with id
                 user = new UserDao(connection).getUser(user.getName());
 
                 reqWrapper.addSessionAttribute(Const.ATTR_USER, user);

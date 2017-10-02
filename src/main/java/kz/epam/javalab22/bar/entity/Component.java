@@ -61,16 +61,8 @@ public class Component {
         return strength;
     }
 
-    public void setStrength(double strength) {
-        this.strength = strength;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public ComponentName getComponentName() {
@@ -83,9 +75,5 @@ public class Component {
 
     public ComponentType getComponentType() {
         return componentType;
-    }
-
-    public void setComponentType(ComponentType componentType) {
-        this.componentType = componentType;
     }
 }

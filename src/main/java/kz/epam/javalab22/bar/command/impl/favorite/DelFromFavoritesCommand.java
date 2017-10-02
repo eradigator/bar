@@ -7,6 +7,7 @@ import kz.epam.javalab22.bar.dao.FavoriteDao;
 import kz.epam.javalab22.bar.entity.Favorite;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
+
 import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
@@ -28,5 +29,4 @@ public class DelFromFavoritesCommand implements ActionCommand {
 
         return ConfigurationManager.getProperty(Const.PAGE_REFFERER);
     }
-
 }

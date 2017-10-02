@@ -16,7 +16,6 @@ public class ComponentTypeDao extends AbstractDao {
 
     private static final Logger log = Logger.getLogger(ComponentTypeDao.class);
     private Connection connection;
-
     private static final String SQL_GET_LIST = "SELECT * FROM component_type ORDER BY id";
 
     public ComponentTypeDao(Connection connection) {
@@ -52,7 +51,6 @@ public class ComponentTypeDao extends AbstractDao {
                 componentTypes.add(new ComponentType(id,nameRu,nameEn));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 

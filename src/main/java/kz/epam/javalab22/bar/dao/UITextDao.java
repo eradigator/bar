@@ -28,7 +28,7 @@ public class UITextDao extends AbstractDao<UIText> {
 
     @Override
     public boolean delete(UIText entity) {
-       throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -40,16 +40,15 @@ public class UITextDao extends AbstractDao<UIText> {
 
         UIText uiText = new UIText();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_UI_TEXT)){
-            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1,id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_UI_TEXT)) {
+            preparedStatement.setInt(Const.SQL_PARAM_INDEX_1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String textRu = resultSet.getString(Const.COLUMN_LABEL_TEXT_RU);
                 String textEn = resultSet.getString(Const.COLUMN_LABEL_TEXT_EN);
-                uiText = new UIText(id,textRu,textEn);
+                uiText = new UIText(id, textRu, textEn);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 

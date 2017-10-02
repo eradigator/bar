@@ -1,7 +1,8 @@
 package kz.epam.javalab22.bar.command.factory;
 
-import kz.epam.javalab22.bar.command.CommandEnum;
+import kz.epam.javalab22.bar.command.Command;
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.CommandProvider;
 import kz.epam.javalab22.bar.command.impl.EmptyCommand;
 import kz.epam.javalab22.bar.constant.Const;
 import org.apache.log4j.Logger;
@@ -17,11 +18,11 @@ public class ActionFactory {
         String action = request.getParameter(Const.PARAM_COMMAND);
         ActionCommand actionCommand = new EmptyCommand();
 
-        if (!(action == null || action.isEmpty())) {
+        if (!(null == action || action.isEmpty())) {
 
             try {
-                CommandEnum commandEnum = CommandEnum.valueOf(action.toUpperCase());
-                actionCommand = commandEnum.getCurrentCommand();
+                Command command = new CommandProvider();
+                actionCommand = command.getCurrentCommand(action);
             } catch (IllegalArgumentException e) {
                 log.info(Const.LOG_WRONG_ACTION);
             }

@@ -15,7 +15,6 @@ import java.util.List;
 public class GlassDao extends AbstractDao<Glass> {
 
     private static final Logger log = Logger.getLogger(GlassDao.class);
-
     private Connection connection;
     private static final String SQL_GET_LIST = "SELECT * FROM glass ORDER BY id";
 
@@ -42,7 +41,7 @@ public class GlassDao extends AbstractDao<Glass> {
 
         List<Glass> glasses = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_LIST)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_LIST)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -52,7 +51,6 @@ public class GlassDao extends AbstractDao<Glass> {
                 glasses.add(new Glass(id, nameRu, nameEn));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 

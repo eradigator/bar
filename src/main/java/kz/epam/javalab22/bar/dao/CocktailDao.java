@@ -11,7 +11,6 @@ import java.util.List;
 public class CocktailDao extends AbstractDao<Cocktail> {
 
     private static final Logger log = Logger.getLogger(CocktailDao.class);
-
     private Connection connection;
 
     private static final String SQL_DELETE = "UPDATE cocktail SET deleted = TRUE WHERE id = ?";
@@ -35,7 +34,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             "AND c.deleted IS NOT TRUE " +
             "AND c.id=?";
 
-
     private static final String SQL_GET_COCKTAIL_LIST = "SELECT c.id,c.image_id," +
             "cn.id AS cocktailNameId, " +
             "cn.name_ru AS cocktailNameNameRu, " +
@@ -54,7 +52,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             "AND c.deleted IS NOT TRUE";
 
     private static final String SQL_SET_STRENGTH = "UPDATE cocktail SET strength=? WHERE id=?";
-
 
     public CocktailDao(Connection connection) {
         this.connection = connection;
@@ -79,7 +76,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 success = true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -106,7 +102,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -153,7 +148,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 cocktail = new Cocktail(cocktailId, cocktailName, mix, method, glass, strength, imageId);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -201,7 +195,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 cocktailList.add(new Cocktail(id, cocktailName, mix, method, glass, strength, imageId));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -220,7 +213,6 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 success = true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
