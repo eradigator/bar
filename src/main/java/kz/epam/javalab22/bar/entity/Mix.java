@@ -13,8 +13,4 @@ public class Mix {
     public Map<Component, Integer> getMix() {
         return mix;
     }
-
-    public void setMix(Map<Component, Integer> mix) {
-        this.mix = mix;
-    }
 }

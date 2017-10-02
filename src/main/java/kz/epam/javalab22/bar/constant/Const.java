@@ -6,7 +6,7 @@ package kz.epam.javalab22.bar.constant;
 public final class Const {
 
     /*Dividers*/
-    public static final String DIV_SPACE=" ";
+    public static final String DIV_SPACE = " ";
 
     /*Alcohol Amount*/
     public static final double ALC_AMOUNT_0 = 0;
@@ -65,7 +65,7 @@ public final class Const {
     public static final String LOG_EMPTY_COMMAND = "Empty Command";
     public static final String LOG_COCKTAIL = "cocktail";
     public static final String LOG_HAS_BEEN_ADDED = "has been added";
-    public static final String LOG_HAS_BEEN_DELETED= "has been deleted";
+    public static final String LOG_HAS_BEEN_DELETED = "has been deleted";
     public static final String LOG_COMPONENT = "component";
     public static final String LOG_USER = "user";
     public static final String LOG_LOGGED_OUT = "has logged out";
@@ -83,6 +83,7 @@ public final class Const {
     /*Numbers*/
     public static final int N_0 = 0;
     public static final int N_100 = 100;
+    public static final long N_1MB = 1048576;
 
     /*Math*/
     public static final int MATH_ROUND_SCALE_3 = 3;
@@ -117,7 +118,6 @@ public final class Const {
     public static final String PARAM_SORT = "sort";
 
 
-
     /*Property names*/
     public static final String PROP_UI_TEXT_FOR_ALCOHOLIC_PAGE = "uiTextIdForAlcoholicPage";
     public static final String PROP_UI_TEXT_FOR_MAIN_PAGE = "uiTextIdForMainPage";
@@ -127,6 +127,7 @@ public final class Const {
     public static final String PROP_ERROR = "error";
     public static final String PROP_USER_DELETED = "userDeleted";
     public static final String PROP_NO_COMPONENT_SELECTED = "noComponentSelected";
+    public static final String PROP_TOO_BIG_IMAGE_SIZE = "tooBigImageSize";
     public static final String PROP_COMPONENT_ADDED = "componentAdded";
     public static final String PROP_COMPONENT_DELETED = "componentDeleted";
     public static final String PROP_COMPONENT_EXIST = "componentExist";
@@ -134,6 +135,7 @@ public final class Const {
     public static final String PROP_COCKTAIL_DELETED = "cocktailDeleted";
     public static final String PROP_COCKTAIL_EXIST = "cocktailExist";
     public static final String PROP_REGISTRATION_NEEDED = "registrationNeeded";
+
 
     /*Parameter Values*/
     public static final String VAL_MAIN = "main";

@@ -9,7 +9,6 @@ import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 
 public class DelUserCommand implements ActionCommand {
@@ -23,7 +22,7 @@ public class DelUserCommand implements ActionCommand {
 
         Connection connection = ConnectionPool.getInstance().getConnection();
 
-        if (new UserLogic(reqWrapper,connection).delUser()) {
+        if (new UserLogic(reqWrapper, connection).delUser()) {
             reqWrapper.addAttribute(Const.ATTR_DEL_USER_RESULT, messageManager.getProperty(Const.PROP_USER_DELETED));
             log.info(Const.LOG_USER + Const.DIV_SPACE +
                     reqWrapper.getParam(Const.PARAM_CHECKED_NAME) + Const.LOG_HAS_BEEN_DELETED);

@@ -28,15 +28,7 @@ public class Image {
         return inputStream;
     }
 
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
-
     public long getInputStreamLength() {
         return inputStreamLength;
-    }
-
-    public void setInputStreamLength(int inputStreamLength) {
-        this.inputStreamLength = inputStreamLength;
     }
 }

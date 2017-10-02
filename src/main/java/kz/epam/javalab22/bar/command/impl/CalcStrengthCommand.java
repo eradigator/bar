@@ -7,7 +7,6 @@ import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public class CalcStrengthCommand implements ActionCommand {
         } else {
             MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
             String message = messageManager.getProperty(Const.PROP_NO_COMPONENT_SELECTED);
-            reqWrapper.addAttribute(Const.ATTR_ERROR,message);
+            reqWrapper.addAttribute(Const.ATTR_ERROR, message);
         }
 
         return new PageCalcCommand().execute(reqWrapper);

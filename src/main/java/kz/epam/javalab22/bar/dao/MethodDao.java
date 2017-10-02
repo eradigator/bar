@@ -15,9 +15,7 @@ import java.util.List;
 public class MethodDao extends AbstractDao<Method> {
 
     private static final Logger log = Logger.getLogger(MethodDao.class);
-
     private Connection connection;
-
     private static final String SQL_GET_LIST = "SELECT * FROM build_method ORDER BY id";
 
     public MethodDao(Connection connection) {
@@ -53,7 +51,6 @@ public class MethodDao extends AbstractDao<Method> {
                 methods.add(new Method(id, nameRu, nameEn));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 

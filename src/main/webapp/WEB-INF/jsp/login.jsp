@@ -40,7 +40,7 @@
 
             <p>
                 <fmt:message key="enterLogin" bundle="${ rb }"/><br/>
-                <input type="text" name="login" value="" required title=""/>
+                <input name="login" value="" required title=""/>
             </p>
 
             <p>

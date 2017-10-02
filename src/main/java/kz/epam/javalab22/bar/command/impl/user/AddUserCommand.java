@@ -11,7 +11,6 @@ import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 
 public class AddUserCommand implements ActionCommand {

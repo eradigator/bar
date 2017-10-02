@@ -13,15 +13,12 @@ import java.util.List;
 public class UserDao extends AbstractDao<User> {
 
     private static final Logger log = Logger.getLogger(UserDao.class);
-
     private Connection connection;
-
     private static final String SQL_GET_USER = "SELECT * FROM users WHERE NAME=? AND deleted IS NOT TRUE";
     private static final String SQL_CREATE = "INSERT INTO users (name,password,email,role) VALUES(?,?,?,?)";
     private static final String SQL_GET_PASS = "SELECT * FROM users WHERE NAME=? AND deleted IS NOT TRUE";
     private static final String SQL_DELETE = "UPDATE users SET deleted = TRUE WHERE name=?";
     private static final String SQL_GET_LIST = "SELECT * FROM users WHERE deleted IS NOT TRUE";
-
 
     public UserDao(Connection connection) {
         this.connection = connection;
@@ -44,7 +41,6 @@ public class UserDao extends AbstractDao<User> {
                 success = true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -66,7 +62,6 @@ public class UserDao extends AbstractDao<User> {
                 user = new User(id, login, password, email, role);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -88,7 +83,6 @@ public class UserDao extends AbstractDao<User> {
                 success = true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -106,7 +100,6 @@ public class UserDao extends AbstractDao<User> {
                 password = resultSet.getString(Const.COLUMN_LABEL_PASSWORD);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 
@@ -127,7 +120,6 @@ public class UserDao extends AbstractDao<User> {
                 userList.add(new User(name, email, role));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_SQL);
         }
 

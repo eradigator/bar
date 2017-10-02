@@ -21,10 +21,6 @@ public class CocktailList {
         return cocktailList;
     }
 
-    public void setCocktailList(List<Cocktail> cocktailList) {
-        this.cocktailList = cocktailList;
-    }
-
     public int getSize() {
         return cocktailList.size();
     }

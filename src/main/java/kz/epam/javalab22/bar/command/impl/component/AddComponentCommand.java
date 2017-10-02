@@ -7,6 +7,7 @@ import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.logic.ComponentLogic;
 import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
+
 import java.sql.Connection;
 
 public class AddComponentCommand implements ActionCommand {
@@ -17,7 +18,7 @@ public class AddComponentCommand implements ActionCommand {
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
         Connection connection = ConnectionPool.getInstance().getConnection();
-        ComponentLogic componentLogic = new ComponentLogic(reqWrapper,connection);
+        ComponentLogic componentLogic = new ComponentLogic(reqWrapper, connection);
 
         if (!componentLogic.checkForExistence()) {
             if (componentLogic.addComponent()) {

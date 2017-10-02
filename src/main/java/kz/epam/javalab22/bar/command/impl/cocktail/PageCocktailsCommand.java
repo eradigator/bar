@@ -29,7 +29,7 @@ public class PageCocktailsCommand implements ActionCommand {
 
         CocktailList cocktailList = new CocktailList(new CocktailDao(connection).getCocktailsList());
         CocktailList filteredCocktailList = filterCocktailList(reqWrapper, cocktailList);
-        sortCocktailList(reqWrapper,filteredCocktailList);
+        sortCocktailList(reqWrapper, filteredCocktailList);
         UIText uiText = getUIText(connection);
         fillFavorite(reqWrapper, connection, filteredCocktailList);
 

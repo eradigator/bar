@@ -10,6 +10,7 @@ import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.UserCheck;
 import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.util.List;
 
@@ -35,9 +36,8 @@ public class PageUserManagerCommand implements ActionCommand {
             try {
                 throw new ForbiddenPageException();
             } catch (ForbiddenPageException e) {
-                e.printStackTrace();
+                log.info(Const.LOG_FORBIDDEN_PAGE);
             }
-            log.info(Const.LOG_FORBIDDEN_PAGE);
         }
 
         return page;

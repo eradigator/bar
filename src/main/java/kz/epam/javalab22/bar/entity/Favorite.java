@@ -23,15 +23,7 @@ public class Favorite {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public List<Integer> getCocktailIds() {
         return cocktailIds;
-    }
-
-    public void setCocktailIds(List<Integer> cocktailIds) {
-        this.cocktailIds = cocktailIds;
     }
 }

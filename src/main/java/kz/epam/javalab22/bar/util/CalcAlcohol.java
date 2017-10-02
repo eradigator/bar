@@ -1,10 +1,10 @@
 package kz.epam.javalab22.bar.util;
 
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.ComponentDao;
 import kz.epam.javalab22.bar.entity.Component;
 import kz.epam.javalab22.bar.entity.Mix;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 
 import java.sql.Connection;
 import java.util.Map;

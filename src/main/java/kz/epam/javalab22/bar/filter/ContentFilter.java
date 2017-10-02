@@ -1,6 +1,7 @@
 package kz.epam.javalab22.bar.filter;
 
 import kz.epam.javalab22.bar.constant.Const;
+
 import javax.servlet.*;
 import java.io.IOException;
 
@@ -16,7 +17,7 @@ public class ContentFilter implements Filter {
             throws IOException, ServletException {
 
         if (null == servletRequest.getAttribute(Const.ATTR_CONTENT)) {
-            servletRequest.setAttribute(Const.ATTR_CONTENT,Const.VAL_MAIN);
+            servletRequest.setAttribute(Const.ATTR_CONTENT, Const.VAL_MAIN);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
