@@ -14,7 +14,7 @@ public class EmptyCommand implements ActionCommand {
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
-        log.info(Const.LOG_EMPTY_COMMAND);
+        log.warn(Const.LOG_EMPTY_COMMAND);
         reqWrapper.addAttribute(Const.ATTR_CONTENT, Const.VAL_MAIN);
         return new PageMainCommand().execute(reqWrapper);
     }

@@ -44,7 +44,7 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
                 success = true;
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -71,7 +71,7 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
             }
 
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -81,7 +81,7 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
 
         List<ComponentName> componentNames = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_LIST)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_LIST)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -91,7 +91,7 @@ public class ComponentNameDao extends AbstractDao<ComponentName> {
                 componentNames.add(new ComponentName(componentId, nameRu, nameEn));
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return componentNames;

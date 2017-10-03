@@ -76,7 +76,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 success = true;
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -102,7 +102,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
             }
 
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -148,7 +148,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 cocktail = new Cocktail(cocktailId, cocktailName, mix, method, glass, strength, imageId);
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return cocktail;
@@ -195,7 +195,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 cocktailList.add(new Cocktail(id, cocktailName, mix, method, glass, strength, imageId));
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return cocktailList;
@@ -213,7 +213,7 @@ public class CocktailDao extends AbstractDao<Cocktail> {
                 success = true;
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;

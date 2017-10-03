@@ -36,7 +36,7 @@ public class PageUserManagerCommand implements ActionCommand {
             try {
                 throw new ForbiddenPageException();
             } catch (ForbiddenPageException e) {
-                log.info(Const.LOG_FORBIDDEN_PAGE);
+                log.warn(Const.LOG_FORBIDDEN_PAGE);
             }
         }
 

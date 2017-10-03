@@ -4,6 +4,7 @@ import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.Connection;
 import java.util.List;
@@ -40,6 +41,15 @@ public class UserLogic {
         }
 
         return isUserExist;
+    }
+
+    public boolean checkLogin() {
+
+        String login = reqWrapper.getParam(Const.PARAM_LOGIN);
+        String pass = reqWrapper.getParam(Const.PARAM_PASSWORD);
+
+        String password = new UserDao(connection).getPass(login);
+        return (DigestUtils.md5Hex(pass).equals(password));
     }
 
 }

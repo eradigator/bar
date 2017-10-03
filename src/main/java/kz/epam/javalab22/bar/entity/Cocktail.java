@@ -31,7 +31,7 @@ public class Cocktail {
     }
 
     public Cocktail(int id, CocktailName cocktailName, Mix mix, Method method, Glass glass, double strength, int imageId) {
-        this.id=id;
+        this.id = id;
         this.cocktailName = cocktailName;
         this.method = method;
         this.glass = glass;

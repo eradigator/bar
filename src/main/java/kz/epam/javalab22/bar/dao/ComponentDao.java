@@ -6,7 +6,10 @@ import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.entity.ComponentType;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +53,7 @@ public class ComponentDao extends AbstractDao<Component> {
                 success = true;
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -69,7 +72,7 @@ public class ComponentDao extends AbstractDao<Component> {
             preparedStatement.execute();
             success = true;
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -88,7 +91,7 @@ public class ComponentDao extends AbstractDao<Component> {
                 price = resultSet.getDouble(Const.COLUMN_LABEL_PRICE);
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return new Component(id, strength, price);
@@ -115,7 +118,7 @@ public class ComponentDao extends AbstractDao<Component> {
                 componentList.add(new Component(id, componentName, componentType));
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return componentList;

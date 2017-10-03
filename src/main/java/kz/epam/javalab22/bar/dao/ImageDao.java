@@ -37,27 +37,25 @@ public class ImageDao extends AbstractDao<Image> {
 
         Boolean success = false;
 
-        if (entity.getInputStreamLength() < Const.N_1MB) {
-            try {
-                PreparedStatement statement = connection.prepareStatement(SQL_ADD_IMAGE, Statement.RETURN_GENERATED_KEYS);
-                statement.setBinaryStream(Const.SQL_PARAM_INDEX_1, entity.getInputStream(), entity.getInputStreamLength());
+        try {
+            PreparedStatement statement = connection.prepareStatement(SQL_ADD_IMAGE, Statement.RETURN_GENERATED_KEYS);
+            statement.setBinaryStream(Const.SQL_PARAM_INDEX_1, entity.getInputStream(), entity.getInputStreamLength());
 
-                if (statement.executeUpdate() == Const.N_0) {
-                    log.info(Const.LOG_EXC_IMG);
-                    throw new AddImageException();
-                }
-
-                try (ResultSet resultSet = statement.getGeneratedKeys()) {
-                    while (resultSet.next()) {
-                        entity.setId(resultSet.getInt(Const.COLUMN_LABEL_ID));
-                        success = true;
-                    }
-                }
-                statement.close();
-
-            } catch (SQLException e) {
-                log.info(Const.LOG_EXC_SQL);
+            if (statement.executeUpdate() == Const.N_0) {
+                log.info(Const.LOG_EXC_IMG);
+                throw new AddImageException();
             }
+
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                while (resultSet.next()) {
+                    entity.setId(resultSet.getInt(Const.COLUMN_LABEL_ID));
+                    success = true;
+                }
+            }
+            statement.close();
+
+        } catch (SQLException e) {
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -77,7 +75,7 @@ public class ImageDao extends AbstractDao<Image> {
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return bytes;

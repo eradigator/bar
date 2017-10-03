@@ -19,7 +19,6 @@ public class DelComponentCommand implements ActionCommand {
     public String execute(ReqWrapper reqWrapper) {
 
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
-
         Connection connection = ConnectionPool.getInstance().getConnection();
 
         if (new ComponentLogic(reqWrapper, connection).delComponent()) {
@@ -34,7 +33,6 @@ public class DelComponentCommand implements ActionCommand {
         }
 
         ConnectionPool.getInstance().returnConnection(connection);
-
         return new PageComponentManagerCommand().execute(reqWrapper);
     }
 

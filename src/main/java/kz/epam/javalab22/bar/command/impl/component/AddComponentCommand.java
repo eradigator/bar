@@ -16,25 +16,18 @@ public class AddComponentCommand implements ActionCommand {
     public String execute(ReqWrapper reqWrapper) {
 
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
-
         Connection connection = ConnectionPool.getInstance().getConnection();
         ComponentLogic componentLogic = new ComponentLogic(reqWrapper, connection);
 
-        if (!componentLogic.checkForExistence()) {
-            if (componentLogic.addComponent()) {
-                String message = messageManager.getProperty(Const.PROP_COMPONENT_ADDED);
-                reqWrapper.addAttribute(Const.ATTR_RESULT, message);
-            } else {
-                String message = messageManager.getProperty(Const.PROP_ERROR);
-                reqWrapper.addAttribute(Const.ATTR_ERROR, message);
-            }
+        if (componentLogic.addComponent()) {
+            String message = messageManager.getProperty(Const.PROP_COMPONENT_ADDED);
+            reqWrapper.addAttribute(Const.ATTR_RESULT, message);
         } else {
-            String message = messageManager.getProperty(Const.PROP_COMPONENT_EXIST);
+            String message = messageManager.getProperty(Const.PROP_ERROR);
             reqWrapper.addAttribute(Const.ATTR_ERROR, message);
         }
 
         ConnectionPool.getInstance().returnConnection(connection);
-
         return new PageComponentManagerCommand().execute(reqWrapper);
     }
 

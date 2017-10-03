@@ -41,7 +41,7 @@ public class UserDao extends AbstractDao<User> {
                 success = true;
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -62,7 +62,7 @@ public class UserDao extends AbstractDao<User> {
                 user = new User(id, login, password, email, role);
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return user;
@@ -83,7 +83,7 @@ public class UserDao extends AbstractDao<User> {
                 success = true;
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -100,7 +100,7 @@ public class UserDao extends AbstractDao<User> {
                 password = resultSet.getString(Const.COLUMN_LABEL_PASSWORD);
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return password;
@@ -120,7 +120,7 @@ public class UserDao extends AbstractDao<User> {
                 userList.add(new User(name, email, role));
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return userList;

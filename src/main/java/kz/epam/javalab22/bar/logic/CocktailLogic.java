@@ -6,6 +6,7 @@ import kz.epam.javalab22.bar.dao.CocktailNameDao;
 import kz.epam.javalab22.bar.dao.ImageDao;
 import kz.epam.javalab22.bar.dao.MixDao;
 import kz.epam.javalab22.bar.entity.*;
+import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
 import org.apache.log4j.Logger;
@@ -26,10 +27,12 @@ public class CocktailLogic {
 
     private ReqWrapper reqWrapper;
     private Connection connection;
+    private MessageManager messageManager;
 
     public CocktailLogic(ReqWrapper reqWrapper, Connection connection) {
         this.reqWrapper = reqWrapper;
         this.connection = connection;
+        messageManager = new MessageManager(reqWrapper.getLocale());
     }
 
     public boolean addCocktail() {
@@ -43,7 +46,6 @@ public class CocktailLogic {
         Glass glass = new Glass(Integer.parseInt(reqWrapper.getParam(Const.PARAM_GLASS)));
         String[] components = reqWrapper.getParams(Const.PARAM_INGREDIENT);
         String[] amounts = reqWrapper.getParams(Const.PARAM_AMOUNT_OF_INGREDIENT);
-
 
         Mix mix = new Mix();
         for (int i = Const.N_0; i < components.length; i++) {
@@ -89,16 +91,15 @@ public class CocktailLogic {
                 assert null != image.getInputStream();
                 image.getInputStream().close();
             } catch (IOException e) {
-                log.info(Const.LOG_EXC_IMG_CLOSE_INPUTSTREAM);
+                log.error(Const.LOG_EXC_IMG_CLOSE_INPUTSTREAM);
             }
 
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
     }
-
 
     public boolean deleteCocktail() {
 
@@ -119,13 +120,36 @@ public class CocktailLogic {
             connection.setAutoCommit(true);
 
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return result;
     }
 
-    public boolean checkForExistence() {
+    public boolean validate() {
+
+        boolean isEverythingOk = false;
+
+        String errorMessage = Const.STR_EMPTY;
+
+        if (checkForExistence()) {
+            errorMessage = messageManager.getProperty(Const.PROP_COCKTAIL_EXIST);
+        } else if (!checkSelectedComponent()) {
+            errorMessage = messageManager.getProperty(Const.PROP_NO_COMPONENT_SELECTED);
+        } else if (!checkImageSizeAcceptable()) {
+            errorMessage = messageManager.getProperty(Const.PROP_TOO_BIG_IMAGE_SIZE);
+        } else {
+            isEverythingOk = true;
+        }
+
+        if (!errorMessage.isEmpty()) {
+            reqWrapper.addAttribute(Const.ATTR_ERROR, errorMessage);
+        }
+
+        return isEverythingOk;
+    }
+
+    private boolean checkForExistence() {
 
         boolean isCocktailNameExist = false;
 
@@ -145,7 +169,7 @@ public class CocktailLogic {
         return isCocktailNameExist;
     }
 
-    public boolean checkSelectedComponent() {
+    private boolean checkSelectedComponent() {
 
         boolean isSelectedComponentExist = true;
 
@@ -158,5 +182,12 @@ public class CocktailLogic {
 
         return isSelectedComponentExist;
     }
+
+    private boolean checkImageSizeAcceptable() {
+        ImageLogic imageLogic = new ImageLogic(reqWrapper);
+        Image image = imageLogic.getImage();
+        return image.getInputStreamLength() < Const.N_1MB;
+    }
+
 
 }
