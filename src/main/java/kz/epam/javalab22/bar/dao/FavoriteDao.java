@@ -44,7 +44,7 @@ public class FavoriteDao extends AbstractDao<Favorite> {
                 success = true;
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -63,7 +63,7 @@ public class FavoriteDao extends AbstractDao<Favorite> {
                 success = true;
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -82,7 +82,7 @@ public class FavoriteDao extends AbstractDao<Favorite> {
                 favorite.getCocktailIds().add(cocktailId);
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return favorite;

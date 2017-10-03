@@ -24,7 +24,7 @@ public class ActionFactory {
                 Command command = new CommandProvider();
                 actionCommand = command.getCurrentCommand(action);
             } catch (IllegalArgumentException e) {
-                log.info(Const.LOG_WRONG_ACTION);
+                log.warn(Const.LOG_WRONG_ACTION);
             }
         }
 

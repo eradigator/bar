@@ -6,7 +6,10 @@ import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.entity.Mix;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 
 /**
@@ -60,7 +63,7 @@ public class MixDao extends AbstractDao<Mix> {
 
             success = true;
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return success;
@@ -86,7 +89,7 @@ public class MixDao extends AbstractDao<Mix> {
                 mix.getMix().put(component, amount);
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return mix;

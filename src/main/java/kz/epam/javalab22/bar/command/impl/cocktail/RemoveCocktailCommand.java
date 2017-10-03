@@ -19,7 +19,6 @@ public class RemoveCocktailCommand implements ActionCommand {
     public String execute(ReqWrapper reqWrapper) {
 
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
-
         Connection connection = ConnectionPool.getInstance().getConnection();
 
         if (new CocktailLogic(reqWrapper, connection).deleteCocktail()) {

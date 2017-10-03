@@ -4,7 +4,10 @@ import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.UIText;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author vten
@@ -49,7 +52,7 @@ public class UITextDao extends AbstractDao<UIText> {
                 uiText = new UIText(id, textRu, textEn);
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return uiText;

@@ -46,7 +46,6 @@ public class ConnectionPool {
                     resourceBundle.getString("pass"));
             return connection;
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
             log.info(Const.LOG_EXC_CREATE_NEW_CONNECTION);
         }
         return null;
@@ -58,7 +57,7 @@ public class ConnectionPool {
             try {
                 connection = connections.take();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error(Const.LOG_INTERRUPTED_EXC);
             }
             return connection;
         } else {
@@ -79,8 +78,7 @@ public class ConnectionPool {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
-                log.info(Const.LOG_EXC_CLOSE_CONNECTION);
+                log.warn(Const.LOG_EXC_CLOSE_CONNECTION);
             }
         }
         connections.clear();

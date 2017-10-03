@@ -4,7 +4,10 @@ import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Method;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +54,7 @@ public class MethodDao extends AbstractDao<Method> {
                 methods.add(new Method(id, nameRu, nameEn));
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return methods;

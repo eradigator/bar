@@ -4,7 +4,10 @@ import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.entity.Glass;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +54,7 @@ public class GlassDao extends AbstractDao<Glass> {
                 glasses.add(new Glass(id, nameRu, nameEn));
             }
         } catch (SQLException e) {
-            log.info(Const.LOG_EXC_SQL);
+            log.error(Const.LOG_EXC_SQL);
         }
 
         return glasses;

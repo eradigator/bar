@@ -16,7 +16,6 @@ import java.io.InputStream;
 public class ImageLogic {
 
     private static final Logger log = Logger.getLogger(ImageLogic.class);
-
     private ReqWrapper reqWrapper;
 
     public ImageLogic(ReqWrapper reqWrapper) {
@@ -37,7 +36,7 @@ public class ImageLogic {
             }
 
         } catch (IOException | ServletException e) {
-            log.info(Const.LOG_EXC_GET_FILE_PART);
+            log.error(Const.LOG_EXC_GET_FILE_PART);
         }
 
         return new Image(inputStream, length);

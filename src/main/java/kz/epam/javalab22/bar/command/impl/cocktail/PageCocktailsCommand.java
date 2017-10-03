@@ -1,6 +1,7 @@
 package kz.epam.javalab22.bar.command.impl.cocktail;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.CocktailDao;
 import kz.epam.javalab22.bar.dao.FavoriteDao;
@@ -11,7 +12,6 @@ import kz.epam.javalab22.bar.entity.Favorite;
 import kz.epam.javalab22.bar.entity.UIText;
 import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.FilterCocktailList;
 import kz.epam.javalab22.bar.util.SortCocktailListByNameEn;

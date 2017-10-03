@@ -44,7 +44,7 @@ public class PageCocktailManagerCommand implements ActionCommand {
             page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
 
         } else {
-            log.info(Const.LOG_FORBIDDEN_PAGE);
+            log.warn(Const.LOG_FORBIDDEN_PAGE);
         }
 
         return page;

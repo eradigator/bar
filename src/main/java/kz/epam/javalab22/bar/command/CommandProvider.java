@@ -15,9 +15,7 @@ import kz.epam.javalab22.bar.command.impl.user.DelUserCommand;
 
 import static kz.epam.javalab22.bar.constant.CommandName.*;
 
-
 public class CommandProvider implements Command {
-
     private ActionCommand command = new EmptyCommand();
 
     @Override

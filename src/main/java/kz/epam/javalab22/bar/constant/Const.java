@@ -78,12 +78,14 @@ public final class Const {
     public static final String LOG_EXC_IMG = "add image exception";
     public static final String LOG_EXC_IMG_CLOSE_INPUTSTREAM = "close image inputstream exception";
     public static final String LOG_EXC_GET_FILE_PART = "image get file part exception";
+    public static final String LOG_INTERRUPTED_EXC = "interrupted exception";
 
 
     /*Numbers*/
     public static final int N_0 = 0;
     public static final int N_100 = 100;
     public static final long N_1MB = 1048576;
+    public static final long N_10MB = 10485760;
 
     /*Math*/
     public static final int MATH_ROUND_SCALE_3 = 3;

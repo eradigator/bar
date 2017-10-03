@@ -19,35 +19,22 @@ public class AddCocktailCommand implements ActionCommand {
     public String execute(ReqWrapper reqWrapper) {
 
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
-
         Connection connection = ConnectionPool.getInstance().getConnection();
-
         CocktailLogic cocktailLogic = new CocktailLogic(reqWrapper, connection);
-        String errorMessage = null;
 
-        if (!cocktailLogic.checkForExistence()) {
-            if (cocktailLogic.checkSelectedComponent()) {
-                if (cocktailLogic.addCocktail()) {
-                    String message = messageManager.getProperty(Const.PROP_COCKTAIL_ADDED);
-                    reqWrapper.addAttribute(Const.ATTR_ADD_COCKTAIL_RESULT, message);
-                    log.info(Const.LOG_COCKTAIL + Const.DIV_SPACE + reqWrapper.getParam(Const.PARAM_NAME) +
-                            Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
-                } else {
-                    errorMessage = messageManager.getProperty(Const.PROP_ERROR);
-                }
+        if (cocktailLogic.validate()) {
+            if (cocktailLogic.addCocktail()) {
+                String message = messageManager.getProperty(Const.PROP_COCKTAIL_ADDED);
+                reqWrapper.addAttribute(Const.ATTR_ADD_COCKTAIL_RESULT, message);
+                log.info(Const.LOG_COCKTAIL + Const.DIV_SPACE + reqWrapper.getParam(Const.PARAM_NAME) +
+                        Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
             } else {
-                errorMessage = messageManager.getProperty(Const.PROP_NO_COMPONENT_SELECTED);
+                String errorMessage = messageManager.getProperty(Const.PROP_ERROR);
+                reqWrapper.addAttribute(Const.ATTR_ERROR, errorMessage);
             }
-        } else {
-            errorMessage = messageManager.getProperty(Const.PROP_COCKTAIL_EXIST);
-        }
-
-        if (null != errorMessage) {
-            reqWrapper.addAttribute(Const.ATTR_ERROR, errorMessage);
         }
 
         ConnectionPool.getInstance().returnConnection(connection);
-
         return new PageCocktailManagerCommand().execute(reqWrapper);
     }
 
