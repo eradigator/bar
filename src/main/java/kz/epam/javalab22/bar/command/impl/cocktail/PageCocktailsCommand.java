@@ -22,28 +22,31 @@ import java.sql.Connection;
 
 public class PageCocktailsCommand implements ActionCommand {
 
+    private ReqWrapper reqWrapper;
+    private Connection connection;
+
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
-        Connection connection = ConnectionPool.getInstance().getConnection();
+        this.reqWrapper = reqWrapper;
+        connection = ConnectionPool.getInstance().getConnection();
 
         CocktailList cocktailList = new CocktailList(new CocktailDao(connection).getCocktailsList());
-        CocktailList filteredCocktailList = filterCocktailList(reqWrapper, cocktailList);
-        sortCocktailList(reqWrapper, filteredCocktailList);
-        UIText uiText = getUIText(connection);
-        fillFavorite(reqWrapper, connection, filteredCocktailList);
+        CocktailList filteredCocktailList = filterCocktailList(cocktailList);
+        sortCocktailList(filteredCocktailList);
+        fillFavorite(filteredCocktailList);
+        UIText uiText = getUIText();
 
         ConnectionPool.getInstance().returnConnection(connection);
 
         reqWrapper.addAttribute(Const.ATTR_COCKTAIL_LIST, filteredCocktailList);
-        reqWrapper.addAttribute(Const.ATTR_COCKTAIL_LIST_INDEX, getCocktailListIndex(reqWrapper));
+        reqWrapper.addAttribute(Const.ATTR_COCKTAIL_LIST_INDEX, getCocktailListIndex());
         reqWrapper.addAttribute(Const.ATTR_UI_TEXT, uiText);
         reqWrapper.addAttribute(Const.ATTR_CONTENT, Const.VAL_COCKTAILS);
-
         return ConfigurationManager.getProperty(Const.PAGE_INDEX);
     }
 
-    private CocktailList filterCocktailList(ReqWrapper reqWrapper, CocktailList cocktailList) {
+    private CocktailList filterCocktailList(CocktailList cocktailList) {
 
         CocktailList filteredCocktailList;
 
@@ -78,7 +81,7 @@ public class PageCocktailsCommand implements ActionCommand {
         return filteredCocktailList;
     }
 
-    private void sortCocktailList(ReqWrapper reqWrapper, CocktailList cocktailList) {
+    private void sortCocktailList(CocktailList cocktailList) {
         String paramSort = reqWrapper.getParam(Const.PARAM_SORT);
 
         if (null == paramSort || paramSort.equals(Const.VAL_BY_NAME)) {
@@ -99,7 +102,7 @@ public class PageCocktailsCommand implements ActionCommand {
         }
     }
 
-    private void fillFavorite(ReqWrapper reqWrapper, Connection connection, CocktailList cocktailList) {
+    private void fillFavorite(CocktailList cocktailList) {
         User user = reqWrapper.getUser();
         if (null != user) {
             Favorite favorite = new FavoriteDao(connection).getList(user.getId());
@@ -112,7 +115,7 @@ public class PageCocktailsCommand implements ActionCommand {
         }
     }
 
-    private int getCocktailListIndex(ReqWrapper reqWrapper) {
+    private int getCocktailListIndex() {
 
         int cocktailListIndex = Const.N_0;
         if (null != reqWrapper.getParam(Const.PARAM_COCKTAIL_LIST_INDEX)) {
@@ -122,7 +125,7 @@ public class PageCocktailsCommand implements ActionCommand {
         return cocktailListIndex;
     }
 
-    private UIText getUIText(Connection connection) {
+    private UIText getUIText() {
         int textId = Integer.parseInt(ConfigurationManager.getProperty(Const.PROP_UI_TEXT_FOR_ALCOHOLIC_PAGE));
         return new UITextDao(connection).get(textId);
     }

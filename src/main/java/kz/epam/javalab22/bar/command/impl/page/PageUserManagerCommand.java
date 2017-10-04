@@ -17,13 +17,15 @@ import java.util.List;
 public class PageUserManagerCommand implements ActionCommand {
 
     private static final Logger log = Logger.getLogger(PageUserManagerCommand.class);
+    private ReqWrapper reqWrapper;
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
+        this.reqWrapper = reqWrapper;
         String page = new PageMainCommand().execute(reqWrapper);
 
-        if (new UserCheck(reqWrapper).checkForAdmin()) {
+        if (checkForAdmin()) {
 
             Connection connection = ConnectionPool.getInstance().getConnection();
             List<User> users = new UserDao(connection).getList();
@@ -32,6 +34,17 @@ public class PageUserManagerCommand implements ActionCommand {
             reqWrapper.addAttribute(Const.ATTR_USERS, users);
             reqWrapper.addAttribute(Const.ATTR_CONTENT, Const.VAL_USER_MANAGER);
             page = ConfigurationManager.getProperty(Const.PAGE_INDEX);
+        }
+
+        return page;
+    }
+
+    private boolean checkForAdmin() {
+
+        boolean isAdmin = false;
+
+        if (new UserCheck(reqWrapper).checkForAdmin()) {
+            isAdmin = true;
         } else {
             try {
                 throw new ForbiddenPageException();
@@ -40,7 +53,7 @@ public class PageUserManagerCommand implements ActionCommand {
             }
         }
 
-        return page;
+        return isAdmin;
     }
 
 }

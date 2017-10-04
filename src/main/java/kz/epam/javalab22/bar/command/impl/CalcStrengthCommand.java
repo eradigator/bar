@@ -12,8 +12,12 @@ import java.util.Map;
 
 public class CalcStrengthCommand implements ActionCommand {
 
+    private ReqWrapper reqWrapper;
+
     @Override
     public String execute(ReqWrapper reqWrapper) {
+
+        this.reqWrapper = reqWrapper;
 
         String[] components = reqWrapper.getParams(Const.PARAM_INGREDIENT);
         String[] amounts = reqWrapper.getParams(Const.PARAM_AMOUNT_OF_INGREDIENT);
@@ -42,12 +46,17 @@ public class CalcStrengthCommand implements ActionCommand {
             reqWrapper.addAttribute(Const.ATTR_CALC_RESULT, calcResult);
 
         } else {
-            MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
-            String message = messageManager.getProperty(Const.PROP_NO_COMPONENT_SELECTED);
-            reqWrapper.addAttribute(Const.ATTR_ERROR, message);
+            addErrorMessage();
         }
 
         return new PageCalcCommand().execute(reqWrapper);
+    }
+
+    private void addErrorMessage() {
+
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
+        String message = messageManager.getProperty(Const.PROP_NO_COMPONENT_SELECTED);
+        reqWrapper.addAttribute(Const.ATTR_ERROR, message);
     }
 
 }

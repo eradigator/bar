@@ -31,25 +31,25 @@ public class SignUpCommand implements ActionCommand {
         User user = new User(login, password, email);
 
         Connection connection = ConnectionPool.getInstance().getConnection();
+        UserLogic userLogic = new UserLogic(reqWrapper, connection);
 
-        if (!(new UserLogic(reqWrapper, connection).checkForExistence(user))) {
+        if (!(userLogic.checkForExistence(user))) {
             if (new UserDao(connection).create(user)) {
+
                 log.info(Const.LOG_USER + reqWrapper.getParam(Const.PARAM_LOGIN) +
                         Const.DIV_SPACE + Const.LOG_HAS_BEEN_ADDED);
 
                 user = new UserDao(connection).getUser(user.getName());
-
                 reqWrapper.addSessionAttribute(Const.ATTR_USER, user);
                 page = new PageMainCommand().execute(reqWrapper);
+
             } else {
-                reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty(Const.PROP_LOGIN_ERROR));
+                String message = messageManager.getProperty(Const.PROP_LOGIN_ERROR);
+                reqWrapper.addAttribute(Const.ATTR_ERROR, message);
             }
-        } else {
-            reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty(Const.PROP_USER_EXIST));
         }
 
         ConnectionPool.getInstance().returnConnection(connection);
-
         return page;
     }
 

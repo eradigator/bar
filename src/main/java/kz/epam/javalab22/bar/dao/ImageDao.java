@@ -5,6 +5,7 @@ import kz.epam.javalab22.bar.entity.Image;
 import kz.epam.javalab22.bar.exception.AddImageException;
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
 import java.sql.*;
 
 /**
@@ -52,7 +53,14 @@ public class ImageDao extends AbstractDao<Image> {
                     success = true;
                 }
             }
+
             statement.close();
+
+            try {
+                entity.getInputStream().close();
+            } catch (IOException e) {
+                log.error(Const.LOG_EXC_IMG_CLOSE_INPUTSTREAM);
+            }
 
         } catch (SQLException e) {
             log.error(Const.LOG_EXC_SQL);

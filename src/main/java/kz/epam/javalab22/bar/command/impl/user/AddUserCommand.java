@@ -16,11 +16,12 @@ import java.sql.Connection;
 public class AddUserCommand implements ActionCommand {
 
     private static final Logger log = Logger.getLogger(AddUserCommand.class);
+    private ReqWrapper reqWrapper;
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
-        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
+        this.reqWrapper = reqWrapper;
 
         String login = reqWrapper.getParam(Const.PARAM_LOGIN);
         String password = reqWrapper.getParam(Const.PARAM_PASSWORD);
@@ -30,23 +31,29 @@ public class AddUserCommand implements ActionCommand {
         User user = new User(login, password, email, role);
 
         Connection connection = ConnectionPool.getInstance().getConnection();
-
         UserLogic userLogic = new UserLogic(reqWrapper, connection);
-        if (!userLogic.checkForExistence(user)) {
-            if (userLogic.addUser(user)) {
-                reqWrapper.addAttribute(Const.ATTR_ADD_USER_RESULT, messageManager.getProperty(Const.PROP_USER_ADDED));
-                log.info(Const.LOG_USER + Const.DIV_SPACE +
-                        reqWrapper.getParam(Const.PARAM_LOGIN) + Const.LOG_HAS_BEEN_ADDED);
-            } else {
-                reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty(Const.PROP_ERROR));
-            }
-        } else {
-            reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty(Const.PROP_USER_EXIST));
-        }
-
+        addMessage(!userLogic.checkForExistence(user) && userLogic.addUser(user));
         ConnectionPool.getInstance().returnConnection(connection);
 
         return new PageUserManagerCommand().execute(reqWrapper);
     }
+
+    private void addMessage(boolean success) {
+
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
+
+        if (success) {
+            String message = messageManager.getProperty(Const.PROP_USER_ADDED);
+            reqWrapper.addAttribute(Const.ATTR_ADD_USER_RESULT, message);
+            log.info(Const.LOG_USER + Const.DIV_SPACE +
+                    reqWrapper.getParam(Const.PARAM_LOGIN) + Const.LOG_HAS_BEEN_ADDED);
+        } else {
+            if (null != reqWrapper.getAttribute(Const.ATTR_ERROR)) {
+                String message = messageManager.getProperty(Const.PROP_ERROR);
+                reqWrapper.addAttribute(Const.ATTR_ERROR, message);
+            }
+        }
+    }
+
 
 }

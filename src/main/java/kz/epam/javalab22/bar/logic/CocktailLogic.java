@@ -11,7 +11,6 @@ import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -77,8 +76,7 @@ public class CocktailLogic {
             double strength = new BigDecimal(nonRoundedStrength).setScale(Const.MATH_ROUND_SCALE_3, RoundingMode.UP).doubleValue();
             boolean isStrengthWritten = new CocktailDao(connection).setStrength(cocktail.getId(), strength);
 
-            if (isImageWritten && isCocktailNameWritten && isCocktailWritten
-                    && isMixWritten && isStrengthWritten) {
+            if (isImageWritten && isCocktailNameWritten && isCocktailWritten && isMixWritten && isStrengthWritten) {
                 connection.commit();
                 success = true;
             } else {
@@ -86,13 +84,6 @@ public class CocktailLogic {
             }
 
             connection.setAutoCommit(true);
-
-            try {
-                assert null != image.getInputStream();
-                image.getInputStream().close();
-            } catch (IOException e) {
-                log.error(Const.LOG_EXC_IMG_CLOSE_INPUTSTREAM);
-            }
 
         } catch (SQLException e) {
             log.error(Const.LOG_EXC_SQL);
@@ -103,7 +94,7 @@ public class CocktailLogic {
 
     public boolean deleteCocktail() {
 
-        boolean result = false;
+        boolean success = false;
         int cocktailId = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COCKTAIL_ID_TO_DELETE));
 
         try {
@@ -112,7 +103,7 @@ public class CocktailLogic {
             if (new CocktailNameDao(connection).delete(cocktailId) &&
                     new CocktailDao(connection).delete(cocktailId)) {
                 connection.commit();
-                result = true;
+                success = true;
             } else {
                 connection.rollback();
             }
@@ -123,7 +114,7 @@ public class CocktailLogic {
             log.error(Const.LOG_EXC_SQL);
         }
 
-        return result;
+        return success;
     }
 
     public boolean validate() {

@@ -31,26 +31,24 @@ public class ComponentLogic {
 
         boolean success = false;
 
-        if (!checkForExistence()) {
-            String name_RU = reqWrapper.getParam(Const.PARAM_NAME_RU);
-            String name_EN = reqWrapper.getParam(Const.PARAM_NAME_EN);
-            int componentType = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COMPONENT_TYPE));
-            double strength = Double.parseDouble(reqWrapper.getParam(Const.PARAM_STRENGTH));
-            double price = Double.parseDouble(reqWrapper.getParam(Const.PARAM_PRICE));
+        String name_RU = reqWrapper.getParam(Const.PARAM_NAME_RU);
+        String name_EN = reqWrapper.getParam(Const.PARAM_NAME_EN);
+        int componentType = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COMPONENT_TYPE));
+        double strength = Double.parseDouble(reqWrapper.getParam(Const.PARAM_STRENGTH));
+        double price = Double.parseDouble(reqWrapper.getParam(Const.PARAM_PRICE));
 
-            ComponentName componentName = new ComponentName(name_RU, name_EN);
+        ComponentName componentName = new ComponentName(name_RU, name_EN);
 
-            if (new ComponentNameDao(connection).create(componentName)) {
-                int nameId = componentName.getId();
-                Component component = new Component(nameId, componentType, strength, price);
-                new ComponentDao(connection).create(component);
-                success = true;
-                String message = messageManager.getProperty(Const.PROP_COMPONENT_ADDED);
-                reqWrapper.addAttribute(Const.ATTR_RESULT, message);
-            } else {
-                String message = messageManager.getProperty(Const.PROP_ERROR);
-                reqWrapper.addAttribute(Const.ATTR_ERROR, message);
-            }
+        if (new ComponentNameDao(connection).create(componentName)) {
+            int nameId = componentName.getId();
+            Component component = new Component(nameId, componentType, strength, price);
+            new ComponentDao(connection).create(component);
+            success = true;
+            String message = messageManager.getProperty(Const.PROP_COMPONENT_ADDED);
+            reqWrapper.addAttribute(Const.ATTR_RESULT, message);
+        } else {
+            String message = messageManager.getProperty(Const.PROP_ERROR);
+            reqWrapper.addAttribute(Const.ATTR_ERROR, message);
         }
 
         return success;

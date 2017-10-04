@@ -16,20 +16,17 @@ import java.sql.Connection;
 
 public class PageFavoriteCommand implements ActionCommand {
 
+    private Connection connection;
+
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
-        Connection connection = ConnectionPool.getInstance().getConnection();
+        connection = ConnectionPool.getInstance().getConnection();
 
         User user = reqWrapper.getUser();
         Favorite favorite = new FavoriteDao(connection).getList(user.getId());
-
-        CocktailList cocktailList = new CocktailList();
-        for (int cocktailId : favorite.getCocktailIds()) {
-            cocktailList.getCocktailList().add(new CocktailDao(connection).get(cocktailId));
-        }
-
-        fillFavorite(reqWrapper, connection, cocktailList);
+        CocktailList cocktailList = getFavoriteCocktailList(favorite);
+        fillFavorite(cocktailList, user, favorite);
         ConnectionPool.getInstance().returnConnection(connection);
 
         reqWrapper.addAttribute(Const.ATTR_COCKTAIL_LIST, cocktailList);
@@ -38,12 +35,20 @@ public class PageFavoriteCommand implements ActionCommand {
         return ConfigurationManager.getProperty(Const.PAGE_INDEX);
     }
 
+    private CocktailList getFavoriteCocktailList(Favorite favorite) {
 
-    private void fillFavorite(ReqWrapper reqWrapper, Connection connection, CocktailList cocktailList) {
-        User user = reqWrapper.getUser();
+        CocktailList cocktailList = new CocktailList();
+        for (int cocktailId : favorite.getCocktailIds()) {
+            cocktailList.getCocktailList().add(new CocktailDao(connection).get(cocktailId));
+        }
+
+        return cocktailList;
+    }
+
+
+    private void fillFavorite(CocktailList cocktailList, User user, Favorite favorite) {
+
         if (null != user) {
-            Favorite favorite = new FavoriteDao(connection).getList(user.getId());
-
             for (Cocktail cocktail : cocktailList.getCocktailList()) {
                 if (favorite.getCocktailIds().contains(cocktail.getId())) {
                     cocktail.setFavorite(true);
