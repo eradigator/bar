@@ -3,6 +3,7 @@ package kz.epam.javalab22.bar.logic;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.UserDao;
 import kz.epam.javalab22.bar.entity.user.User;
+import kz.epam.javalab22.bar.manager.MessageManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -31,12 +32,14 @@ public class UserLogic {
 
     public boolean checkForExistence(User user) {
 
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
         boolean isUserExist = false;
 
         List<User> userList = new UserDao(connection).getList();
         for (User entity : userList) {
             if (entity.getName().equals(user.getName()) || entity.getEmail().equals(user.getEmail())) {
                 isUserExist = true;
+                reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty(Const.PROP_USER_EXIST));
             }
         }
 

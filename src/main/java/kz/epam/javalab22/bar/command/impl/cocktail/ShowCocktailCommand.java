@@ -1,11 +1,11 @@
 package kz.epam.javalab22.bar.command.impl.cocktail;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.CocktailDao;
 import kz.epam.javalab22.bar.entity.Cocktail;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 
 import java.sql.Connection;

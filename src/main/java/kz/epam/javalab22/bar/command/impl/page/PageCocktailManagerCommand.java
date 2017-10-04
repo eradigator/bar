@@ -1,11 +1,11 @@
 package kz.epam.javalab22.bar.command.impl.page;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.*;
 import kz.epam.javalab22.bar.entity.*;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.UserCheck;
 import org.apache.log4j.Logger;

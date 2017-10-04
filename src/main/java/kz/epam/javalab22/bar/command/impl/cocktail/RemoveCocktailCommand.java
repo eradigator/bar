@@ -14,14 +14,24 @@ import java.sql.Connection;
 public class RemoveCocktailCommand implements ActionCommand {
 
     private static final Logger log = Logger.getLogger(RemoveCocktailCommand.class);
+    private ReqWrapper reqWrapper;
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
-        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
+        this.reqWrapper = reqWrapper;
         Connection connection = ConnectionPool.getInstance().getConnection();
+        boolean success = new CocktailLogic(reqWrapper, connection).deleteCocktail();
+        addMessage(success);
+        ConnectionPool.getInstance().returnConnection(connection);
+        return new PageCocktailManagerCommand().execute(reqWrapper);
+    }
 
-        if (new CocktailLogic(reqWrapper, connection).deleteCocktail()) {
+    private void addMessage(boolean success) {
+
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
+
+        if (success) {
             String message = messageManager.getProperty(Const.PROP_COCKTAIL_DELETED);
             reqWrapper.addAttribute(Const.ATTR_DEL_COCKTAIL_RESULT, message);
 
@@ -32,9 +42,5 @@ public class RemoveCocktailCommand implements ActionCommand {
             String message = messageManager.getProperty(Const.PROP_ERROR);
             reqWrapper.addAttribute(Const.ATTR_ERROR, message);
         }
-
-        ConnectionPool.getInstance().returnConnection(connection);
-
-        return new PageCocktailManagerCommand().execute(reqWrapper);
     }
 }

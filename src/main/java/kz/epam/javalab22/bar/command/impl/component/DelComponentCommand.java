@@ -14,14 +14,22 @@ import java.sql.Connection;
 public class DelComponentCommand implements ActionCommand {
 
     private static final Logger log = Logger.getLogger(DelComponentCommand.class);
+    private ReqWrapper reqWrapper;
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
-        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
+        this.reqWrapper = reqWrapper;
         Connection connection = ConnectionPool.getInstance().getConnection();
+        addMessage(new ComponentLogic(reqWrapper, connection).delComponent());
+        ConnectionPool.getInstance().returnConnection(connection);
+        return new PageComponentManagerCommand().execute(reqWrapper);
+    }
 
-        if (new ComponentLogic(reqWrapper, connection).delComponent()) {
+    private void addMessage(boolean success) {
+        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
+
+        if (success) {
             String message = messageManager.getProperty(Const.PROP_COMPONENT_DELETED);
             reqWrapper.addAttribute(Const.ATTR_DEL_COMPONENT_MESSAGE, message);
             log.info(Const.LOG_COMPONENT + Const.DIV_SPACE +
@@ -31,9 +39,6 @@ public class DelComponentCommand implements ActionCommand {
             String message = messageManager.getProperty(Const.PROP_ERROR);
             reqWrapper.addAttribute(Const.ATTR_DEL_COMPONENT_MESSAGE, message);
         }
-
-        ConnectionPool.getInstance().returnConnection(connection);
-        return new PageComponentManagerCommand().execute(reqWrapper);
     }
 
 }

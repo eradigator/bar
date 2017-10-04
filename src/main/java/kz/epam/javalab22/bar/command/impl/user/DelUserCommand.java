@@ -14,25 +14,28 @@ import java.sql.Connection;
 public class DelUserCommand implements ActionCommand {
 
     private static final Logger log = Logger.getLogger(DelUserCommand.class);
+    private ReqWrapper reqWrapper;
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
 
+        this.reqWrapper = reqWrapper;
+        Connection connection = ConnectionPool.getInstance().getConnection();
+        addMessage(new UserLogic(reqWrapper, connection).delUser());
+        ConnectionPool.getInstance().returnConnection(connection);
+        return new PageUserManagerCommand().execute(reqWrapper);
+    }
+
+    private void addMessage(boolean success) {
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
-        Connection connection = ConnectionPool.getInstance().getConnection();
-
-        if (new UserLogic(reqWrapper, connection).delUser()) {
+        if (success) {
             reqWrapper.addAttribute(Const.ATTR_DEL_USER_RESULT, messageManager.getProperty(Const.PROP_USER_DELETED));
             log.info(Const.LOG_USER + Const.DIV_SPACE +
                     reqWrapper.getParam(Const.PARAM_CHECKED_NAME) + Const.LOG_HAS_BEEN_DELETED);
         } else {
             reqWrapper.addAttribute(Const.ATTR_ERROR, messageManager.getProperty(Const.PROP_ERROR));
         }
-
-        ConnectionPool.getInstance().returnConnection(connection);
-
-        return new PageUserManagerCommand().execute(reqWrapper);
     }
 
 }

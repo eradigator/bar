@@ -13,7 +13,6 @@ public class UserCheck {
     }
 
     public boolean checkForAdmin() {
-
         boolean isAdmin = false;
 
         if (null != reqWrapper.getUser()) {

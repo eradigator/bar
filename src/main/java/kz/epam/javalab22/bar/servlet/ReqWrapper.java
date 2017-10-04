@@ -40,6 +40,10 @@ public class ReqWrapper {
         request.setAttribute(name, entity);
     }
 
+    public Object getAttribute(String name) {
+        return request.getAttribute(name);
+    }
+
     public void addSessionAttribute(String name, Object entity) {
         request.getSession().setAttribute(name, entity);
     }
