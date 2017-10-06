@@ -18,19 +18,15 @@ public class AddCocktailCommand implements ActionCommand {
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
-
         this.reqWrapper = reqWrapper;
         Connection connection = ConnectionPool.getInstance().getConnection();
         CocktailLogic cocktailLogic = new CocktailLogic(reqWrapper, connection);
-
         addMessage(cocktailLogic.validate() && cocktailLogic.addCocktail());
-
         ConnectionPool.getInstance().returnConnection(connection);
         return new PageCocktailManagerCommand().execute(reqWrapper);
     }
 
     private void addMessage(boolean success) {
-
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
         if (success) {

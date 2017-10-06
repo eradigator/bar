@@ -2,7 +2,6 @@ package kz.epam.javalab22.bar.command;
 
 import kz.epam.javalab22.bar.command.impl.*;
 import kz.epam.javalab22.bar.command.impl.cocktail.AddCocktailCommand;
-import kz.epam.javalab22.bar.command.impl.cocktail.PageCocktailsCommand;
 import kz.epam.javalab22.bar.command.impl.cocktail.RemoveCocktailCommand;
 import kz.epam.javalab22.bar.command.impl.cocktail.ShowCocktailCommand;
 import kz.epam.javalab22.bar.command.impl.component.AddComponentCommand;
@@ -12,6 +11,7 @@ import kz.epam.javalab22.bar.command.impl.favorite.DelFromFavoritesCommand;
 import kz.epam.javalab22.bar.command.impl.page.*;
 import kz.epam.javalab22.bar.command.impl.user.AddUserCommand;
 import kz.epam.javalab22.bar.command.impl.user.DelUserCommand;
+import kz.epam.javalab22.bar.command.impl.user.SignUpCommand;
 
 import static kz.epam.javalab22.bar.constant.CommandName.*;
 

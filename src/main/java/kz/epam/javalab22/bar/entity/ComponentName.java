@@ -7,10 +7,14 @@ public class ComponentName {
     private int id;
     private String nameRu;
     private String nameEn;
-
+    private String anyLanguageName;
 
     public ComponentName(int id) {
         this.id = id;
+    }
+
+    public ComponentName(String anyLanguageName) {
+        this.anyLanguageName = anyLanguageName;
     }
 
     public ComponentName(String nameRu, String nameEn) {
@@ -30,6 +34,10 @@ public class ComponentName {
 
     public String getNameRu() {
         return nameRu;
+    }
+
+    public String getAnyLanguageName() {
+        return anyLanguageName;
     }
 
     public int getId() {

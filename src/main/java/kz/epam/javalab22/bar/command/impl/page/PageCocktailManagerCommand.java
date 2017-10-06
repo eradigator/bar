@@ -5,9 +5,9 @@ import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.dao.*;
 import kz.epam.javalab22.bar.entity.*;
+import kz.epam.javalab22.bar.logic.UserLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
-import kz.epam.javalab22.bar.util.UserCheck;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -19,10 +19,9 @@ public class PageCocktailManagerCommand implements ActionCommand {
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
-
         String page = new PageMainCommand().execute(reqWrapper);
 
-        if (new UserCheck(reqWrapper).checkForAdmin()) {
+        if (new UserLogic(reqWrapper).checkForAdmin()) {
 
             Connection connection = ConnectionPool.getInstance().getConnection();
 
@@ -49,6 +48,4 @@ public class PageCocktailManagerCommand implements ActionCommand {
 
         return page;
     }
-
-
 }

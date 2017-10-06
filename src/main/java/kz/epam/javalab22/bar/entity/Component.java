@@ -22,6 +22,11 @@ public class Component {
         this.id = id;
     }
 
+    public Component(int id, ComponentName componentName) {
+        this.id = id;
+        this.componentName = componentName;
+    }
+
     public Component(int id, double strength, double price) {
         this.id = id;
         this.strength = strength;

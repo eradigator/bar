@@ -55,9 +55,7 @@ public class ComponentLogic {
     }
 
     public boolean delComponent() {
-
         boolean success = false;
-
         int componentId = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COMPONENT_TO_DEL));
 
         try {
@@ -85,9 +83,7 @@ public class ComponentLogic {
     }
 
     public boolean checkForExistence() {
-
         boolean isComponentNameExist = false;
-
         String name_RU = reqWrapper.getParam(Const.PARAM_NAME_RU);
         String name_EN = reqWrapper.getParam(Const.PARAM_NAME_EN);
 

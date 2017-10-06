@@ -25,8 +25,8 @@ public class CocktailLogic {
     private static final Logger log = Logger.getLogger(CocktailLogic.class);
 
     private ReqWrapper reqWrapper;
-    private Connection connection;
     private MessageManager messageManager;
+    private Connection connection;
 
     public CocktailLogic(ReqWrapper reqWrapper, Connection connection) {
         this.reqWrapper = reqWrapper;
@@ -35,9 +35,7 @@ public class CocktailLogic {
     }
 
     public boolean addCocktail() {
-
         boolean success = false;
-
         String nameRu = reqWrapper.getParam(Const.PARAM_NAME_RU);
         String nameEn = reqWrapper.getParam(Const.PARAM_NAME_EN);
 
@@ -72,7 +70,7 @@ public class CocktailLogic {
             boolean isMixWritten = new MixDao(connection).add(mix, cocktail.getId());
 
             //Write Strength
-            double nonRoundedStrength = new CalcAlcohol().calcStrength(mix);
+            double nonRoundedStrength = new CalcAlcohol(connection).calcStrength(mix);
             double strength = new BigDecimal(nonRoundedStrength).setScale(Const.MATH_ROUND_SCALE_3, RoundingMode.UP).doubleValue();
             boolean isStrengthWritten = new CocktailDao(connection).setStrength(cocktail.getId(), strength);
 
@@ -93,7 +91,6 @@ public class CocktailLogic {
     }
 
     public boolean deleteCocktail() {
-
         boolean success = false;
         int cocktailId = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COCKTAIL_ID_TO_DELETE));
 
@@ -118,7 +115,6 @@ public class CocktailLogic {
     }
 
     public boolean validate() {
-
         boolean isEverythingOk = false;
 
         String errorMessage = Const.STR_EMPTY;
@@ -141,7 +137,6 @@ public class CocktailLogic {
     }
 
     private boolean checkForExistence() {
-
         boolean isCocktailNameExist = false;
 
         String nameRu = reqWrapper.getParam(Const.PARAM_NAME_RU);
@@ -161,7 +156,6 @@ public class CocktailLogic {
     }
 
     private boolean checkSelectedComponent() {
-
         boolean isSelectedComponentExist = true;
 
         String[] components = reqWrapper.getParams(Const.PARAM_INGREDIENT);

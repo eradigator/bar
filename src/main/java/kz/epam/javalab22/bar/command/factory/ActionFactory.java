@@ -1,7 +1,7 @@
 package kz.epam.javalab22.bar.command.factory;
 
-import kz.epam.javalab22.bar.command.Command;
 import kz.epam.javalab22.bar.command.ActionCommand;
+import kz.epam.javalab22.bar.command.Command;
 import kz.epam.javalab22.bar.command.CommandProvider;
 import kz.epam.javalab22.bar.command.impl.EmptyCommand;
 import kz.epam.javalab22.bar.constant.Const;

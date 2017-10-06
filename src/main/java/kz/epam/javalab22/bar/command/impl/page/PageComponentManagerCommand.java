@@ -7,9 +7,9 @@ import kz.epam.javalab22.bar.dao.ComponentNameDao;
 import kz.epam.javalab22.bar.dao.ComponentTypeDao;
 import kz.epam.javalab22.bar.entity.ComponentName;
 import kz.epam.javalab22.bar.entity.ComponentType;
+import kz.epam.javalab22.bar.logic.UserLogic;
 import kz.epam.javalab22.bar.manager.ConfigurationManager;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
-import kz.epam.javalab22.bar.util.UserCheck;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -21,10 +21,9 @@ public class PageComponentManagerCommand implements ActionCommand {
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
-
         String page = new PageMainCommand().execute(reqWrapper);
 
-        if (new UserCheck(reqWrapper).checkForAdmin()) {
+        if (new UserLogic(reqWrapper).checkForAdmin()) {
 
             Connection connection = ConnectionPool.getInstance().getConnection();
             List<ComponentType> componentTypes = new ComponentTypeDao(connection).getList();

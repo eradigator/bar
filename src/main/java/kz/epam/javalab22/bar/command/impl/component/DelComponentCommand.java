@@ -18,7 +18,6 @@ public class DelComponentCommand implements ActionCommand {
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
-
         this.reqWrapper = reqWrapper;
         Connection connection = ConnectionPool.getInstance().getConnection();
         addMessage(new ComponentLogic(reqWrapper, connection).delComponent());

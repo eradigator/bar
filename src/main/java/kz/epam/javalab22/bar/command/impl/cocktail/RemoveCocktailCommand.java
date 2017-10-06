@@ -18,17 +18,14 @@ public class RemoveCocktailCommand implements ActionCommand {
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
-
         this.reqWrapper = reqWrapper;
         Connection connection = ConnectionPool.getInstance().getConnection();
-        boolean success = new CocktailLogic(reqWrapper, connection).deleteCocktail();
-        addMessage(success);
+        addMessage(new CocktailLogic(reqWrapper, connection).deleteCocktail());
         ConnectionPool.getInstance().returnConnection(connection);
         return new PageCocktailManagerCommand().execute(reqWrapper);
     }
 
     private void addMessage(boolean success) {
-
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
         if (success) {

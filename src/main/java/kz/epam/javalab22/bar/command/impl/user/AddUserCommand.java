@@ -4,7 +4,6 @@ import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageUserManagerCommand;
 import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.entity.user.Role;
 import kz.epam.javalab22.bar.entity.user.User;
 import kz.epam.javalab22.bar.logic.UserLogic;
 import kz.epam.javalab22.bar.manager.MessageManager;
@@ -20,18 +19,11 @@ public class AddUserCommand implements ActionCommand {
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
-
         this.reqWrapper = reqWrapper;
-
-        String login = reqWrapper.getParam(Const.PARAM_LOGIN);
-        String password = reqWrapper.getParam(Const.PARAM_PASSWORD);
-        String email = reqWrapper.getParam(Const.PARAM_EMAIL);
-        Role role = Role.valueOf(reqWrapper.getParam(Const.PARAM_ROLE).toUpperCase());
-
-        User user = new User(login, password, email, role);
 
         Connection connection = ConnectionPool.getInstance().getConnection();
         UserLogic userLogic = new UserLogic(reqWrapper, connection);
+        User user = userLogic.getUserFromRequest();
         addMessage(!userLogic.checkForExistence(user) && userLogic.addUser(user));
         ConnectionPool.getInstance().returnConnection(connection);
 
@@ -39,7 +31,6 @@ public class AddUserCommand implements ActionCommand {
     }
 
     private void addMessage(boolean success) {
-
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
         if (success) {
