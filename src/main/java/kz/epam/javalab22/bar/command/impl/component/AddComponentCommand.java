@@ -16,7 +16,6 @@ public class AddComponentCommand implements ActionCommand {
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
-
         this.reqWrapper = reqWrapper;
 
         Connection connection = ConnectionPool.getInstance().getConnection();

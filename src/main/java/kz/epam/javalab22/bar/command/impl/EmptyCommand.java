@@ -2,14 +2,13 @@ package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
-import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.constant.Const;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import org.apache.log4j.Logger;
 
 public class EmptyCommand implements ActionCommand {
 
-    private static final Logger log = org.apache.log4j.Logger.getLogger(ConnectionPool.class);
+    private static final Logger log = org.apache.log4j.Logger.getLogger(EmptyCommand.class);
 
     @Override
     public String execute(ReqWrapper reqWrapper) {

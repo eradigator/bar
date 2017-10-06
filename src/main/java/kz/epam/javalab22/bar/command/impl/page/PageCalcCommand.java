@@ -17,7 +17,6 @@ public class PageCalcCommand implements ActionCommand {
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
-
         Connection connection = ConnectionPool.getInstance().getConnection();
         List<ComponentType> componentTypes = new ComponentTypeDao(connection).getList();
         List<Component> components = new ComponentDao(connection).getList();

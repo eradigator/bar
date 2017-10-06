@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 public class LogoutCommand implements ActionCommand {
 
-    private static final Logger log = Logger.getLogger(LoginCommand.class);
+    private static final Logger log = Logger.getLogger(LogoutCommand.class);
 
     @Override
     public String execute(ReqWrapper reqWrapper) {

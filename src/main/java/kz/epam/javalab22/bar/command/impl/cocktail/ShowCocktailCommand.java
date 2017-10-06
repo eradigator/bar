@@ -14,7 +14,6 @@ public class ShowCocktailCommand implements ActionCommand {
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
-
         int cocktailId = Integer.parseInt(reqWrapper.getParam(Const.PARAM_COCKTAIL_ID));
 
         Connection connection = ConnectionPool.getInstance().getConnection();

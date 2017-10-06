@@ -47,7 +47,7 @@ public final class Const {
     public static final String ATTR_STRENGTH = "strength";
     public static final String ATTR_AMOUNT = "amount";
     public static final String ATTR_COST = "cost";
-    public static final String ATTR_CALC_RESULT = "calcResult";
+    public static final String ATTR_MIX = "mix";
     public static final String ATTR_FILTER_CHECKED_ID = "filter_checked_id";
     public static final String ATTR_SORT_CHECKED_INDEX = "sort_checked_index";
 
@@ -79,6 +79,7 @@ public final class Const {
     public static final String LOG_EXC_IMG_CLOSE_INPUTSTREAM = "close image inputstream exception";
     public static final String LOG_EXC_GET_FILE_PART = "image get file part exception";
     public static final String LOG_INTERRUPTED_EXC = "interrupted exception";
+    public static final String LOG_GET_MIX_FROM_REQUEST_EXC = "can't get mix from request";
 
 
     /*Numbers*/

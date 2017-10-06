@@ -1,4 +1,4 @@
-package kz.epam.javalab22.bar.command.impl;
+package kz.epam.javalab22.bar.command.impl.user;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageMainCommand;
@@ -24,14 +24,9 @@ public class SignUpCommand implements ActionCommand {
         String page = ConfigurationManager.getProperty(Const.PAGE_LOGIN);
         MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
 
-        String login = reqWrapper.getParam(Const.PARAM_LOGIN);
-        String password = reqWrapper.getParam(Const.PARAM_PASSWORD);
-        String email = reqWrapper.getParam(Const.PARAM_EMAIL);
-
-        User user = new User(login, password, email);
-
         Connection connection = ConnectionPool.getInstance().getConnection();
         UserLogic userLogic = new UserLogic(reqWrapper, connection);
+        User user = userLogic.getUserFromRequest();
 
         if (!(userLogic.checkForExistence(user))) {
             if (new UserDao(connection).create(user)) {

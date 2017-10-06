@@ -2,40 +2,28 @@ package kz.epam.javalab22.bar.command.impl;
 
 import kz.epam.javalab22.bar.command.ActionCommand;
 import kz.epam.javalab22.bar.command.impl.page.PageCalcCommand;
+import kz.epam.javalab22.bar.connectionpool.ConnectionPool;
 import kz.epam.javalab22.bar.constant.Const;
-import kz.epam.javalab22.bar.manager.MessageManager;
+import kz.epam.javalab22.bar.entity.Mix;
+import kz.epam.javalab22.bar.exception.GetMixFromRequestException;
+import kz.epam.javalab22.bar.logic.CalculatorLogic;
 import kz.epam.javalab22.bar.servlet.ReqWrapper;
 import kz.epam.javalab22.bar.util.CalcAlcohol;
+import org.apache.log4j.Logger;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.sql.Connection;
 
 public class CalcStrengthCommand implements ActionCommand {
 
-    private ReqWrapper reqWrapper;
+    private static final Logger log = org.apache.log4j.Logger.getLogger(CalcStrengthCommand.class);
 
     @Override
     public String execute(ReqWrapper reqWrapper) {
+        Connection connection = ConnectionPool.getInstance().getConnection();
 
-        this.reqWrapper = reqWrapper;
-
-        String[] components = reqWrapper.getParams(Const.PARAM_INGREDIENT);
-        String[] amounts = reqWrapper.getParams(Const.PARAM_AMOUNT_OF_INGREDIENT);
-        String[] componentNames = reqWrapper.getParams(Const.PARAM_INGREDIENT_NAME);
-
-        if (null != components && null != amounts && null != componentNames) {
-
-            Map<Integer, Double> mix = new LinkedHashMap<>();
-            for (int i = Const.N_0; i < components.length; i++) {
-                mix.put(Integer.parseInt(components[i]), Double.parseDouble(amounts[i]));
-            }
-
-            Map<String, Integer> calcResult = new LinkedHashMap<>();
-            for (int i = Const.N_0; i < components.length; i++) {
-                calcResult.put(componentNames[i], Integer.parseInt(amounts[i]));
-            }
-
-            CalcAlcohol calcAlcohol = new CalcAlcohol();
+        try {
+            Mix mix = new CalculatorLogic(reqWrapper).getMixFromRequest();
+            CalcAlcohol calcAlcohol = new CalcAlcohol(connection);
             int strength = (int) calcAlcohol.calcStrength(mix);
             int totalAmount = calcAlcohol.totalAmount(mix);
             int cost = (int) calcAlcohol.calcCost(mix);
@@ -43,20 +31,14 @@ public class CalcStrengthCommand implements ActionCommand {
             reqWrapper.addAttribute(Const.ATTR_STRENGTH, strength);
             reqWrapper.addAttribute(Const.ATTR_AMOUNT, totalAmount);
             reqWrapper.addAttribute(Const.ATTR_COST, cost);
-            reqWrapper.addAttribute(Const.ATTR_CALC_RESULT, calcResult);
+            reqWrapper.addAttribute(Const.ATTR_MIX, mix.getMix());
 
-        } else {
-            addErrorMessage();
+        } catch (GetMixFromRequestException e) {
+            log.warn(Const.LOG_GET_MIX_FROM_REQUEST_EXC);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
         }
 
         return new PageCalcCommand().execute(reqWrapper);
     }
-
-    private void addErrorMessage() {
-
-        MessageManager messageManager = new MessageManager(reqWrapper.getLocale());
-        String message = messageManager.getProperty(Const.PROP_NO_COMPONENT_SELECTED);
-        reqWrapper.addAttribute(Const.ATTR_ERROR, message);
-    }
-
 }

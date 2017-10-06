@@ -67,13 +67,13 @@
     </p>
 </form>
 
-<c:if test="${not empty calcResult}">
+<c:if test="${not empty mix}">
     <div class="result_field">
 
         <fmt:message key="components" bundle="${rb}"/>
         <br/>
-        <c:forEach items="${calcResult}" var="pair">
-            ${pair.key}: ${pair.value}
+        <c:forEach items="${mix}" var="pair">
+            ${pair.key.componentName.anyLanguageName}: ${pair.value}
             <br/>
         </c:forEach>
 
@@ -116,7 +116,7 @@
 
         var selectedComponentAmount = amount.value;
 
-        if (selectedComponentId == null) {
+        if (selectedComponentId === null) {
             alert('<fmt:message key="chooseComponent" bundle="${rb}"/>');
         } else {
             if (selectedComponentAmount > 0) {

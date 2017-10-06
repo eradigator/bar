@@ -6,7 +6,7 @@
 <c:set var="locale" value="${pageContext.request.session.getAttribute('locale')}" scope="page"/>
 
 <a href="" onclick="history.back(); return false;">
-    <fmt:message key="backward" bundle="${rb}" />
+    <fmt:message key="backward" bundle="${rb}"/>
 </a>
 <br/>
 <br/>

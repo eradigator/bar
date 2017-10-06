@@ -47,7 +47,7 @@
 <c:forEach begin="${cocktailListIndex}" end="${cocktailListIndex + 9}" var="i">
     <c:set var="cocktail" value="${cocktailList.cocktailList[i]}"/>
     <c:if test="${not empty cocktail}">
-        <div class="cocktail" style="cursor: pointer; overflow: auto"  onclick="showCocktail(${cocktail.id})">
+        <div class="cocktail" style="cursor: pointer; overflow: auto" onclick="showCocktail(${cocktail.id})">
             <img class="cocktail_image" src="${pageContext.request.contextPath}/image?id=${cocktail.imageId}">
             <div style="text-align: right; float: right">
                 <c:choose>
